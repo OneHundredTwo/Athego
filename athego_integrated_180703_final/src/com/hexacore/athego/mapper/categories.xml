@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<!-- 
+	스키마
+	
+ -->
+ <!--
+ 	select 필드이름
+ 	
+  -->
+ <!-- 
+ 	VO 멤버필드이름
+ 	
+  -->
+<mapper namespace="categories">
+
+	<!--  Writer___________Y__180626  -->
+	<update id="updateNolgoCnt_Y" parameterType="int">
+		update categories 
+		set nolgo_cnt = 
+			(select count(*) from nolgos where category_no = #{no}) 
+		where no = #{no}
+	</update>
+	
+	<!--  Writer___________Y__180626  -->
+	<update id="updateSubCategoryCnt_Y" parameterType="int">
+		update categories 
+		set sub_category_cnt = 
+			(select count(*) from sub_Categories where category_no = #{no}) 
+		where no = #{no}
+	</update>
+	
+	<!-- 기원 start -->
+	<select id="selectList_B" resultType="Category">
+		SELECT NO,NAME,SUB_CATEGORY_CNT subcategorycnt,NOLGO_CNT nolgocnt,REGDATE
+		FROM categories
+		ORDER BY 1
+	</select>
+	<!-- 기원 end -->
+	
+	<select id="selectListByUserNo_K" resultType="Category" parameterType="int">
+		SELECT c.no, c.name, c.sub_category_cnt subCategoryCnt, c.nolgo_cnt nolgoCnt, c.regdate
+		FROM categories c, interest_categories ic
+		WHERE c.no = ic.category_no
+		AND ic.user_no = #{userNo}
+	</select>
+</mapper>

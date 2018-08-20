@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<!-- 
+	스키마
+	
+ -->
+ <!--
+ 	select 필드이름
+ 	
+  -->
+ <!-- 
+ 	VO 멤버필드이름
+ 	
+  -->
+<mapper namespace="follows">
+	<select id="selectFlwsNo_A" parameterType="int" resultType="int">
+		select follower_no followerNo
+		from follows
+		where user_no = #{userNo}
+		order by regdate desc
+	</select>
+	<select id="selectFlwingsNo_A" parameterType="int" resultType="int">
+		select user_no userNo
+		from follows
+		where follower_no = #{userNo}
+		order by regdate desc
+	</select>
+	<delete id="deleteFollowRec_A" parameterType="Follow">
+		delete from follows 
+		where follower_no = ${followerNo} and user_no=${userNo}
+	</delete>
+
+
+</mapper>

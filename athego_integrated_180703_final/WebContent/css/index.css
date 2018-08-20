@@ -1,0 +1,225 @@
+.fullContainer>section {
+	width: 100%;
+}
+
+#ad_area {
+	height: 440px;
+	background: #4fff63;
+}
+
+#recommend_area {
+	padding: 24px 0;
+}
+
+#recommend_area ul, #recommend_area hr {
+	margin: 0 40px;
+}
+
+#recommend_area hr {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	border-top: 1px solid #e1e1e1;
+}
+
+#recommend_area h2 {
+	font-size: 30px;
+	font-weight: bold;
+	padding-bottom: 20px;
+}
+
+#recommend_area h3 {
+	font-size: 24px;
+	font-weight: bold;
+	color: white;
+	text-transform: uppercase; /*all BIGTEXT*/
+	text-shadow: -1px 0 #cbcbcb, 0 1px #cbcbcb, 1px 0 #cbcbcb, 0 -1px
+		#cbcbcb;
+	padding-bottom: 20px;
+}
+
+#recommend_area h3:after {
+	content: ' ';
+	position: absolute;
+	left: -10px;
+	top: 24px;
+	height: 3px;
+	width: 105%;
+	background: #ffffff;
+}
+
+#recommend_area ul {
+	padding: 14px 0 20px 0;
+}
+
+.recomList li {
+	display: inline-block;
+	position: relative;
+	width: 240px;
+	height: 280px;
+	margin: 0 6px;
+	transition: opacity 0.35s, transform 0.35s;
+	box-shadow: 0 0 0 2px #cccccc;
+	border-radius: 2px;
+	background: linear-gradient(to bottom, rgba(255, 0, 0, 0),
+		rgba(197, 197, 197, 0.2), rgba(154, 154, 154, 0.3),
+		rgba(0, 0, 0, 0.38));
+}
+
+.recomList li:hover {
+	/*box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #d6a3f2;*/
+	box-shadow: 0 0 0 2px #cc4649;
+	cursor: pointer;
+}
+
+.recomList>li>div {
+	position: absolute;
+	right: 0;
+	top: 200px;
+}
+
+#hero_image_area {
+	height: 440px;
+}
+
+/*상단 이미지 슬라이드*/
+#hero_image_area div.imgSlide {
+	width: 100%;
+	margin: 0 auto;
+}
+
+#hero_image_area img {
+	height: 440px;
+	object-fit: cover;
+	width: 100%;
+}
+
+/*방향버튼*/
+.arrowBtn {
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 15%;
+	opacity: .5;
+	filter: alpha(opacity = 50);
+	font-size: 20px;
+	color: #fff;
+	text-align: center;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
+	height: 440px;
+}
+
+.arrowBtn.right {
+	left: auto;
+	right: 0;
+	background-image: linear-gradient(to right, rgba(0, 0, 0, .0001) 0,
+		rgba(0, 0, 0, .5) 100%);
+	background-repeat: repeat-x;
+}
+
+.arrowBtn.left {
+	left: 0;
+	background-image: linear-gradient(to right, rgba(0, 0, 0, .5) 0,
+		rgba(0, 0, 0, .0001) 100%);
+	background-repeat: repeat-x;
+}
+
+.arrowBtn:hover {
+	outline: 0;
+	color: #fff;
+	text-decoration: none;
+	opacity: .9;
+}
+
+.arrowBtn>i.fa-chevron-left, .arrowBtn>i.fa-chevron-right {
+	width: 30px;
+	height: 30px;
+	left: 61px;
+	font-size: 30px;
+	position: absolute;
+	top: 210px;
+}
+
+#user_recommendation_area_place_area {
+	margin-top: 10px;
+	background: #ccc;
+    border-radius: 4px;
+}
+
+.recommendationPlaceTitle {
+	width: 1024px;
+	background: #fff;
+	height: 80px;
+	position: relative;
+	box-shadow: 0 1px 11px 0 rgba(0, 0, 0, 0.40), 0 1px 4px 0
+		rgba(0, 0, 0, 0.4);
+}
+
+.recommendationPlaceTitle span {
+	font-size: 40px;
+	font-weight: bold;
+	color: #0e173a;
+	line-height: 80px;	
+    padding-left: 30px;
+}
+
+.recommendationPlaceTitle button {
+	font-size: 15px;
+	height: 30px;
+	font-weight: bold;
+	position: absolute;
+	right: 15px;
+	bottom: 15px;
+	color: #000;
+	border: none;
+	outline: none;
+	background: none;
+	border-radius: 10px;
+	cursor: pointer;
+	line-height: 30px;
+	transition: .2s ease;
+}
+
+.recommendationPlaceTitle button strong {
+	font-size: 20px;
+}
+
+.recommendationPlaceTitle button:hover {
+	background: #0e173a;
+	color: #fff;
+}
+/*추천장소 사용자 테그*/
+#recommendation_place_area {
+	width: 1024px;
+	background: #333c5d;
+	min-height: 400px;
+	margin-top: 15px;
+}
+/*주제별 추천장소 */
+#recommendation_subject_place_area {
+	width: 1024px;
+	background: #333c5d;
+	min-height: 400px;
+	margin-top: 10px;
+}
+/*지역별 추천장소*/
+.recommendation_area_place_area {
+	width: 1024px;
+	background: #ccc;
+	min-height: 400px;
+	margin-top: 10px;
+    border-radius: 4px;
+}
+
+.recommendationCardBox {
+	width: 900px;
+	padding: 0px 35px 0px 65px;
+	min-height: 300px;
+	margin: 10px auto;
+}
+
+.recommendationCardBox li {
+	float: left;
+	box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.40), 0 2px 4px 0 rgba(0, 0, 0, 0.4);		
+    border-radius: 4px;
+}

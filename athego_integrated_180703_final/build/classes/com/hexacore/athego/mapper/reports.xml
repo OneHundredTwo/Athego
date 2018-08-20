@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<!-- 
+	스키마
+	
+ -->
+ <!--
+ 	select 필드이름
+ 	
+  -->
+ <!-- 
+ 	VO 멤버필드이름
+ 	
+  -->
+<mapper namespace="reports">
+<!-- Writer___________K__180626-->
+	<select id="selectTotalCount_K" resultType="int" >
+		SELECT count(no)
+		FROM reports
+	</select>
+	
+	<!-- Writer___________K__180626 180627 수정-->
+	<select id="selectList_K" parameterType="Map" resultType="CamelHashMap">
+		SELECT no, content, type, content_no, user_no, status, regdate
+		FROM (SELECT no, content, type, content_no, user_no, status, regdate, rownum r
+				FROM(SELECT no, content, type, content_no, user_no, status, regdate
+						FROM reports
+						ORDER BY regdate DESC))
+		WHERE r BETWEEN #{start} AND #{end}	
+	</select>
+	
+	<!-- Writer___________K__180625 180627 수정-->
+	<insert id="insert_K" parameterType="Report">
+		INSERT INTO reports(no, content, type, content_no, user_no, status, regdate)
+		VALUES(reports_seq.nextval, #{content}, #{type}, #{contentNo}, #{userNo}, 0, SYSTIMESTAMP)
+		<selectKey keyProperty="no" resultType="Integer"
+			order="AFTER">
+			SELECT reports_seq.currval FROM dual
+		</selectKey>
+	</insert>
+	
+	<!-- Writer___________K__180627 -->
+	<select id="selectOne_K" resultType="Report" parameterType="int">
+		SELECT no, content, type, content_no contentNo, user_no userNo, regdate
+		FROM reports 
+		WHERE no = #{no}
+	</select>
+	<!-- Writer___________K__180627 -->
+	<update id="update_K" parameterType="Report">
+		UPDATE reports SET content=#{content}, type=#{type}, content_no=#{contentNo}, user_no=#{userNo}, status=#{status}
+		WHERE no = #{no}
+	</update>
+</mapper>

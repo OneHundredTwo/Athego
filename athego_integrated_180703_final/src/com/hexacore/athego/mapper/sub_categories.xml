@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<!-- 
+	스키마
+	
+ -->
+ <!--
+ 	select 필드이름
+ 	
+  -->
+ <!-- 
+ 	VO 멤버필드이름
+ 	
+  -->
+<mapper namespace="sub_categories">
+
+	<!--  Writer___________Y__180627  -->
+	<delete id="delete_Y" parameterType="int">
+		delete sub_categories
+		where nolgo_no = #{nolgoNo}
+	</delete>
+	
+	<!--  Writer___________Y__180624  -->
+	<insert id="insert_Y" parameterType="SubCategory">
+		insert into sub_categories(no, regdate, category_no, tag_no, nolgo_no)
+		values(sub_categories_seq.nextval, systimestamp, #{categoryNo}, #{tagNo}, #{nolgoNo})
+	</insert>
+
+</mapper>

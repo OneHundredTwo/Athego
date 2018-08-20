@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<!-- 
+	스키마
+	
+ -->
+ <!--
+ 	select 필드이름
+ 	
+  -->
+ <!-- 
+ 	VO 멤버필드이름
+ 	
+  -->
+<mapper namespace="convenients">
+
+	<!-- Writer___________Y__180627 -->
+	<select id="selectList_Y" resultType="Convenient">
+		select no, name, regdate
+		from convenients
+	</select>
+	
+	<!-- Writer___________K__180625 놀고 기준으로 연결된 편의시설 호출 -->
+	<select id="selectListByNolgoNo_K" parameterType="int" resultType="Convenient">
+		SELECT c.no, c.name, c.regdate
+		FROM convenients c, nolgo_convenients nc 
+		WHERE c.no = nc.convenient_no 
+		AND nc.nolgo_no = #{nolgoNo}
+	</select>	
+	
+	<!-- 기원 start -->
+	<select id="selectList_B" resultType="Convenient">
+		SELECT NO,NAME,REGDATE
+		FROM convenients
+		ORDER BY 1
+	</select>
+	<!-- 기원 end -->
+
+</mapper>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<!-- 
+	스키마
+	
+ -->
+ <!--
+ 	select 필드이름
+ 	
+  -->
+ <!-- 
+ 	VO 멤버필드이름
+ 	
+  -->
+<mapper namespace="ratings">
+	<!-- Writer___________K__180624 평점 등록 -->
+	<insert id="insert_K" parameterType="Rating">
+		INSERT INTO ratings(no, score, content, user_no, nolgo_no, regdate)
+		VALUES(ratings_seq.nextval, #{score}, #{content}, #{userNo}, #{nolgoNo}, SYSTIMESTAMP)
+		<selectKey keyProperty="no" resultType="Integer"
+			order="AFTER">
+			SELECT ratings_seq.currval FROM dual
+		</selectKey>
+	</insert>
+	
+	<!-- Writer___________K__180624 160627 -->
+	<select id="selectOneByUserNoAndNolgoNo_K" parameterType="Rating" resultType="Rating">
+		SELECT no, score, content, user_no userNo, nolgo_no nolgoNo, regdate
+		FROM ratings
+		WHERE user_no = #{userNo} AND nolgo_no = #{nolgoNo}
+	</select>
+
+	<!-- Writer___________K__180624 놀고 기준으로 평점 리스트 호출 -->
+	<select id="selectListByNolgoNo_K" parameterType="Map" resultType="CamelHashMap">
+		SELECT no, score, content, user_no, nolgo_no, CAST(regdate AS DATE) regdate, name, pictures, nickname, profile, role
+		FROM(SELECT no, score, content, user_no, nolgo_no, regdate, name, pictures, nickname, profile, role, rownum r			
+			FROM(SELECT r.no, r.score, r.content, r.user_no, r.nolgo_no, r.regdate, 
+					n.name, n.pictures, u.nickname, u.profile, u.role
+				FROM ratings r, nolgos n, users u
+				WHERE
+					r.nolgo_no = n.no
+					AND r.user_no = u.no
+					AND nolgo_no = #{nolgoNo}
+				ORDER BY r.regdate DESC))
+		WHERE r BETWEEN #{start} AND #{end}
+	</select> 
+	
+	<!-- Writer___________K__180624 놀고 기준 평점 총 갯수 출력 -->
+	<select id="selectTotalCountByNolgoNo_K" parameterType="int" resultType="int">
+		SELECT count(no)
+		FROM ratings
+		WHERE nolgo_no = #{no}
+	</select>	
+	
+	<!-- Writer___________K__180624 평균 평점 -->
+	<select id="selectAvgScoreByNolgoNo_K" parameterType="int" resultType="double">
+		SELECT avg(score) avgScore
+		FROM ratings
+		WHERE nolgo_no = #{no}
+	</select>	
+	<!-- Writer___________K__180624 -->
+	<delete id="deleteByNo_K" parameterType="int" >
+		DELETE ratings   
+		WHERE no = #{no}
+	</delete>
+	
+	<!-- Writer___________K__180624 180628 대상 놀고의 5점 척도-->
+	<select id="selectGroupByScoreCountByNolgoNo_K" parameterType="int" resultType="CamelHashMap">
+		SELECT s.score,  NVL(score_cnt, 0) score_cnt, NVL(m_cnt, 0) m_cnt,NVL(w_cnt, 0) w_cnt       
+		FROM(SELECT score, COUNT(score) score_cnt,
+               SUM(CASE u.gender WHEN 'M' THEN 1 ELSE 0 END) AS m_cnt,
+               SUM(CASE u.gender WHEN 'W' THEN 1 ELSE 0 END) AS w_cnt
+			 FROM ratings r , users u
+		  	 WHERE 
+             r.user_no = u.no AND
+             nolgo_no = #{nolgoNo} 
+			 GROUP BY score) a, 
+			 (SELECT LEVEL score FROM DUAL CONNECT BY LEVEL &lt;= 5) s
+		WHERE s.score = a.score(+)
+		ORDER BY s.score
+	</select>
+	
+	<!-- Writer___________K__180625 -->
+	<update id="update_K" parameterType="Rating" >
+		UPDATE ratings SET score = #{score}, content = #{content}   
+		WHERE no = #{no}
+	</update>
+
+	<!-- Writer___________K__180626 유저 기준으로 평점 리스트 호출 -->
+	<select id="selectListByUserNo_K" parameterType="Map" resultType="CamelHashMap">
+		SELECT no, score, content, user_no, nolgo_no, CAST(regdate AS DATE) regdate, name, pictures, nickname, profile, role
+		FROM(SELECT no, score, content, user_no, nolgo_no, regdate, name, pictures, nickname, profile, role, rownum r			
+			FROM(SELECT r.no, r.score, r.content, r.user_no, r.nolgo_no, r.regdate, 
+					n.name, n.pictures, u.nickname, u.profile, u.role
+				FROM ratings r, nolgos n, users u
+				WHERE
+					r.nolgo_no = n.no
+					AND r.user_no = u.no
+					AND r.user_no = #{userNo}
+				ORDER BY r.regdate DESC))
+		WHERE r BETWEEN #{start} AND #{end}
+	</select> 
+	
+	<!-- Writer___________K__180626 유저 기준 평점 총 갯수 출력 -->
+	<select id="selectTotalCountByUserNo_K" parameterType="int" resultType="int">
+		SELECT count(no)
+		FROM ratings
+		WHERE user_no = #{userNo}
+	</select>	
+	<!-- Writer___________K__180627  -->
+	<select id="selectOneByNo_K" parameterType="int" resultType="Rating">
+		SELECT no, score, content, user_no userNo, nolgo_no nolgoNo, regdate
+		FROM ratings
+		WHERE no = #{no}
+	</select>
+</mapper>

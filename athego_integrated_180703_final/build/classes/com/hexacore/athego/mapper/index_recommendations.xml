@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<!-- 
+	스키마
+	
+ -->
+ <!--
+ 	select 필드이름
+ 	
+  -->
+ <!-- 
+ 	VO 멤버필드이름
+ 	
+  -->
+  
+<mapper namespace="index_recommendations">
+<select id="selectlist_H" resultType="IndexRecommendation">
+SELECT no, order_no orderNo, keyword,title,nolgo_nos nolgoNos
+FROM INDEX_RECOMMENDATIONS
+ORDER BY order_no ASC
+</select>
+
+	<!-- Writer___________K__180629 -->
+	<select id="selectListForAdmin_K" resultType="IndexRecommendation">
+		SELECT no, keyword, title, nolgo_nos nolgoNos, order_no orderNo, regdate
+		FROM index_recommendations
+		ORDER BY order_no ASC
+	</select>
+	<!-- Writer___________K__180629 -->
+	<select id="selectOneByOrderNo_K" resultType="IndexRecommendation" parameterType="int">
+		SELECT no, keyword, title, nolgo_nos nolgoNos, order_no orderNo, regdate
+		FROM index_recommendations
+		WHERE order_no = #{orderNo}
+	</select>
+	<!-- Writer___________K__180629 -->
+	<select id="selectOneByNo_K" resultType="IndexRecommendation" parameterType="int">
+		SELECT no, keyword, title, nolgo_nos nolgoNos, order_no orderNo, regdate
+		FROM index_recommendations
+		WHERE no = #{no}
+	</select>	
+	<!-- Writer___________K__180629 -->
+	<update id="updateOrder_K" parameterType="IndexRecommendation">
+		UPDATE index_recommendations SET order_no = #{orderNo}
+		WHERE no = #{no}  
+	</update>
+ 	<!-- Writer___________K__180629 -->
+ 	<select id="selectTotalCount_K" resultType="int">
+ 		SELECT count(no)
+ 		FROM index_recommendations
+ 	</select>
+ 	<!-- Writer___________K__180629 -->
+ 	<delete id="delete_K" parameterType="int">
+ 		DELETE index_recommendations
+ 		WHERE no = #{no}
+ 	</delete> 	
+ 	<!-- Writer___________K__180629 -->
+ 	<insert id="insert_K" parameterType="IndexRecommendation">
+ 		INSERT INTO index_recommendations(no, keyword, title, nolgo_nos, order_no, regdate)
+ 		VALUES (index_recommendations_seq.nextval, #{keyword}, #{title}, #{nolgoNos}, #{orderNo}, systimestamp) 		
+ 	</insert>
+
+</mapper>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<!-- 
+	스키마
+	
+ -->
+ <!--
+ 	select 필드이름
+ 	
+  -->
+ <!-- 
+ 	VO 멤버필드이름
+ 	
+  -->
+<mapper namespace="tags">
+
+	<!--  Writer___________Y__180627  -->
+	<delete id="delete_Y" parameterType="int">
+		delete tags
+		where content_no = #{contentNo}
+		and type='N'
+	</delete>
+	
+	<!--  Writer___________Y__180624  -->
+	<insert id="insert_Y" parameterType="Tag">
+		<selectKey order="BEFORE" keyProperty="no" resultType="int">
+			SELECT tags_seq.nextval
+			FROM dual
+		</selectKey>
+		insert into tags(no, content, type, content_no, regdate, user_no)
+		values(#{no}, #{content}, #{type}, #{contentNo}, systimestamp, #{userNo})
+	</insert>
+	
+	<!--  Writer___________Y__180625  -->
+	<select id="selectListByContentNo" parameterType="map" resultType="Tag">
+		select t.no, t.content, t.type, t.content_no contentNo, t.user_no userNo
+		from tags t, sub_categories s
+		where t.no = s.tag_no
+		and type = #{type} 
+		and nolgo_no = #{nolgoNo}
+	</select>
+
+	<!-- Writer___________K__180623 리뷰 태그 등록 -->
+	<insert id="insert_K" parameterType="Tag">
+		INSERT INTO tags(no, content, type, content_no, user_no, regdate)
+		VALUES(tags_seq.nextval, #{content}, #{type}, #{contentNo}, #{userNo}, SYSTIMESTAMP)
+	</insert>
+
+	<!-- Writer___________K__180623 리뷰 태그 select -->
+	<select id="selectListByContentNo_K" parameterType="Tag" resultType="Tag">
+		SELECT no, content, type, content_no contentNo, user_no userNo, regdate
+		FROM tags
+		WHERE content_no = #{contentNo}
+		AND type = #{type}
+	</select>
+	
+	<!-- Writer___________K__180624 -->
+	<delete id="deleteByContentNo_K" parameterType="Tag">
+		DELETE tags
+		WHERE content_no = #{contentNo}
+		AND type = #{type}
+	</delete>
+	
+	<!-- 기원 start -->
+	<select id="selectList_B" parameterType="TypeVO" resultType="Tag">
+		SELECT NO,CONTENT,TYPE,CONTENT_NO CONTENTNO,REGDATE,USER_NO USERNO
+		FROM Tags
+		WHERE type=#{type} AND content_no = #{contentNo} 
+		ORDER BY 1
+	</select>
+<!--  기원 end -->
+
+</mapper>

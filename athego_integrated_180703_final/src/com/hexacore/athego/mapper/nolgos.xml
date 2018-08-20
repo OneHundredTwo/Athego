@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<!-- 
+	스키마
+	
+ -->
+ <!--
+ 	select 필드이름
+ 	
+  -->
+ <!-- 
+ 	VO 멤버필드이름
+ 	
+  -->
+<mapper namespace="nolgos">
+
+	<!--  Writer___________Y__180626  -->
+	<update id="update_Y" parameterType="Nolgo">
+		update nolgos
+		set NAME=#{name}, ADDRESS=#{address}, OFF_DAY=#{offDay}, PICTURES=#{pictures}, OPEN_TIME=#{openTime}, CLOSE_TIME=#{closeTime}, STAY_TIME=#{stayTime},
+		 PHONE=#{phone}, MIN_BUDGET=#{minBudget}, MAX_BUDGET=#{maxBudget}, LAT=#{lat}, LNG=#{lng}, CONTENT=#{content}, CATEGORY_NO=#{categoryNo}, 
+		 LOCATION_NO=#{locationNo}, relInfo = #{relInfo}
+		where no=#{no}
+	</update>
+
+	<!--  Writer___________Y__180624  -->
+	<insert id="insert_Y" parameterType="Nolgo">
+		<selectKey order="BEFORE" keyProperty="no" resultType="int">
+			SELECT nolgos_seq.nextval
+			FROM dual
+		</selectKey>
+		INSERT INTO NOLGOS(NO,NAME,ADDRESS, RELINFO,OFF_DAY,PICTURES,OPEN_TIME,CLOSE_TIME,STAY_TIME,PHONE,MIN_BUDGET,MAX_BUDGET,LAT,LNG,CONTENT,AVG_SCORE,REVIEW_CNT,RATING_CNT,REGDATE,CATEGORY_NO,LOCATION_NO,USER_NO,OWNER_NO)
+		VALUES(#{no},#{name},#{address},#{relInfo},#{offDay},#{pictures},#{openTime},#{closeTime},#{stayTime},#{phone},#{minBudget},#{maxBudget},#{lat},#{lng},#{content},0,0,0,systimestamp,#{categoryNo},#{locationNo},#{userNo},null)
+	</insert>
+	
+	<!--  Writer___________Y__180625  -->
+	<select id="selectOne_Y" parameterType="int" resultType="Nolgo">
+		select no, name, address, relInfo, pictures, off_day offDay, open_time openTime, close_time closeTime, stay_time stayTime, phone, min_budget minBudget, max_budget maxBudget, lat, lng, content, category_no categoryNo, location_no locationNo, user_no userNo, owner_no ownerNo
+		from nolgos
+		where no = #{no}
+	</select>
+
+	<!-- Writer___________K__180620 180627 놀고 상세페이지 -->
+	<select id="selectOneByNo_K" parameterType="int" resultType="Nolgo">
+		SELECT
+		n.no, n.name, c.name categoryName, address, relinfo, pictures, off_day offDay, CAST(open_time AS DATE) openTime, CAST(close_time AS DATE) closeTime, stay_time stayTime,
+		phone, min_budget minBudget, max_budget maxBudget, lat, lng, content, avg_score avgScore, review_cnt reviewCnt, rating_cnt ratingCnt,
+		n.regdate, category_no categoryNo, location_no locationNo, user_no userNo, owner_no ownerNo
+		FROM nolgos n, categories c
+		WHERE n.category_no = c.no		
+		AND n.no = #{no}
+	</select>
+	
+	<!-- Writer___________K__180624 놀고 수정 -->
+	<update id="update_K" parameterType="Nolgo">
+		UPDATE nolgos
+		SET name = #{name}, address = #{address}, relinfo = #{relInfo}, pictures = #{pictures}, off_day = #{offDay}, open_time = #{openTime},
+			close_time = #{closeTime}, stay_time = #{stayTime}, phone  = #{phone}, min_budget = #{minBudget}, max_budget = #{maxBudget}, 
+			lat = #{lat}, lng = #{lng}, 
+			content = #{content}, avg_score  = #{avgScore}, review_cnt = #{reviewCnt}, rating_cnt = #{ratingCnt},
+			category_no = #{categoryNo}, location_no = #{locationNo}		
+		WHERE no = #{no}
+	</update>
+	<!-- Writer___________H__180625 인덱스페이지 놀고리스트 -->
+	<select id="interestCardlist_H" resultType="Nolgo">
+		SELECT no,name,address,relinfo,pictures,off_day,open_time,close_time,stay_time,phone,min_budget,max_budget,lat,lng,content,avg_score,review_cnt,rating_cnt,regdate
+		FROM NOLGOS
+	</select>
+
+	<!-- Writer___________H__180627  -->
+	<select id="selectInterestCardListByNolgoNos_H" resultType="Nolgo" parameterType="Map">
+	SELECT NO, NAME, ADDRESS, RELINFO, PICTURES, OFF_DAY OFFDAY, OPEN_TIME OPENTIME, CLOSE_TIME CLOSETIME, STAY_TIME STAYTIME, PHONE, MIN_BUDGET MINBUDGET, MAX_BUDGET MAXBUDGET, LAT, LNG, CONTENT, AVG_SCORE AVGSCORE, REVIEW_CNT REVIEWCNT, RATING_CNT RATINGCNT, REGDATE, CATEGORY_NO CATEGORYNO, LOCATION_NO LOCATIONNO, USER_NO USERNO, OWNER_NO OWNERNO,
+               (SELECT COUNT( * ) FROM LIKINGS WHERE USER_NO = #{loginUserNo} AND CONTENT_NO = NOLGOS.NO AND TYPE = 'N') ISGOCHECK,
+               (SELECT COUNT( * ) FROM LIKINGS WHERE CONTENT_NO = NOLGOS.NO AND TYPE = 'N') GOCNT
+	FROM NOLGOS
+	WHERE no in 
+	<foreach collection="nolgoNos" item="no" index="index" separator="," open="(" close=")">
+      #{no}
+	</foreach>
+	</select>
+ 
+
+<!-- 기원 START -->
+	<!-- 0623 -->
+	<!--NOLGOS LIKE 검색: 검색 대상 필드 - 서브카테고리, 메뉴, 가격, 관련정보, 이름, 상세내용, 휴무일, 편의시설 -->
+	<select id="selectListBySearchParams_B" resultType="Nolgo" parameterType="SearchVO">
+	SELECT NO, NAME, ADDRESS, RELINFO, PICTURES,  OFFDAY,  OPENTIME,  CLOSETIME,  STAYTIME, PHONE,  MINBUDGET,  MAXBUDGET, LAT, LNG, CONTENT,  AVGSCORE,  REVIEWCNT,  RATINGCNT, REGDATE,  CATEGORYNO,  LOCATIONNO,  USERNO,  OWNERNO,
+		   ISGOCHECK, GOCNT
+	FROM 
+	(
+		SELECT NO, NAME, ADDRESS, RELINFO, PICTURES,  OFFDAY,  OPENTIME,  CLOSETIME,  STAYTIME, PHONE,  MINBUDGET,  MAXBUDGET, LAT, LNG, CONTENT,  AVGSCORE,  REVIEWCNT,  RATINGCNT, REGDATE,  CATEGORYNO,  LOCATIONNO,  USERNO,  OWNERNO,
+			   ISGOCHECK, GOCNT, ROWNUM R
+		FROM 
+		(
+			--NOLGO ITEM DATA QUERY: ORDER BY REGDATE
+			SELECT NO, NAME, ADDRESS, RELINFO, PICTURES, OFF_DAY OFFDAY, OPEN_TIME OPENTIME, CLOSE_TIME CLOSETIME, STAY_TIME STAYTIME, PHONE, MIN_BUDGET MINBUDGET, MAX_BUDGET MAXBUDGET, LAT, LNG, CONTENT, AVG_SCORE AVGSCORE, REVIEW_CNT REVIEWCNT, RATING_CNT RATINGCNT, REGDATE, CATEGORY_NO CATEGORYNO, LOCATION_NO LOCATIONNO, USER_NO USERNO, OWNER_NO OWNERNO,
+					(SELECT COUNT( * ) FROM LIKINGS WHERE USER_NO = #{loginUserNo} AND CONTENT_NO = NOLGOS.NO AND TYPE = 'N') ISGOCHECK,
+					(SELECT COUNT( * ) FROM LIKINGS WHERE CONTENT_NO = NOLGOS.NO AND TYPE = 'N') GOCNT
+			FROM NOLGOS 
+			WHERE NO IN
+				(
+			    SELECT NO 
+			    FROM (
+			    		
+			        	SELECT NO 
+			        	FROM NOLGOS N,
+					        (SELECT NOLGO_NO N_NO, PRICE, NAME FROM MENUES) M,
+					        (SELECT NOLGO_NO N_NO, C.NAME C_NAME, C.NO C_NO FROM NOLGO_CONVENIENTS N_C, CONVENIENTS C WHERE N_C.CONVENIENT_NO = C.NO) C,
+					        (SELECT SUB.NOLGO_NO N_NO, T.CONTENT CONTENT FROM SUB_CATEGORIES SUB, TAGS T WHERE SUB.TAG_NO = T.NO) S, 
+					        (SELECT NO L_NO,DEPTH1_CODE, DEPTH2_CODE, DEPTH3_CODE FROM LOCATIONS) L
+				        WHERE 
+				        	N.NO = M.N_NO(+) AND N.NO = S.N_NO(+) AND N.NO = C.N_NO(+) AND N.LOCATION_NO = L.L_NO
+					        AND(
+					            S.CONTENT LIKE '%' || #{keyword} || '%'
+					            OR C.C_NAME LIKE '%' || #{keyword} || '%'
+					            OR M.PRICE LIKE '%' || #{keyword} || '%'
+					            OR M.NAME LIKE '%' || #{keyword} || '%'
+					            OR RELINFO LIKE '%' || #{keyword} || '%'
+					            OR N.NAME LIKE '%' || #{keyword} || '%'
+					            OR N.CONTENT LIKE '%' || #{keyword} || '%'
+					            OR N.OFF_DAY LIKE '%' || #{keyword} || '%'
+					            OR N.ADDRESS LIKE '%' || #{keyword} || '%'
+					        ) 
+				        <choose>
+							<when test="minBudget lt 0 and maxBudget lt 0"><!--둘 다 입력안함 = 전체 -->
+							</when>
+							<when test="minBudget lte maxBudget"><!-- 정상 -->
+							AND(
+							    min_budget <![CDATA[>]]>= #{minBudget} AND max_budget <![CDATA[<]]>= #{maxBudget}
+							) 
+							</when>
+							<when test="minBudget gt maxBudget"><!-- 최저만 넣은 경우 -->
+							AND(
+								min_budget <![CDATA[>]]>= #{minBudget}
+							)
+							</when>
+						</choose>
+				        
+			        <choose>
+			            <when test="depth3Code != 0">
+			                AND
+			                L.DEPTH3_CODE = #{depth3Code}
+			            </when>
+			            <when test="depth2Code != 0">
+			                AND
+			                L.DEPTH2_CODE = #{depth2Code}
+			            </when>
+			            <when test="depth1Code != 0">
+			                AND
+			                L.DEPTH1_CODE = #{depth1Code}
+			            </when>
+			        </choose>
+				        <if test="categories != null">
+				            AND CATEGORY_NO IN
+				            <foreach item="categoryNo" index="index" collection="categories" open="(" separator="," close=")">
+				                #{categoryNo}
+				            </foreach>
+				        </if>
+			        <choose>
+			            <when test="convenients != null">
+			                AND C.C_NO IN
+			                 <foreach item="convenientNo" index="index" collection="convenients" open="(" separator="," close=")">
+			                    #{convenientNo}
+			                </foreach> 
+			                <bind name="convenientsCnt" value="convenients.length" />
+		                 GROUP BY NO, C.C_NO
+			             
+                	) CONV_FILTERED_NOLGOS 
+                GROUP BY NO HAVING COUNT( * ) = #{convenientsCnt}
+            </when>
+            <otherwise>
+                	) FILTERED_NOLGOS 
+                GROUP BY NO
+            </otherwise>
+        </choose>
+        		
+		    	)
+			ORDER BY regdate
+		
+		) A
+	) B
+	WHERE R between #{start} AND #{end}
+	</select>
+	<!-- 0626 -->
+	<!-- page를 적용하지 않고 Nolgo List를 뽑아내는 한꺼풀만 벗기고 count만한 것. -->
+	<select id="selectListBySearchParamsTotalCount_B" resultType="int"
+		parameterType="SearchVO">
+		
+	    SELECT COUNT(NO) FROM (SELECT NO FROM(
+	        SELECT NO 
+	        FROM NOLGOS N,
+		        (SELECT NOLGO_NO N_NO, PRICE, NAME FROM MENUES) M,
+		        (SELECT NOLGO_NO N_NO, C.NAME C_NAME, C.NO C_NO FROM NOLGO_CONVENIENTS N_C, CONVENIENTS C WHERE N_C.CONVENIENT_NO = C.NO) C,
+		        (SELECT SUB.NOLGO_NO N_NO, T.CONTENT CONTENT FROM SUB_CATEGORIES SUB, TAGS T WHERE SUB.TAG_NO = T.NO) S, 
+		        (SELECT NO L_NO,DEPTH1_CODE, DEPTH2_CODE, DEPTH3_CODE FROM LOCATIONS) L
+	        WHERE 
+	        N.NO = M.N_NO(+) AND N.NO = S.N_NO(+) AND N.NO = C.N_NO(+) AND N.LOCATION_NO = L.L_NO
+	        AND(
+	            S.CONTENT LIKE '%' || #{keyword} || '%'
+	            OR C.C_NAME LIKE '%' || #{keyword} || '%'
+	            OR M.PRICE LIKE '%' || #{keyword} || '%'
+	            OR M.NAME LIKE '%' || #{keyword} || '%'
+	            OR RELINFO LIKE '%' || #{keyword} || '%'
+	            OR N.NAME LIKE '%' || #{keyword} || '%'
+	            OR N.CONTENT LIKE '%' || #{keyword} || '%'
+	            OR N.OFF_DAY LIKE '%' || #{keyword} || '%'
+	            OR N.ADDRESS LIKE '%' || #{keyword} || '%'
+	        ) 
+	        <choose>
+				<when test="minBudget lt 0 and maxBudget lt 0"><!--둘 다 입력안함 = 전체 -->
+				</when>
+				<when test="minBudget lte maxBudget"><!-- 정상 -->
+				AND(
+				    min_budget <![CDATA[>]]>= #{minBudget} AND max_budget <![CDATA[<]]>= #{maxBudget}
+				) 
+				</when>
+				<when test="minBudget gt maxBudget"><!-- 최저만 넣은 경우 -->
+				AND(
+					min_budget <![CDATA[>]]>= #{minBudget}
+				)
+				</when>
+			</choose>
+	        <choose>
+	            <when test="depth3Code != 0">
+	                AND
+	                L.DEPTH3_CODE = #{depth3Code}
+	            </when>
+	            <when test="depth2Code != 0">
+	                AND
+	                L.DEPTH2_CODE = #{depth2Code}
+	            </when>
+	            <when test="depth1Code != 0">
+	                AND
+	                L.DEPTH1_CODE = #{depth1Code}
+	            </when>
+	        </choose>
+	        <if test="categories != null">
+	            AND CATEGORY_NO IN
+	            <foreach item="categoryNo" index="index" collection="categories" open="(" separator="," close=")">
+	                #{categoryNo}
+	            </foreach>
+	        </if>
+	        <choose>
+	            <when test="convenients != null">
+	                AND C.C_NO IN
+	                 <foreach item="convenientNo" index="index" collection="convenients" open="(" separator="," close=")">
+	                    #{convenientNo}
+	                </foreach> 
+	                <bind name="convenientsCnt" value="convenients.length" />
+	                 GROUP BY NO, C.C_NO
+	                 
+	                ) CONV_FILTERED_NOLGOS GROUP BY NO HAVING COUNT( * ) = #{convenientsCnt}
+	            </when>
+	            <otherwise>
+	                ) FILTERED_NOLGOS GROUP BY NO
+	            </otherwise>
+	        </choose>
+		) N
+	</select>
+
+	<!-- 기원 END -->
+	<select id="selectNolgoSimpdata_A" parameterType="int" resultType="Nolgo">
+		select no, name, pictures, category_no categoryNo , location_no locationNo 
+		from nolgos
+		where no = #{no}
+	</select>
+	<select id="selectCtn_A" parameterType="int" resultType="int">
+		select COUNT(no)
+		from nolgos
+		where user_no = #{userNo}	
+	</select>
+	<select id="selectByOwnerNo_A" parameterType="Map" resultType="Nolgo">
+		select no, name, pictures, category_no categoryNo , location_no locationNo 
+		from nolgos
+		where owner_no = #{userNo}
+	</select>
+	
+	<!-- Writer___________K__1800701 마이페이지에서 사용 -->
+	<select id="selectSimpleListByUserNo_K" parameterType="Map" resultType="Nolgo">
+		SELECT no, name, pictures, categoryNo , locationNo
+		FROM(SELECT no, name, pictures, categoryNo , locationNo, rownum r
+			FROM(SELECT no, name, pictures, category_no categoryNo , location_no locationNo
+				FROM nolgos
+				WHERE
+				user_no = #{userNo}
+				ORDER BY regdate DESC))
+		WHERE r BETWEEN #{start} AND #{end}
+	</select>
+	
+	<!-- Writer___________K__180628 관리자에서 호출 / 인덱스 추천 -->
+	<resultMap id="selectListForAdminResult_K" type="CamelHashMap">	 
+		<result property="content" column="content" jdbcType="CLOB" javaType="java.lang.String"/> 
+	</resultMap>
+	<select id="selectListForAdminIndexRecom_K" parameterType="Map" resultMap="selectListForAdminResult_K">
+		SELECT no, name, category_name, address, relinfo, pictures, off_day, CAST(open_time AS DATE) open_time, CAST(close_time AS DATE) close_time, stay_time,
+				phone, min_budget, max_budget, lat, lng, content, avg_score, review_cnt, rating_cnt,
+				CAST(regdate AS DATE) regdate, category_no, location_no, user_no, owner_no
+		FROM(SELECT no, name, category_name, address, relinfo, pictures, off_day, open_time, close_time, stay_time,
+				phone, min_budget, max_budget, lat, lng, content, avg_score, review_cnt, rating_cnt,
+				regdate, category_no, location_no, user_no, owner_no, rownum r
+			FROM(SELECT
+				n.no, n.name, c.name category_name, address, relinfo, pictures, off_day, open_time, close_time, stay_time,
+				phone, min_budget, max_budget, lat, lng, content, avg_score, review_cnt, rating_cnt,
+				n.regdate, category_no, location_no, user_no, owner_no
+				FROM nolgos n, categories c
+				WHERE n.category_no = c.no
+				<if test="keyword != null and keyword != ''">
+	  				AND (n.name LIKE '%'||#{keyword}||'%' OR n.address LIKE '%'||#{keyword}||'%'
+	  				OR n.relinfo LIKE '%'||#{keyword}||'%' OR n.content LIKE '%'||#{keyword}||'%' OR c.name LIKE '%'||#{keyword}||'%')
+	  			</if> 
+				ORDER BY rating_cnt DESC, review_cnt DESC))
+		WHERE r BETWEEN #{start} AND #{end}
+	</select>
+	
+	<!-- Writer___________K__180628 관리자에서 호출 / 단순 놀고 목록-->	
+	<select id="selectListForAdmin_K" parameterType="Map" resultMap="selectListForAdminResult_K">
+		SELECT no, name, category_name, address, relinfo, pictures, off_day, CAST(open_time AS DATE) open_time, CAST(close_time AS DATE) close_time, stay_time,
+				phone, min_budget, max_budget, lat, lng, content, avg_score, review_cnt, rating_cnt,
+				CAST(regdate AS DATE) regdate, category_no, location_no, user_no, owner_no
+		FROM(SELECT no, name, category_name, address, relinfo, pictures, off_day, open_time, close_time, stay_time,
+				phone, min_budget, max_budget, lat, lng, content, avg_score, review_cnt, rating_cnt,
+				regdate, category_no, location_no, user_no, owner_no, rownum r
+			FROM(SELECT
+				n.no, n.name, c.name category_name, address, relinfo, pictures, off_day, open_time, close_time, stay_time,
+				phone, min_budget, max_budget, lat, lng, content, avg_score, review_cnt, rating_cnt,
+				n.regdate, category_no, location_no, user_no, owner_no
+				FROM nolgos n, categories c
+				WHERE n.category_no = c.no 
+				ORDER BY n.regdate DESC))
+		WHERE r BETWEEN #{start} AND #{end}	 
+	</select>
+	
+	<!-- Writer___________K__180628 관리자에서 놀고 카운트 호출 -->
+	<select id="selectTotalCountForAdminIndexRecom_K" parameterType="Map" resultType="int">
+		SELECT count(n.no)
+		FROM nolgos n, categories c
+		WHERE n.category_no = c.no		
+		<if test="keyword != null and keyword != ''">
+			AND (n.name LIKE '%'||#{keyword}||'%' OR n.address LIKE '%'||#{keyword}||'%'
+			OR n.relinfo LIKE '%'||#{keyword}||'%' OR n.content LIKE '%'||#{keyword}||'%'
+			OR c.name LIKE '%'||#{keyword}||'%')
+	  	</if> 		
+	</select>	
+	
+	<!-- Writer___________K__180629  상세 페이지 하단 추천 용 -->
+	<select id="selectListTopThreeForRecom_K" resultType="Nolgo">
+		SELECT NO, NAME, ADDRESS, RELINFO, PICTURES, OFFDAY, OPENTIME, CLOSETIME, STAYTIME, PHONE, MINBUDGET, MAXBUDGET, LAT, LNG, CONTENT, AVGSCORE, REVIEWCNT, RATINGCNT, REGDATE, CATEGORYNO, LOCATIONNO, USERNO, OWNERNO
+		FROM(SELECT NO, NAME, ADDRESS, RELINFO, PICTURES, OFFDAY, OPENTIME, CLOSETIME, STAYTIME, PHONE, MINBUDGET, MAXBUDGET, LAT, LNG, CONTENT, AVGSCORE, REVIEWCNT, RATINGCNT, REGDATE, CATEGORYNO, LOCATIONNO, USERNO, OWNERNO, rownum r
+			FROM(SELECT NO, NAME, ADDRESS, RELINFO, PICTURES, OFF_DAY OFFDAY, OPEN_TIME OPENTIME, CLOSE_TIME CLOSETIME, STAY_TIME STAYTIME, PHONE, MIN_BUDGET MINBUDGET, MAX_BUDGET MAXBUDGET, LAT, LNG, CONTENT, AVG_SCORE AVGSCORE, REVIEW_CNT REVIEWCNT, RATING_CNT RATINGCNT, REGDATE, CATEGORY_NO CATEGORYNO, LOCATION_NO LOCATIONNO, USER_NO USERNO, OWNER_NO OWNERNO               
+				FROM NOLGOS
+				ORDER BY AVG_SCORE DESC))
+		WHERE r BETWEEN 1 AND 3	
+	</select>
+	
+	<!-- Writer___________K__180630  유저기반(관심사) 추천 용-->
+	<select id="selectListTopTenForUserRecom_K" parameterType="Map" resultType="Nolgo">
+		SELECT NO, NAME, ADDRESS, RELINFO, PICTURES, OFFDAY, OPENTIME, CLOSETIME, STAYTIME, PHONE, MINBUDGET, MAXBUDGET, LAT, LNG, CONTENT, AVGSCORE, REVIEWCNT, RATINGCNT, REGDATE, CATEGORYNO, LOCATIONNO, USERNO, OWNERNO, ISGOCHECK, GOCNT
+		FROM(SELECT NO, NAME, ADDRESS, RELINFO, PICTURES, OFFDAY, OPENTIME, CLOSETIME, STAYTIME, PHONE, MINBUDGET, MAXBUDGET, LAT, LNG, CONTENT, AVGSCORE, REVIEWCNT, RATINGCNT, REGDATE, CATEGORYNO, LOCATIONNO, USERNO, OWNERNO, ISGOCHECK, GOCNT, rownum r
+			FROM(SELECT NO, NAME, ADDRESS, RELINFO, PICTURES, OFF_DAY OFFDAY, OPEN_TIME OPENTIME, CLOSE_TIME CLOSETIME, STAY_TIME STAYTIME, PHONE, MIN_BUDGET MINBUDGET, MAX_BUDGET MAXBUDGET, LAT, LNG, CONTENT, AVG_SCORE AVGSCORE, REVIEW_CNT REVIEWCNT, RATING_CNT RATINGCNT, REGDATE, CATEGORY_NO CATEGORYNO, LOCATION_NO LOCATIONNO, USER_NO USERNO, OWNER_NO OWNERNO,               
+			  (SELECT COUNT( * ) FROM LIKINGS WHERE USER_NO = #{loginUserNo} AND CONTENT_NO = NOLGOS.NO AND TYPE = 'N') ISGOCHECK,
+               (SELECT COUNT( * ) FROM LIKINGS WHERE CONTENT_NO = NOLGOS.NO AND TYPE = 'N') GOCNT
+				FROM NOLGOS
+				<choose>
+				 <when test="categoryNos.size != 0"> 
+					WHERE CATEGORY_NO IN 
+					<foreach collection="categoryNos" item="categoryNo" index="index" separator="," open="(" close=")">
+				      #{categoryNo}
+					</foreach>
+				</when>
+				</choose>
+				ORDER BY AVG_SCORE DESC))
+		WHERE r BETWEEN 1 AND 10	
+	</select>
+	
+	
+	<select id="selectListForGenerateRelInfo_K" parameterType="Nolgo" resultType="Nolgo">
+		SELECT no, name, address, relInfo, pictures, off_day offDay, open_time openTime, close_time closeTime, stay_time stayTime, phone, min_budget minBudget, max_budget maxBudget, lat, lng, content, category_no categoryNo, location_no locationNo, user_no userNo, owner_no ownerNo
+		FROM nolgos
+		WHERE relInfo IS NULL
+	</select>
+</mapper>

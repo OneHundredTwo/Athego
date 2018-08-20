@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<!-- 
+	스키마
+	
+ -->
+ <!--
+ 	select 필드이름
+ 	
+  -->
+ <!-- 
+ 	VO 멤버필드이름
+ 	
+  -->
+<mapper namespace="reviews">
+
+	<!-- Writer___________K__180621 리뷰 입력 -->
+	<insert id="insert_K" parameterType="Review">
+		INSERT INTO reviews(no, title, content, like_cnt, regdate, user_no, nolgo_no)
+		VALUES(reviews_seq.nextval, #{title}, #{content}, 0, SYSTIMESTAMP, #{userNo}, #{nolgoNo})
+		<selectKey keyProperty="no" resultType="Integer"
+			order="AFTER">
+			SELECT reviews_seq.currval FROM dual
+		</selectKey>
+	</insert>
+
+	<!-- Writer___________K__180621 -->
+	<resultMap id="selectListByNolgoNoResult_K" type="CamelHashMap">
+		<result property="no" column="no" />
+		<result property="title" column="title" />
+		<result property="content" column="content" jdbcType="CLOB" javaType="java.lang.String"/>
+		<result property="like_cnt" column="like_cnt" />
+		<result property="regdate" column="regdate" />
+		<result property="user_no" column="user_no" />
+		<result property="nolgo_no" column="nolgo_no" />
+		<result property="nickname" column="nickname" />
+		<result property="profile" column="profile" />
+	</resultMap>
+ 	<!-- Writer___________K__180621 리뷰리스트 출력 -->
+	<select id="selectListByNolgoNo_K" parameterType="Map"
+		resultMap="selectListByNolgoNoResult_K">
+		SELECT no, title, content, like_cnt, CAST(regdate AS DATE) regdate, user_no, nolgo_no, nickname, profile
+		FROM(SELECT no, title, content, like_cnt, regdate, user_no, nolgo_no, nickname, profile, rownum r
+			FROM(SELECT r.no, r.title, r.content, r.like_cnt, r.regdate, r.user_no, r.nolgo_no,	u.nickname, u.profile
+				FROM reviews r, users u
+				WHERE r.user_no = u.no
+				AND r.nolgo_no = #{nolgoNo}
+				ORDER BY r.regdate DESC
+				<!-- /**/ 				
+				<if test="orderBy != null and orderBy == 'regdate'">
+		  			  ORDER BY r.regdate ${orderHow}
+		  		</if>
+				<if test="orderBy != null and orderBy == 'likeCnt'">
+		  			  ORDER BY r.likeCnt ${orderHow}
+		  		</if>		
+		  		-->
+		  		))
+		 WHERE r BETWEEN #{start} AND #{end}
+	</select>
+	<!-- Writer___________K__180622 놀고 기준 리뷰 총 갯수 출력 -->
+	<select id="selectTotalCountByNolgoNo_K" parameterType="int" resultType="int">
+		SELECT count(no)
+		FROM reviews
+		WHERE nolgo_no = #{no}
+	</select>
+
+	<!-- Writer___________K__180623 180626-->
+	<select id="selectOneByNo_K" parameterType="int" resultType="Review">
+		SELECT no, title, content, like_cnt likeCnt, user_no userNo,nolgo_no nolgoNo, regdate
+		FROM reviews
+		WHERE no = #{no}
+	</select>
+	
+	<!-- Writer___________K__180623 -->
+	<update id="update_K" parameterType="Review" >
+		UPDATE reviews SET title = #{title}, content = #{content} , like_cnt = #{likeCnt}   
+		WHERE no = #{no}
+	</update>
+	
+	<!-- Writer___________K__180624 -->
+	<delete id="deleteByNo_K" parameterType="int" >
+		DELETE reviews   
+		WHERE no = #{no}
+	</delete>
+	
+	<!-- Writer___________K__180626 -->
+	<resultMap id="selectListByUserNoResult_K" type="CamelHashMap">
+		<result property="no" column="no" />
+		<result property="title" column="title" />
+		<result property="content" column="content" jdbcType="CLOB" javaType="java.lang.String"/>
+		<result property="like_cnt" column="like_cnt" />
+		<result property="regdate" column="regdate" />
+		<result property="user_no" column="user_no" />
+		<result property="nolgo_no" column="nolgo_no" />
+		<result property="nickname" column="nickname" />
+		<result property="profile" column="profile" />
+	</resultMap>
+ 	<!-- Writer___________K__180626 리뷰리스트 출력 (마이페이지용) -->
+	<select id="selectListByUserNo_K" parameterType="Map"
+		resultMap="selectListByUserNoResult_K">
+		SELECT no, title, content, like_cnt, CAST(regdate AS DATE) regdate, user_no, nolgo_no, nickname, profile
+		FROM(SELECT no, title, content, like_cnt, regdate, user_no, nolgo_no, nickname, profile, rownum r
+			FROM(SELECT r.no, r.title, r.content, r.like_cnt, r.regdate, r.user_no, r.nolgo_no,	u.nickname, u.profile
+				FROM reviews r, users u
+				WHERE r.user_no = u.no
+				AND r.user_no = #{userNo}
+				ORDER BY r.regdate DESC
+				<!-- /**/ 				
+				<if test="orderBy != null and orderBy == 'regdate'">
+		  			  ORDER BY r.regdate ${orderHow}
+		  		</if>
+				<if test="orderBy != null and orderBy == 'likeCnt'">
+		  			  ORDER BY r.likeCnt ${orderHow}
+		  		</if>		
+		  		-->
+		  		))
+		 WHERE r BETWEEN #{start} AND #{end}
+	</select>
+	<!-- Writer___________K__180626 유저 기준 리뷰 총 갯수 출력 -->
+	<select id="selectTotalCountByUserNo_K" parameterType="int" resultType="int">
+		SELECT count(no)
+		FROM reviews
+		WHERE user_no = #{userNo}
+	</select>
+	
+	
+	
+	<!-- 기원 START -->
+	<!-- 0623 -->
+	<!-- REVIEW LIKE 검색 : 검색 대상 필드 - 제목, 내용 -->
+	<select id="selectListBySearchParams_B" resultType="Review"
+		parameterType="SearchVO">
+		SELECT NO,TITLE,CONTENT, LIKECNT,REGDATE,
+				USERNO, NOLGONO, nolgoName, wrriter, writerProfile, isLike
+		FROM
+		(
+			SELECT NO,TITLE,CONTENT, LIKECNT,REGDATE,
+				USERNO, NOLGONO, nolgoName, wrriter, writerProfile , isLike,ROWNUM r
+			FROM
+			(	
+				SELECT NO,TITLE,CONTENT,LIKE_CNT LIKECNT,REGDATE,USER_NO
+				USERNO,NOLGO_NO NOLGONO,
+				(SELECT name FROM NOLGOS WHERE R.NOLGO_NO = NOLGOS.NO) nolgoName,
+				(SELECT nickname FROM USERS WHERE R.USER_NO = USERS.NO) wrriter,
+				(SELECT profile FROM USERS WHERE R.USER_NO = USERS.NO) writerProfile,
+				(SELECT count(*) FROM LIKINGS L WHERE L.TYPE='C' AND L.CONTENT_NO = R.NO AND L.USER_NO = ${loginUserNo} ) isLike
+				FROM REVIEWS R
+		        WHERE NO in 
+		        (
+		        SELECT NO FROM 
+				REVIEWS R,
+				(SELECT CONTENT T_CONTENT, CONTENT_NO FROM TAGS WHERE TYPE='V') T
+				WHERE
+				R.NO = T.CONTENT_NO(+)
+				AND
+				(
+				TITLE LIKE '%' || #{keyword} || '%'
+				OR
+				CONTENT LIKE '%' || #{keyword} || '%'
+				OR
+				T_CONTENT LIKE '%' || #{keyword} || '%'
+				)
+		        GROUP BY NO
+		        )
+		        ORDER BY regdate
+	      	)
+      	)
+      	WHERE r BETWEEN #{start} AND #{end}
+	</select>
+	<!-- 0626 -->
+	<select id="selectListBySearchParamsTotalCount_B" resultType="int"
+		parameterType="SearchVO">
+		SELECT count(NO) FROM (
+        SELECT NO FROM 
+		REVIEWS R,
+		(SELECT CONTENT T_CONTENT, CONTENT_NO FROM TAGS WHERE TYPE='V') T
+		WHERE
+		R.NO = T.CONTENT_NO(+)
+		AND
+		(
+		TITLE LIKE '%' || #{keyword} || '%'
+		OR
+		CONTENT LIKE '%' || #{keyword} || '%'
+		OR
+		T_CONTENT LIKE '%' || #{keyword} || '%'
+		)
+        GROUP BY NO
+        ) R
+	</select>
+
+	<!-- 기원 END -->
+
+</mapper>

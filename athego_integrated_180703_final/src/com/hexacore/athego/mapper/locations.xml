@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<!-- 
+	스키마
+	
+ -->
+ <!--
+ 	select 필드이름
+ 	
+  -->
+ <!-- 
+ 	VO 멤버필드이름
+ 	
+  -->
+<mapper namespace="locations">
+
+	<!--  Writer___________Y__180627  -->
+	<select id="selectOne" parameterType="Location" resultType="Location">
+		select no, code, depth1, depth2, depth3, depth1_code depth1Code, depth2_code depth2Code, depth3_code depth3Code, nolgo_cnt logoCnt, interest_location_cnt interestLocationCnt
+		from locations 
+		where depth1=#{depth1} and depth2=#{depth2} and depth3=#{depth3}
+	</select>
+
+	<!--  Writer___________Y__180624  -->
+	<update id="updateNolgoCnt_Y" parameterType="int">
+		update locations 
+		set nolgo_cnt = 
+			(select count(*) from locations where no = #{no})
+		where no = #{no}
+	</update>
+	
+	<!-- 기원 start -->
+		<select id="selectDepth1List_B" resultType="Location">
+			SELECT no, depth1_code depth1Code, depth1 
+			FROM locations 
+			WHERE depth2_code is null AND depth3_code is null
+		</select>
+		<select id="selectDepth2List_B" resultType="Location" parameterType="int">
+			SELECT no, depth2_code depth2Code, depth2 
+			FROM locations 
+			WHERE depth2_code is not null AND depth3_code is null AND DEPTH1_CODE =#{depth1Code}
+		</select>
+		<select id="selectDepth3List_B" resultType="Location" parameterType="int">
+			SELECT no, depth3_code depth3Code, depth3
+			FROM locations
+			WHERE depth3_code is not null AND DEPTH2_CODE = #{depth2Code}
+		</select>
+		
+		<select id="selectNolgoLocation_B" resultType="Location" parameterType="int">
+			SELECT NO,CODE,DEPTH1,DEPTH2,DEPTH3,DEPTH1_CODE DEPTH1CODE,DEPTH2_CODE DEPTH2CODE,DEPTH3_CODE DEPTH3CODE,NOLGO_CNT NOLGOCNT,INTEREST_LOCATION_CNT INTERESTLOCATIONCNT,REGDATE
+			FROM locations
+			WHERE no = #{nolgoLocationNo}
+		</select>
+<!-- 기원 end -->
+		<select id="selectDepth12_A" parameterType="int" resultType="string">
+			select CONCAT(depth1, CONCAT(' ', depth2))
+			from locations
+			where no = #{locationNo}
+		</select>
+		<!-- 상준 시작 -->
+		<select id="selectDepth1List_N" resultType="Location">
+			SELECT no, depth1_code depth1Code, depth1 
+			FROM locations 
+			WHERE depth2_code is null AND depth3_code is null
+		</select>
+		
+		<select id="selectDepth2List_N" resultType="Location" parameterType="int">
+			SELECT no, depth2_code depth2Code, depth2 
+			FROM locations 
+			WHERE depth2_code is not null AND depth3_code is null AND DEPTH1_CODE =#{depth1Code}
+		</select>
+		<!-- 상준 END -->
+</mapper>

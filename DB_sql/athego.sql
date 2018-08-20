@@ -1,0 +1,35 @@
+SELECT NO, NAME, ADDRESS, RELINFO, PICTURES, OFF_DAY OFFDAY, OPEN_TIME OPENTIME, CLOSE_TIME CLOSETIME, STAY_TIME STAYTIME, PHONE, MIN_BUDGET MINBUDGET, MAX_BUDGET MAXBUDGET, LAT, LNG, CONTENT, AVG_SCORE AVGSCORE, REVIEW_CNT REVIEWCNT, RATING_CNT RATINGCNT, REGDATE, CATEGORY_NO CATEGORYNO, LOCATION_NO LOCATIONNO, USER_NO USERNO, OWNER_NO OWNERNO,
+(SELECT COUNT( * ) FROM LIKINGS WHERE USER_NO = 1 AND CONTENT_NO = NOLGOS.NO AND TYPE = 'N') ISGOCHECK,
+(SELECT COUNT( * ) FROM LIKINGS WHERE CONTENT_NO = NOLGOS.NO AND TYPE = 'N') GOCNT
+FROM NOLGOS WHERE NO IN(
+    SELECT NO FROM(
+        SELECT NO, l.depth1_code, l.depth2_code, l.depth3_code FROM NOLGOS N,
+        (SELECT NOLGO_NO N_NO, PRICE, NAME FROM MENUES) M,
+        (SELECT NOLGO_NO N_NO, C.NAME C_NAME, C.NO C_NO FROM NOLGO_CONVENIENTS N_C, CONVENIENTS C WHERE N_C.CONVENIENT_NO = C.NO) C,
+        (SELECT SUB.NOLGO_NO N_NO, T.CONTENT CONTENT FROM SUB_CATEGORIES SUB, TAGS T WHERE SUB.TAG_NO = T.NO) S
+        , 
+       (SELECT NO L_NO,DEPTH1_CODE, DEPTH2_CODE, DEPTH3_CODE FROM LOCATIONS) L
+        WHERE N.NO = M.N_NO(+) AND N.NO = S.N_NO(+) AND N.NO = C.N_NO(+) AND N.LOCATION_NO = L.L_NO
+        AND(
+            S.CONTENT LIKE '%' || '햄버거' || '%'
+            OR C.C_NAME LIKE '%' || '햄버거' || '%'
+            OR M.PRICE LIKE '%' || '햄버거' || '%'
+            OR M.NAME LIKE '%' || '햄버거' || '%'
+            OR RELINFO LIKE '%' || '햄버거' || '%'
+            OR N.NAME LIKE '%' || '햄버거' || '%'
+            OR N.CONTENT LIKE '%' || '햄버거' || '%'
+            OR N.OFF_DAY LIKE '%' || '햄버거' || '%'
+        ) 
+        AND(
+            min_budget >= 0 AND max_budget <= 99999999
+        ) 
+        AND
+        L.DEPTH2_CODE = 41250
+        AND CATEGORY_NO IN (1,2,3,4,5)
+        AND C.C_NO IN (1,2,3)
+         GROUP BY NO, C.C_NO
+        ) CONV_FILTERED_NOLGOS GROUP BY NO HAVING COUNT( * ) = 3
+            
+);
+select * from locations where no in(
+select location_no from nolgos where no=1);

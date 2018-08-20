@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<!-- 
+	스키마
+	
+ -->
+ <!--
+ 	select 필드이름
+ 	
+  -->
+ <!-- 
+ 	VO 멤버필드이름
+ 	
+  -->
+<mapper namespace="menues">
+
+	<!--  Writer___________Y__180627  -->
+	<delete id="delete_Y" parameterType="int">
+		delete menues
+		where nolgo_no=#{nolgoNo}
+	</delete>
+	
+	<!--  Writer___________Y__180624  -->
+	<insert id="insert_Y" parameterType="Menu">
+		insert into menues(no, name, price, regdate, nolgo_no)
+		values(menues_seq.nextval, #{name}, #{price}, systimestamp, #{nolgoNo})
+	</insert>
+
+	<!--  Writer___________Y__180625  -->
+	<select id="selectListByNolgoNo_Y" parameterType="int" resultType="Menu">
+		select no, name, price, regdate, nolgo_no nolgoNo
+		from menues
+		where nolgo_no = #{nolgoNo}
+		ORDER BY price ASC
+	</select>
+
+	<!-- Writer___________K__180625 놀고 에 해당하는 메뉴들 -->
+	<select id="selectListByNolgoNo_K" parameterType="int" resultType="Menu">
+		SELECT no, name, price, nolgo_no nolgoNo
+		FROM menues
+		WHERE nolgo_no = #{no}
+		ORDER BY price ASC
+	</select>
+	
+</mapper>

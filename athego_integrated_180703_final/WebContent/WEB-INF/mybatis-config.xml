@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration 
+PUBLIC "-//mybatis.org/DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- NULL 입력 허용 -->
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	
+	<!-- typeAliases -->
+	<typeAliases>
+		<!-- <typeAlias alias="" type="com.hexacore.athego.vo."/> -->
+		<typeAlias alias="Category" type="com.hexacore.athego.vo.Category"/>
+		<typeAlias alias="Confirm" type="com.hexacore.athego.vo.Confirm"/>
+		<typeAlias alias="Convenient" type="com.hexacore.athego.vo.Convenient"/>
+		<typeAlias alias="Follow" type="com.hexacore.athego.vo.Follow"/>
+		<typeAlias alias="InterestCategory" type="com.hexacore.athego.vo.InterestCategory"/>
+		<typeAlias alias="InterestLocation" type="com.hexacore.athego.vo.InterestLocation"/>
+		<typeAlias alias="Liking" type="com.hexacore.athego.vo.Liking"/>
+		<typeAlias alias="Location" type="com.hexacore.athego.vo.Location"/>
+		<typeAlias alias="Menu" type="com.hexacore.athego.vo.Menu"/>
+		<typeAlias alias="Nolgo" type="com.hexacore.athego.vo.Nolgo"/>
+		<typeAlias alias="NolgoConvenient" type="com.hexacore.athego.vo.NolgoConvenient"/>
+		<typeAlias alias="Rating" type="com.hexacore.athego.vo.Rating"/>
+		<typeAlias alias="Report" type="com.hexacore.athego.vo.Report"/>
+		<typeAlias alias="Review" type="com.hexacore.athego.vo.Review"/>
+		<typeAlias alias="SubCategory" type="com.hexacore.athego.vo.SubCategory"/>
+		<typeAlias alias="Tag" type="com.hexacore.athego.vo.Tag"/>
+		<typeAlias alias="User" type="com.hexacore.athego.vo.User"/>
+		<typeAlias alias="IndexRecommendation" type="com.hexacore.athego.vo.IndexRecommendation"/>
+		
+		<!-- Writer___________K__180622  -->
+		<typeAlias alias="CamelHashMap" type="com.hexacore.athego.util.CamelHashMap"/>
+		
+		<!-- Writer___________A__180626  -->
+		<typeAlias alias="FollowList" type="com.hexacore.athego.vo.FollowList"/>
+		<typeAlias alias="OptionMyp" type="com.hexacore.athego.vo.OptionMyp"/>
+		<!-- Writer___________A__180626  -->
+		<typeAlias alias="NolgoSimple" type="com.hexacore.athego.vo.NolgoSimple"/>
+		
+		
+		<!-- Writer___________B__180624  -->
+		<typeAlias alias="SearchVO" type="com.hexacore.athego.vo.SearchVO"/>
+		<!-- Writer___________B__180626  -->
+		<typeAlias alias="TypeVO" type="com.hexacore.athego.vo.TypeVO"/>			
+	</typeAliases>
+	
+	<!-- mapper파일들의 경로 설정 -->
+	<mappers>
+		<!-- <mapper resource="com/hexacore/athego/mapper/.xml"/> -->
+		
+      <mapper resource = "com/hexacore/athego/mapper/categories.xml"/>
+      <mapper resource = "com/hexacore/athego/mapper/confirms.xml"/>
+      <mapper resource = "com/hexacore/athego/mapper/convenients.xml"/>
+      <mapper resource = "com/hexacore/athego/mapper/follows.xml"/>
+      <mapper resource = "com/hexacore/athego/mapper/interest_categories.xml"/>
+      <mapper resource = "com/hexacore/athego/mapper/interest_locations.xml"/>
+      <mapper resource = "com/hexacore/athego/mapper/likings.xml"/>
+      <mapper resource = "com/hexacore/athego/mapper/locations.xml"/>
+      <mapper resource = "com/hexacore/athego/mapper/menues.xml"/>
+      <mapper resource = "com/hexacore/athego/mapper/nolgo_convenients.xml"/>
+      <mapper resource = "com/hexacore/athego/mapper/nolgos.xml"/>
+      <mapper resource = "com/hexacore/athego/mapper/ratings.xml"/>
+      <mapper resource = "com/hexacore/athego/mapper/reports.xml"/>
+      <mapper resource = "com/hexacore/athego/mapper/reviews.xml"/>
+      <mapper resource = "com/hexacore/athego/mapper/sub_categories.xml"/>
+      <mapper resource = "com/hexacore/athego/mapper/tags.xml"/>
+      <mapper resource = "com/hexacore/athego/mapper/users.xml"/>
+      <mapper resource = "com/hexacore/athego/mapper/index_recommendations.xml"/>
+
+	</mappers>
+	
+</configuration>
+
+
+

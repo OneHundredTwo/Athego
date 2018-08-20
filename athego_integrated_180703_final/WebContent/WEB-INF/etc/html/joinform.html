@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/reset.css?ver=1"/>
+    <link rel="stylesheet" href="css/default.css"/>
+    <link rel="stylesheet" href="css/header.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" href="css/joinform.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+
+
+    </style>
+</head>
+<body>
+<!-- header.jsp start -->
+<header>
+    <div class="wiDTh1o24">
+        <div class="left">
+            <div class="left logoBox">
+                <a href="index.html"><img class="logoImg" src="img/토끼정.jpg" alt="Logo_IMG"></a>
+            </div>
+            <form action="search.html" class="simpSearch left">
+                <input type="text" name="searchKey" placeholder="ex)홍대맛집">
+                <button id="simple_search_btn"><i class="fa fa-search"></i></button>
+                <!--맨 앞의 fa가 fas 로 되야함-->
+            </form>
+        </div>
+        <div class="right">
+            <!-- 비로그인  -->
+            <!--<ul class="abs" id="navBar">
+                <li>
+                    <button class="navBtn" id="login">로그인</button>
+                </li>
+                <li><a href="" class="navBtn" id="join">회원가입</a></li>
+                <li> <a href="" class="navBtn" id="service">고객센터</a> </li>
+            </ul>-->
+            <!-- 로그인 -->
+            <ul class="abs" id="navBar">
+                <li><a class="nolgoAdd" href="nolgoadd.html">놀 Go 등록</a></li>
+                <li><a class="navBtn" href="logout.html">로그아웃</a></li>
+                <li><img src="img/토끼정.jpg" class="userImg" /></li>
+                <li>
+                    <div class="moreWrapper">
+                        <button class="moreBtn"><i class="fas fa-ellipsis-v"></i></button>
+                        <ul class="subList" id="userDropdownList">
+                            <li><a href="mypage.html">마이페이지</a></li>
+                            <li><a href="configureInfo.html">개인정보 수정</a></li>
+                            <li><a href="zzim.html">찜목록</a></li>
+                            <li><a href="service.html">고객센터</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+<div class="fullContainer">
+    <div class="bodyCover"><!-- add on -->
+        <div class="loginForm">
+            <form action="" method="post">
+                <h3>LOGIN</h3>
+                <input class="inLoginForm" type="text" name="userId" placeholder="email">
+                <input class="inLoginForm" type="password" name="userPwd" placeholder="password">
+                <button id="loginBtn">LOGIN</button>
+                <div class="bundle">
+                    <button class="nonDeco">JOIN US</button>
+                    <button class="nonDeco"> Find Password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="wiDTh1o24">
+        <!-- header.jsp end -->
+        <div id="join_user_box">
+            <form id="join_user_form">
+                <div class="userPhoto"><i class="fa fa-user-circle"></i></div>
+
+                <ul class="joinUserFormContent">
+                    <li><span class="user">이메일</span><input id="email" required type="email" name="email" placeholder="내용을 입력해주세요.">
+                    </li>
+                    <div class="messageEmailBox">
+                    <p class="message bad">이메일 형식에 맞지 않습니다.</p>
+                    <p class="message good">사용가능한 이메일입니다 ^ ^</p>
+                    </div>
+                    <li><span>비밀번호</span><input
+                            maxlength="16" id="password1" type="password" name="password" placeholder="내용을 입력해주세요.">
+                    </li>
+                    <div class="messagePasswordBox1">
+                    <p class="message bad">영어,숫자 조합한 4~16글자를 입력하세요.</p>
+                    <p class="message good">나이스한 비밀번호 입니다.</p>
+                    </div>
+                    <li><span>비밀번호 확인</span><input id="password2"  type="password"  name="password" placeholder="내용을 입력해주세요.">
+                    </li>
+                    <div class="messagePasswordBox2">
+                    <p class="message bad">비밀번호가 다릅니다.</p>
+                    <p class="message good">나이스한 비밀번호 입니다.</p>
+                    </div>
+                    <li><span>닉네임</span><input id="nickname"
+                            type="text" name="nickname"
+                                               required placeholder="한글과 영문 대 소문자를 사용하세요. (특수기호, 공백 사용 불가).">
+                    </li>
+                    <div class="messageNickname">
+                    <p class="message bad">이미 닉네임형식에 맞지 않습니다.</p>
+                    <p class="message good">완벽한 닉네임 입니다 ^^</p>
+                    </div>
+                </ul>
+
+                <div class="joinAdd"><span>추가사항</span><i class="fa fa-caret-up"></i></div>
+                <ul class="joinUserAddForm1">
+                    <li><span>생년월일</span>
+                        <select class="birthday">
+                            <option>년</option>
+                        </select>
+                        <select class="birthday">
+                            <option>월</option>
+                        </select>
+                        <select class="birthday">
+                            <option>일</option>
+                        </select>
+                    </li>
+                    <li>
+                        <span>성별</span><input class="gender" type="radio" name="gender" value="man">남
+                                         <input class="gender" type="radio" name="gender" value="man">여
+                    </li>
+                    <li><span>전화번호</span>
+                        <select class="joinPhone">
+                            <option>+82</option>
+                        </select>
+                        <select class="joinPhoneContent">
+                            <option>내용을입력해주세요</option>
+                        </select>
+                        <button class="phoneBtn">인증</button>
+                    </li>
+
+
+                </ul>
+                <ul class="joinUserAddForm2">
+                    <li><span>소개말</span>
+                        <input name="attentionContent" class="attentionContent" placeholder="내용을 입력해주세요"/>
+                    </li>
+                    <li><span>관심사</span>
+                        <div class="serviceBox">
+                        <input type="checkbox" id="ck_box1" name="service">관광
+                        <input type="checkbox" id="ck_box2" name="service">축제
+                        <input type="checkbox" id="ck_box3" name="service">문화예술
+                        <input type="checkbox" id="ck_box4" name="service">오락
+                        <input type="checkbox" id="ck_box5" name="service">맛집/술집
+                        <input type="checkbox" id="ck_box6" name="service">레저/스포츠
+                        <input type="checkbox" id="ck_box7" name="service">뷰티/힐링
+                        <input type="checkbox" id="ck_box8" name="service">제조/공예
+                        <input type="checkbox" id="ck_box9" name="service">까페
+                            <input type="checkbox" id="ck_box10" name="service">이벤트룸
+                        </div>
+                    </li>
+                    <li><span>전화번호</span>
+                        <select>
+                            <option>시/도</option>
+                        </select>
+                        <select>
+                            <option>군/구</option>
+                        </select>
+                        <button>추가</button>
+                    </li>
+                </ul>
+                <div class="joinFormBtn"><button>회원가입</button></div>
+            </form><!--join_box -->
+
+
+
+        </div><!--join_user_box -->
+    </div><!--wiDTh1o24 -->
+</div><!--fullContainer -->
+
+    <footer><!-- footer.jsp start -->
+        <div class="wiDTh1o24">
+
+        </div>
+    </footer>
+    <!-- footer.jsp end -->
+<script src="js/jquery.min.js"></script>
+<!--<script src='https://www.google.com/recaptcha/api.js?onload=onloadCallback'></script>-->
+<script src="js/joinformcheck.js"></script>
+<script src="js/underscore-min.js"></script>
+<script src="js/moment.js"></script>
+<script src="js/default.js"></script>
+<script>
+
+
+
+
+
+</script>
+
+</body>
+</html>

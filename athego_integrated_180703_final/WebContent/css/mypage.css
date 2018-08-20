@@ -1,0 +1,79 @@
+.mypageContainer{
+    margin: 0 auto;
+    width: 1024px;
+}
+#custom_cover_area{
+    width: 100%;
+    height: 350px;
+    background: aquamarine;
+    position: relative;
+}
+#content_area{
+    width: 100%;
+    min-height: 500px;
+    background: blue;
+}
+
+#custom_cover_area>.followingBtn{
+    background: aliceblue;
+    border: 1px solid black;
+    border-radius: 4px;
+    text-align: center;
+    position: absolute;
+    bottom: 20px;
+    right: 50px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+#profile, #contents{
+    display: inline-block;
+}
+#profile{
+    width:200px;
+    min-height: 260px;
+    border: 1px solid black;
+    border-radius: 4px;
+    position: relative;
+    padding: 8px 14px;
+}
+#profile>img{
+    width: 140px;
+    height: 140px;
+    border: 2px solid darksalmon;
+}
+#etc_box>p{
+    margin: 0;
+    padding: 0;
+}
+.comment{
+    padding: 10px 0px;
+
+}
+#myp_conf{
+    border: none;
+    background: none;
+    outline: none;
+    cursor: pointer;
+}
+.mypSearch{
+    position: absolute;
+    bottom:-60px;
+    right: 20px;
+}
+#contents{
+    width: 780px;
+    background: darksalmon;
+}
+#navbar ul{
+    border-bottom: 1px solid darkgray;
+    padding-left:20px;
+}
+#navbar li{
+    display: inline-block;
+    padding: 10px;
+}
+#navbar li.on{
+    border: 1px solid darkgray;
+    border-bottom: 1px solid white;
+    border-radius: 10px 10px 0 0 ;
+}

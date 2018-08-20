@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<!-- 
+	스키마
+	
+ -->
+ <!--
+ 	select 필드이름
+ 	
+  -->
+ <!-- 
+ 	VO 멤버필드이름
+ 	
+  -->
+<mapper namespace="interest_categories">
+<!--  상준 시작 -->
+<insert id="insertCategory_N" parameterType="InterestCategory">
+		INSERT INTO interest_categories(no,regdate,user_no,category_no)
+		VALUES(interest_categories_seq.nextval,systimestamp,#{userNo},#{categoryNo})
+	</insert>
+<!-- 상준 END -->
+
+</mapper>

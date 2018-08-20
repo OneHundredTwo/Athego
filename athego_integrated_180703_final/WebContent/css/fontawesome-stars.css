@@ -1,0 +1,55 @@
+.br-theme-fontawesome-stars .br-widget {
+  height: 48px;
+  line-height: 54px;
+  white-space: nowrap;
+  position: relative;
+}
+/*Writer___________K__180622 fontawome 버전 변경으로 필요*/
+.br-theme-fontawesome-stars .br-widget a {
+   font: normal normal normal 26px 'Font Awesome\ 5 Free';
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  text-decoration: none;
+  margin-right: 2px;
+}
+.br-theme-fontawesome-stars .br-widget a:after {
+  content: '\f005';
+  color: #d2d2d2;
+   font-weight: 900;
+}
+.br-theme-fontawesome-stars .br-widget a.br-active:after {
+  color: #ff7779;
+}
+.br-theme-fontawesome-stars .br-widget a.br-selected:after {
+  color: #ff7779;
+}
+.br-theme-fontawesome-stars .br-widget .wrap-br-current-rating {
+  font-size: 24px;
+  float: left;
+  position: absolute;
+  height: 100%;
+  top: 0px;
+  left: 160px;
+  line-height: 42px;
+  font-weight: bold;
+}
+.br-theme-fontawesome-stars .br-widget .wrap-br-current-rating em{
+  color: #424242;
+}
+.br-theme-fontawesome-stars .br-widget .wrap-br-current-rating span {
+  color: #BCBCBC;
+}
+.br-theme-fontawesome-stars .br-readonly a {
+  cursor: default;
+}
+@media print {
+  .br-theme-fontawesome-stars .br-widget a:after {
+    content: '\f006';
+    color: black;
+  }
+  .br-theme-fontawesome-stars .br-widget a.br-active:after,
+  .br-theme-fontawesome-stars .br-widget a.br-selected:after {
+    content: '\f005';
+    color: black;
+  }
+}

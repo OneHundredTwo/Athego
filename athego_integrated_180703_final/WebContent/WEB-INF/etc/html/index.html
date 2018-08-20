@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>어디GO?</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/default.css" />
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/fontawesome-all.css" />
+    <link rel="stylesheet" href="css/fontawesome-stars.css" />
+    <link rel="stylesheet" href="css/notosanskr.css" />
+    <link rel="stylesheet" href="css/slick.css"/>
+    <link rel="stylesheet" href="css/slick-theme.css"/>
+
+    <link rel="stylesheet" href="css/test_item.css" />
+    <style>
+        body {
+            font-family: "Noto Sans KR",serif;
+        }
+    #hero_image_area{
+        height: 440px;
+        background: darkviolet;
+        margin: auto;
+    }
+
+    /*상단 이미지 슬라이드*/
+    #hero_image_area div.imgSlide {
+        width: 100%;
+        margin:0 auto;
+    }
+
+    #hero_image_area img {
+        height: 440px;
+        object-fit: cover;
+        width: 100%;
+    }
+
+    /*방향버튼*/
+    .arrowBtn {
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 15%;
+        opacity: .5;
+        filter: alpha(opacity=50);
+        font-size: 20px;
+        color: #fff;
+        text-align: center;
+        text-shadow: 0 1px 2px rgba(0,0,0,.6);
+        height: 440px;
+    }
+
+    .arrowBtn.right {
+        left: auto;
+        right: 0;
+        background-image: linear-gradient(to right,rgba(0,0,0,.0001) 0,rgba(0,0,0,.5) 100%);
+        background-repeat: repeat-x;
+    }
+    .arrowBtn.left {
+        left: 0;
+        background-image: linear-gradient(to right,rgba(0,0,0,.5) 0,rgba(0,0,0,.0001) 100%);
+        background-repeat: repeat-x;
+    }
+    .arrowBtn:hover {
+        outline: 0;
+        color: #fff;
+        text-decoration: none;
+        opacity: .9;
+    }
+
+    .arrowBtn>i.fa-chevron-left,
+    .arrowBtn>i.fa-chevron-right {
+        width: 30px;
+        height: 30px;
+        font-size: 30px;
+        position: absolute;
+        top: 210px;
+    }
+    .recommendationPlaceTitle{
+        width: 1024px;
+        background: #fff;
+        height: 80px;
+        position: relative;
+    }
+    .recommendationPlaceTitle span{
+        font-size: 40px;
+        font-weight: bold;
+        color: #0D47A1;
+        line-height: 80px;
+    }
+    .recommendationPlaceTitle button{
+        font-size: 15px;
+        height: 30px;
+        font-weight: bold;
+        position: absolute;
+        right: 0px;
+        bottom: 15px;
+        color: #000;
+        border:none;
+        outline: none;
+        background:none;
+        border-radius: 10px;
+        cursor: pointer;
+        line-height: 30px;
+
+        transition:.2s ease;
+    }
+    .recommendationPlaceTitle button strong{
+        font-size: 20px;
+
+    }
+    .recommendationPlaceTitle button:hover{
+        background:#0D47A1;
+        color:#fff;
+    }
+    /*추천장소 사용자 테그*/
+    #recommendation_place_area{
+        width:1024px;
+        background: green;
+        min-height: 400px;
+    }
+    /*주제별 추천장소 */
+    #recommendation_subject_place_area{
+        width:1024px;
+        background: blueviolet;
+        min-height: 400px;
+    }
+    /*지역별 추천장소*/
+    #recommendation_area_place_area{
+        width:1024px;
+        background: darkcyan;
+        min-height: 400px;
+    }
+    .recommendationCardBox{
+         width: 900px;
+         padding: 0px 35px 0px 65px;
+         min-height: 300px;
+         margin: 10px auto;
+         background: antiquewhite;
+     }
+    .recommendationCardBox ul{
+        float: left;
+    }
+
+
+.right_cursor{
+    font-size: 50px;
+    position: absolute;
+    right: 10px;
+    top: 180px;
+    background:transparent;
+    width: 50px;
+    height: 50px;
+    opacity: .4;
+    outline: none;
+    border: none;
+    z-index: 10;
+    border-radius: 50%;
+ }
+  .left_cursor{
+      font-size: 50px;
+      position: absolute;
+      left: 10px;
+      top: 180px;
+      background:transparent;
+      width: 50px;
+      height: 50px;
+      opacity: .4;
+      outline: none;
+      border: none;
+      z-index: 10;
+      border-radius: 50%;
+  }
+   .right_cursor > i,.left_cursor > i{
+    color: #fff;
+    margin-bottom: 5px;
+    }
+
+   .right_cursor:hover{
+       background: #000;
+       opacity: 10;
+   }
+    .left_cursor:hover{
+        background: #000;
+        opacity: 10;
+    }
+
+        .fa-angle-left:before{
+       content: "\f104";
+       margin-bottom: 5px;
+       text-align: center;
+       position: relative;
+       top: -3px;
+       left: -1px;
+   }
+    .fa-angle-right:before{
+        content: "\f105";
+        margin-bottom: 5px;
+        text-align: center;
+        position: relative;
+        top: -3px;
+        right: -1px;
+
+    }
+
+ </style>
+</head>
+<body>
+<!-- header.jsp start -->
+<header>
+    <div class="wiDTh1o24">
+        <div class="left">
+            <div class="left logoBox">
+                <a href="index.html"><img class="logoImg" src="img/토끼정.jpg" alt="Logo_IMG"></a>
+            </div>
+            <form action="search.html" class="simpSearch left">
+                <input type="text" name="searchKey" placeholder="ex)홍대맛집">
+                <button id="simple_search_btn"><i class="fa fa-search"></i></button>
+                <!--맨 앞의 fa가 fas 로 되야함-->
+            </form>
+        </div>
+        <div class="right">
+            <!-- 비로그인  -->
+            <!--<ul class="abs" id="navBar">
+                <li>
+                    <button class="navBtn" id="login">로그인</button>
+                </li>
+                <li><a href="" class="navBtn" id="join">회원가입</a></li>
+                <li> <a href="" class="navBtn" id="service">고객센터</a> </li>
+            </ul>-->
+            <!-- 로그인 -->
+            <ul class="abs" id="navBar">
+                <li><a class="nolgoAdd" href="nolgoadd.html">놀 Go 등록</a></li>
+                <li><a class="navBtn" href="logout.html">로그아웃</a></li>
+                <li><img src="img/토끼정.jpg" class="userImg" /></li>
+                <li>
+                    <div class="moreWrapper">
+                        <button class="moreBtn"><i class="fas fa-ellipsis-v"></i></button>
+                        <ul class="subList" id="userDropdownList">
+                            <li><a href="mypage.html">마이페이지</a></li>
+                            <li><a href="configureInfo.html">개인정보 수정</a></li>
+                            <li><a href="zzim.html">찜목록</a></li>
+                            <li><a href="service.html">고객센터</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+<div class="fullContainer">
+    <div class="wiDTh1o24">
+        <h1 hidden>어디GO indexPage</h1>
+        <section id="hero_image_area">
+            <div class="imgSlide">
+                <img src="img/date_01.png" alt="PICTURE">
+                <img src="img/date_01.png" alt="PICTURE">
+                <img src="img/date_01.png" alt="PICTURE">
+                <img src="img/date_01.png" alt="PICTURE">
+                <img src="img/date_01.png" alt="PICTURE">
+            </div>
+            <div class="arrowBtn left"><i class="fa fa-chevron-left"></i></div>
+            <div class="arrowBtn right"><i class="fa fa-chevron-right"></i></div>
+        </section>
+
+        <section id ="recommendation_place_area">
+            <div class="recommendationPlaceTitle">
+                <span># 세상에_이런_맛집이</span>
+                <button>MORE <strong>놀GO </strong><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        <div class="recommendationCardBox">
+                <ul></ul>
+                <ul></ul>
+                <ul></ul>
+        </div>
+        </section>
+        <section id ="recommendation_subject_place_area">
+            <div class="recommendationPlaceTitle">
+                <span># 축제</span>
+                <button>MORE <strong>놀GO </strong><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+            <div class="recommendationCardBox">
+
+                <ul></ul>
+                <ul></ul>
+                <ul></ul>
+
+            </div>
+        </section>
+
+        <section id ="recommendation_area_place_area">
+            <div class="recommendationPlaceTitle">
+                <span># 관악구</span>
+                <button>MORE <strong>놀GO </strong><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+            <div class="recommendationCardBox">
+                <ul></ul>
+                <ul></ul>
+                <ul></ul>
+            </div>
+        </section>
+    </div>
+</div>
+<footer>
+    <div class="wiDTh1o24">
+
+    </div>
+</footer>
+<script type="text/template" id="nolgo_item_tmpl">
+    <@_.each(nolgos,function(nolgo){@>
+    <li class="searchItem nolGoItem shutterable" data-id="<@=nolgo.id@>">
+        <a href="<@=nolgo.id@>"><!--nolgo 상세페이지 링크 -->
+            <div class="imgBox">
+                <img class="nolGoImg" src="img/<@=nolgo.image@>" />
+            </div>
+            <div class="infoBundle">
+                                    <span class="cntGo" title="Go수">
+                                        <@if(nolgo.isGoCheck){@>
+                                            <i class="fas fa-heart"></i>
+                                        <@}else{@>
+                                            <i class="fa fa-heart"></i>
+                                        <@}@>
+                                        <@=nolgo.cntGo@>
+                                    </span>
+                <div class="basicInfoBox">
+                    <div class="catImg">
+                        <img src="img/<@=nolgo.firstCat@>.png" />
+                    </div>
+                    <div class="basicTextInfo">
+                        <div class="row nolgoName">
+                            <span><@=nolgo.name@></span>
+                        </div>
+                        <div class="row nolgoLocation">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span><@=nolgo.firstArea@> <@=nolgo.secondArea@></span>
+                        </div>
+                        <div class="row nolgoSubCategories">
+                                                <span class="relInfos decoable">
+                                        <@for(var cat in nolgo.customCats){@>#<@=nolgo.customCats[cat]@><@}@>
+                                    </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="shutterInfoBox">
+                    <div class="row price">
+                        <i class="fas fa-dollar-sign"></i> 1인당 최소<span><@=nolgo.minPrice@></span>원 최대 <span><@=nolgo.maxPrice@></span>원
+                    </div>
+                    <div class="row facilit">
+                        <@
+                        for(var facil in nolgo.facils){
+                        @>
+                        <@=facilTags[facil]@>
+                        <@
+                        }
+                        @>
+                    </div>
+                    <div class="row">
+                        <span>평점</span>
+                        <select class="averageRatingOptionList" data-rating="<@=nolgo.rating@>">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5" selected>5</option>
+                        </select>
+                    </div>
+                    <div class="row">
+                                            <span class="operTime" title="영업시간">
+                                        <span class="open">OPEN</span>
+                                                <!-- nolgo.openTime/closeTime은 나중에 moment로 포맷 수정 -->
+                                        <@=isAMPM(nolgo.openTime)@> <strong><@=moment(nolgo.openTime,"HH:mm").format("hh:mm")@></strong>
+                                            </span>
+                        <span class="operTime" title="영업시간">
+                                        <span class="close">CLOSE</span>
+                                        <@=isAMPM(nolgo.closeTime)@> <strong><@=moment(nolgo.closeTime,"HH:mm").format("hh:mm")@></strong>
+                                            </span>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </li>
+    <@});@>
+</script>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.barrating.js"></script>
+<script src="js/underscore-min.js"></script>
+<script src="js/moment.js"></script>
+<script src="js/default.js"></script>
+<script src="js/slick.js"></script>
+<script>
+
+    $(".likeHeart").click(function () {
+        if ($(this).children("i").hasClass("far")) {
+            $(this).children("i").attr("class", "fas fa-heart");
+        } else {
+            $(this).children("i").attr("class", "far fa-heart");
+        }//if~else end
+    });
+
+    var heroImageArea = $('#hero_image_area .imgSlide');
+    heroImageArea.slick({
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        speed: 1500,
+        nextArrow: $(".arrowBtn.right"),
+        prevArrow: $(".arrowBtn.left"),
+        autoplay: true,
+        autoplaySpeed: 2000,
+        dots:true
+    },100);
+
+function isAMPM(time){
+    //시간에 따라 AM,PM 태그를 생성해서 반환하는 함수
+    time = moment(time,'HH:mm').hour();
+    if(time < 12 ){
+        return "<span class='am'>AM</span>";
+    }else{
+        return "<span class='pm'>PM</span>";
+    }
+}
+// 평점 불러오기
+//each를 놀곳 배열을 받아온 후, 스크립트에서 돌려야 해당하는 장소에 rating을 지정할 수 있다.
+//밑에선 받아고, 생성한녀석
+$('.averageRatingOptionList').barrating({
+    theme: 'fontawesome-stars',
+    initialRating: 4,
+    readonly: true,
+    showSelectedRating:false
+
+});
+
+var facilTags=[
+    "<i class='fas fa-car'></i>",
+    "<i class='fas fa-car'></i>",
+    "<i class='fas fa-car'></i>",
+    "<i class='fas fa-car'></i>",
+    "<i class='fas fa-car'></i>",
+    "<i class='fas fa-car'></i>",
+    "<i class='fas fa-car'></i>",
+    "<i class='fas fa-car'></i>",
+    "<i class='fas fa-car'></i>",
+    "<i class='fas fa-car'></i>",
+    "<i class='fas fa-car'></i>",
+    "<i class='fas fa-car'></i>",
+    "<i class='fas fa-car'></i>",
+    "<i class='fas fa-car'></i>"
+]
+
+/*
+    nolgo
+        id
+        image - 대표이미지
+        cntGo - 좋아요 수
+        firstCat - 대분류카테고리
+        name
+        firstArea - 상위지역
+        secondArea - 하위지역
+        customCats - 세부카테고리(배열)
+        minPrice - 1인당 최소가격
+        maxPrice - 1인당 최대가격
+        rating  - 평점
+        openTime - 24시간 표기법으로 표시한 장소여는시간
+        closeTime
+        isGoCheck - 로그인유저가 해당장소에 Go를 눌렀는지 확인하는 속성
+        facils - 편의시설(배열)
+*/
+
+var nolgos =[
+    {
+        id:1,
+        image:'토끼정.jpg',
+        cntGo:3,
+        firstCat:'restaurant',
+        name:'토끼정',
+        firstArea:'서울시',
+        secondArea:'관악구',
+        customCats:['친구랑같이','놀기좋은곳','카레맛집','존맛탱'],
+        minPrice:6800,
+        maxPrice:12000,
+        rating:4,
+        openTime:'10:00',
+        closeTime:'23:00',
+        isGoCheck:true,
+        facils:[1,3,5,7,9,10]
+    }
+];
+
+var nolgoTmpl= _.template($("#nolgo_item_tmpl").html());
+
+
+var nolgoItems = nolgoTmpl({'nolgos':nolgos});
+//DOM으론 barrating을 적용할 수 없음 - append 후, 추가된 item을 다시 검색해서 그요소에 barrating을 적용해야함.
+//방법 1. item으로 온 nolgo리스트의 순서와 모두 추가가 완료된 후 .nolgoItem으로 조회한 아이템들의 순서가 완전히 동일하면 template로 추가하고 .nolgoItem으로 조회해서 다시 얻어온 데이터배열을 조회하면서 하나식 barrating 적용.
+//방법 2. data-rating이란 속성을 추가하고 .nolgoItem으로 조회해서 각각 data-rating으로 barrating 적용
+$(".recommendationCardBox ul").append(nolgoItems);
+
+//방법2로함
+$("#recommendation_place_area .nolGoItem").each(function(){
+    var $ratingList = $(this).find(".averageRatingOptionList");
+    $ratingList.barrating({
+        theme: 'fontawesome-stars',
+        initialRating: $ratingList.data("rating"),
+        readonly: true,
+        showSelectedRating:false
+    })
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<!-- 
+	스키마
+	
+ -->
+ <!--
+ 	select 필드이름
+ 	
+  -->
+ <!-- 
+ 	VO 멤버필드이름
+ 	
+  -->
+<mapper namespace="likings">
+
+	<!-- Writer___________K__180623 -->
+	<insert id="insert_K" parameterType="Liking"> 
+		INSERT INTO likings(no, type, content_no, user_no, regdate)
+		VALUES(likings_seq.nextval, #{type}, #{contentNo}, #{userNo}, systimestamp)
+	</insert>
+	
+	<!-- Writer___________K__180623 -->
+	<delete id="delete_K" parameterType="Liking">
+		DELETE likings
+		WHERE type = #{type} AND content_no = #{contentNo}
+		
+		<if test="userNo > 0">
+			AND user_no = #{userNo} 
+		</if>
+	</delete>
+	
+	<!-- Writer___________K__180623 -->
+	<select id="selectCountByContentNo_K" parameterType="Liking" resultType="int">
+		SELECT count(no)
+		FROM likings
+		WHERE type = #{type} AND content_no = #{contentNo}
+	</select>
+	
+	<!-- Writer___________K__180623 -->
+	<select id="selectCountByContentNoAndUserNo_K" parameterType="Liking" resultType="int">
+		SELECT count(no)
+		FROM likings
+		WHERE type = #{type} AND content_no = #{contentNo} AND user_no = #{userNo}
+	</select>
+	<!-- Writer___________A__180627 __K__180701 변경(찜에서 사용시 놀고 번호 목록이 필요로함)-->
+	<select id="selectByUserNo_A" parameterType="map" resultType="int"> 
+		SELECT contentNo
+		FROM (
+			SELECT content_no contentNo, rownum r
+			FROM likings
+			WHERE type = 'N' AND user_no = #{userNo}
+		)
+		WHERE r between #{start} and #{end}
+	</select>
+	<!-- Writer___________A__180627 -->
+	<select id="selectCtn_A" parameterType="int" resultType="int">
+		SELECT COUNT(no)
+		FROM likings
+		WHERE type = 'N' AND user_no = #{userNo}
+	</select>
+	<!-- Writer___________A__180627 -->
+	<delete id="deleteLikingR_A" parameterType="map">
+		DELETE FROM likings
+		WHERE type='V' and content_no=#{reviewNo} and user_no=#{userNo};
+	</delete>
+ 	<!-- Writer___________A__180627 -->
+	<insert id="insertLikingR_A" parameterType="map">
+		INSERT INTO likings 
+		VALUES (LIKES_SEQ.NEXTVAL,'V',#{reviewNo},systimestamp,#{userNo});
+	</insert>
+
+</mapper>

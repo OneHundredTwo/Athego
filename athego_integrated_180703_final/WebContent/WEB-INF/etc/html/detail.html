@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title> About Play_Name</title>
+    <link rel="stylesheet" href="css/reset.css?ver=1"/>
+    <link rel="stylesheet" href="css/default.css"/>
+    <link rel="stylesheet" href="css/header.css"/>
+    <link rel="stylesheet" href="css/detail.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/slick.css"/>
+    <link rel="stylesheet" href="css/slick-theme.css"/>
+    <link rel="stylesheet" href="css/video-js.css"/>
+    <link rel="stylesheet" href="css/fontawesome-stars.css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
+    <link rel="stylesheet" href="css/jquery.tag-editor.css">
+    <link rel="stylesheet" href="css/billboard.css">
+    <style>
+
+
+    </style>
+</head>
+<body>
+<!-- header.jsp start -->
+<header>
+    <div class="wiDTh1o24">
+        <div class="left">
+            <div class="left logoBox">
+                <a href="index.html"><img class="logoImg" src="img/토끼정.jpg" alt="Logo_IMG"></a>
+            </div>
+            <form action="search.html" class="simpSearch left">
+                <input type="text" name="searchKey" placeholder="ex)홍대맛집">
+                <button id="simple_search_btn"><i class="fa fa-search"></i></button>
+                <!--맨 앞의 fa가 fas 로 되야함-->
+            </form>
+        </div>
+        <div class="right">
+            <!-- 비로그인  -->
+            <!--<ul class="abs" id="navBar">
+                <li>
+                    <button class="navBtn" id="login">로그인</button>
+                </li>
+                <li><a href="" class="navBtn" id="join">회원가입</a></li>
+                <li> <a href="" class="navBtn" id="service">고객센터</a> </li>
+            </ul>-->
+            <!-- 로그인 -->
+            <ul class="abs" id="navBar">
+                <li><a class="nolgoAdd" href="nolgoadd.html">놀 Go 등록</a></li>
+                <li><a class="navBtn" href="logout.html">로그아웃</a></li>
+                <li><img src="img/토끼정.jpg" class="userImg" /></li>
+                <li>
+                    <div class="moreWrapper">
+                        <button class="moreBtn"><i class="fas fa-ellipsis-v"></i></button>
+                        <ul class="subList" id="userDropdownList">
+                            <li><a href="mypage.html">마이페이지</a></li>
+                            <li><a href="configureInfo.html">개인정보 수정</a></li>
+                            <li><a href="zzim.html">찜목록</a></li>
+                            <li><a href="service.html">고객센터</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+<div class="fullContainer">
+    <div class="wiDTh1o24">
+    <!-- header.jsp end -->
+    <section id="img_slide_area">
+        <div class="imgSlide">
+            <img src="img/got2.jpg" alt="PICTURE">
+            <img src="img/got1.jpg" alt="PICTURE">
+            <img src="img/got3.jpg" alt="PICTURE">
+        </div>
+        <div class="arrowBtn left"><i class="fa fa-chevron-left"></i></div>
+        <div class="arrowBtn right"><i class="fa fa-chevron-right"></i></div>
+    </section>
+    <section id="simple_info_area">
+        <ul>
+            <!-- 여기에 없는 글자들은 전부 css의  before_after을 사용한 부분입니다. -->
+            <!--  각 부분마다 input 박스를 넣고 아이디 안겹치게 잘 지정해주시면 될꺼같습니다. -->
+            <li id="_name"><h2>메가 미니 테라 시티 수족관</h2></li>
+            <li id="_category"><h3>오락 > 코인노래방</h3></li>
+            <li id="_address"><h3>부산 광역시 동래구 온천동 6444-64</h3></li>
+            <li id="_dayoff">매주 월요일</li>
+            <li id="_op_time">오전 10:00 ~ 오후 24:00</li>
+            <li>
+                <ul id="option_price_list">
+                    <li data-optionNo=""><div class="optionName">주중가격주중가격주중가격주중가격주중가격주중가격주중가격주중가격주중가격주중가격</div><div class="optionPrice">12,000원</div></li>
+                    <li data-optionNo=""><div class="optionName">주말가격</div><div class="optionPrice">12,000원</div></li>
+                    <li data-optionNo=""><div class="optionName">1시간</div><div class="optionPrice">12,000원</div></li>
+                    <li data-optionNo=""><div class="optionName">닭강정</div><div class="optionPrice">12,000원</div></li>
+                    <li data-optionNo=""><div class="optionName">1시간</div><div class="optionPrice">12,000원</div></li>
+                    <li data-optionNo=""><div class="optionName">닭강정</div><div class="optionPrice">12,000원</div></li>
+                    <li data-optionNo=""><div class="optionName">1시간</div><div class="optionPrice">12,000원</div></li>
+                    <li data-optionNo=""><div class="optionName">닭강정</div><div class="optionPrice">12,000원</div></li>
+                </ul>
+            </li>
+            <li>
+                <ul id="_facility_list">
+                    <!-- 아직 아이콘 다 안바꿨어요 ㅇㅅㅇ)9 -->
+                    <li class="facilityBox on"><i class="fa fa-wifi"></i><p>WIFI</p></li>
+                    <li class="facilityBox on"><i class="fa fa-car"></i></i><p>주차/발렛</p></li>
+                    <li class="facilityBox"><i class="fa fa-car"></i></i><p>화장실</p></li>
+                    <li class="facilityBox"><i class="fa fa-car"></i></i><p>음수대</p></li>
+                    <li class="facilityBox"><i class="fa fa-car"></i></i><p>간식제공</p></li>
+                    <li class="facilityBox"><i class="fa fa-car"></i></i><p>노키즈존</p></li>
+                    <li class="facilityBox"><i class="fa fa-car"></i></i><p>콜키지</p></li>
+                    <li class="facilityBox"><i class="fa fa-car"></i></i><p>흡연실</p></li>
+                    <li class="facilityBox"><i class="fa fa-paw"></i><p>반려동물동반</p></li>
+                    <li class="facilityBox"><i class="fa fa-car"></i></i><p>짐보관</p></li>
+                    <li class="facilityBox"><i class="fa fa-car"></i></i><p>개인콘센트</p></li>
+                    <li class="facilityBox"><i class="fa fa-car"></i></i><p>충전기대여</p></li>
+                    <li class="facilityBox"><i class="fa fa-car"></i></i><p>탈것대여</p></li>
+                    <li class="facilityBox"><i class="fa fa-car"></i></i><p>놀이방</p></li>
+                </ul>
+
+            </li>
+            <li>
+                <ul id="share_list">
+                    <li class="shareIcon" id="FaceBookBtn"><i class="fa fa-facebook-f"></i></li>
+                    <li class="shareIcon" id="TwitterBtn"><i class="fa fa-twitter"></i></li>
+                    <li class="shareIcon" id="InstargramBtn"><i class="fa fa-instagram"></i></li>
+                </ul>
+            </li>
+            <!-- 상세 페이지에서 나오게 할 찜 버튼-->
+            <div id="pick_btn"><i class="fa fa-heart-o"></i><span id="pick_cnt">100</span></div>
+            <!---->
+
+        </ul>
+        <div id="minimap_area"> M A P </div>
+    </section>
+    <section id="info_area_navi">
+        <ul>
+            <li><a href="#" class="on" data-info_tab="detail_info">상세</a></li><!--
+         --><li><a href="#" data-info_tab="rating">평점</a></li><!--
+         --><li><a href="#" data-info_tab="review">리뷰</a></li>
+        </ul>
+    </section>
+    <section id="detail_info_area">
+        <div class="infoArea on" id="detail_info">
+            <p class="txtEntry">
+                봄을 시샘하던 꽃샘추위도 물러가고, 드디어 봄이 찾아왔습니다. <br>
+                하지만 봄과 함께 찾아온 미세먼지의 습격 때문에 봄날의 낭만을 즐기는 것이 쉽지 않은데요. <br><br>
+                미세먼지가 우리 몸에 끼치는 영향은 매우 심각하다고 하지만 우리나라의 미세먼지 권고 기준은 왜 이렇게 낮은지, 중국발 미세먼지의 기여율은 약 40~50%로 추정된다고 하는데 우리나라 대기질 수준은 왜 세계 최하위인 건지. <br><br>
+                걱정스러운 마음에 창문 꼭꼭 닫아놓고 공기청정기를 켜고 집에만 있으면 되겠지 싶지만 우리가 먹고, 마시고, 숨 쉬고, 바르는 모든 경로를 통해 여전히 집 안에서도 많은 화학물질들이 우리의 호흡기를 위협하고 있습니다. <br><br>
+                집 밖과 집 안, 우리가 생활하는 곳곳에서 편하게 숨 쉬고 살려면 어떻게 해야 할까요? 당장 집 밖의 공기를 바꿀 수 없다면, 집안의 공기라도 바꿔 보아야 하지 않을까요?  <br><br>
+                제대로 알고 조금씩 실천하기 위해 3월 28일(수), 50여 명의 카카오 크루가 모였습니다.  <br>
+            </p>
+            <div class="videoEntry">
+                <video id="my_player" class="video-js vjs-big-play-centered" controls preload="auto" width="860" height="484"
+                       poster="img/got1.jpg" data-setup="{}">
+                    <source src="video/bandicam_2018-06-09%2017-45-27-188.mp4" type='video/mp4' />
+                </video>
+            </div>
+            <p>
+                화담숲은 관람객이 산책을 하며 식물을 감상하고 체험할 수 있도록 원지형을 토대로 다양한 테마의 정원과 산책로를 배치한\
+                수목원입니다.
+                특히, 추억이 있는 정원에서는 노래, 문학, 속담 등과 관련된 향수 어린 수목을 감상할 수 있습니다.
+                계곡에 따라 조성된 국내 최대 규모의 이끼원은 타 식물원에서는 볼 수 없는 새로운 경험을 제공하고, 반딧불이 관찰체험은
+                어릴적 동심의 세계로 관람객을 안내합니다.
+                또한 수국, 벚나무, 수련, 진달래(만병초)를 세계에서 가장 많이 보유한 식물원으로 이를 특성화한 산책로를 조성하고 있습니다.
+            </p>
+            <div class="videoEntry youtube">
+                <object width="860" height="484"  data="https://www.youtube.com/embed/kKBndcp78NQ" type="text/html"
+                         frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+                </object>
+            </div>
+        </div> <!--//end detail_info-->
+        <div class="infoArea" id="rating">
+            <div id="summary_rate"></div>
+            <div id="detail_rate">
+                <div class="alignBundle">
+                    <button class="on">좋아요</button>
+                    <button class="">평점</button>
+                    <button class="">등록일</button>
+                </div>
+                <div class="chart">
+                    <div class="average">
+                        <div><span>총 평점</span>
+                            <select id="average_rating_option_list">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5" selected>5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="rating_chart"></div>
+                </div>
+                <div class="wrapRatingForm">
+                    <form id="rating_form">
+                        <fieldset>
+                            <legend><span class="screen_out">평점 입력란</span></legend>
+                            <div class="starScore">
+                                    <select id="rating_option_list">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5" selected>5</option>
+                                    </select>
+                            </div>
+                            <div class="ratingSubmitBtn">
+                                <button type="submit">등록</button>
+                            </div>
+                            <div class="wrapCommentTextarea">
+                                <textarea name="comment" row="1" cols="1" rows="1" class="inputTextarea" placeholder="간단한 코멘트를 남겨 주세요. 최대 한글 400자까지 가능합니다." maxlength="400"></textarea>
+                                <p class="textAreaLength"><em id="comment_cnt">0</em>/400</p>
+                            </div>
+                            <div class="wrapTag">
+                                <input type="text" name='tag' required>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <ul class="commentList">
+                    <!-- 구 모델
+                    <li data-RateNo="20">
+                        <div class="rateCard">
+                            <div class="profileImg"></div>
+                            <div class="ratedUserName">TAnDURIChiken...</div>
+                            <div class="totalScore">4.5</div>
+                            <div class="scoreBundle">
+                                <!--<div data-ratetype="service"></div>-->
+                    <!--<div data-ratetype="price"></div>-->
+                    <!--</div>
+                    <div class="comments">COOOMENNNNNNTOOOOOO</div>
+                    <div class="hashTags">#nomore #Project #Eoooong</div>
+                    <button><i class="fa fa-thumbs-up"></i>200</button>
+                </div>
+            </li>-->
+
+                </ul>
+            </div>
+        </div>
+        <div class="infoArea" id="review">
+            <div></div>
+            <div class="reviewWriteBtn"><button><i class="fa fa-pencil"></i> 작성</button></div>
+            <ul class="reviewList">
+                <li>
+                    <div class="reviewArea">
+                        <!-- write a sroty 버튼이 있냐없냐 여부에 따라서 top:값이 달라집니다. -->
+                        <div class="titBar">
+                            <div class="authorImg"><a target="_blank" href="/myPage/user/c63980181b9fd970?active=myPlan" ><img src="https://img-wishbeen.akamaized.net/profile/1518718289918_7f05397a-ba9e-4cbc-aa91-5939a4398c03.jpg"></a></div>
+                            <div class="authorInfo">
+                                <a target="_blank" class="userName"  href="/myPage/user/c63980181b9fd970?active=myPlan">꼬맹이다</a>
+                                <span class="regdate">2018/02/11 00:36</span>
+                            </div>
+                            <div class="titRightInfo">
+                                <h1>봄을 지나쳤나 보다</h1>
+                            </div>
+                        </div><!-- titBar -->
+
+                        <div class="spotContent ">
+                            <p class="txtEntry">
+                                봄을 시샘하던 꽃샘추위도 물러가고, 드디어 봄이 찾아왔습니다. <br>
+                                하지만 봄과 함께 찾아온 미세먼지의 습격 때문에 봄날의 낭만을 즐기는 것이 쉽지 않은데요. <br><br>
+                                미세먼지가 우리 몸에 끼치는 영향은 매우 심각하다고 하지만 우리나라의 미세먼지 권고 기준은 왜 이렇게 낮은지, 중국발 미세먼지의 기여율은 약 40~50%로 추정된다고 하는데
+                                우리나라 대기질 수준은 왜 세계 최하위인 건지. <br><br>
+                                지 싶지만 우리가 먹고, 마시고, 숨 쉬고, 바르는 모든 경로를 통해 여전히 집 안에서도 많은 화학물질들이 우리의 호흡기를 위협하고 있습니다. <br><br>
+                                제대로 알고 조금씩 실천하기 위해 3월 28일(수), 50여 명의 카카오 크루가 모였습니다.  <br>
+                            </p>
+                            <img src="img/got1.jpg"/>
+                            <p class="txtEntry">
+                                봄을 시샘하던 꽃샘추위도 물러가고, 드디어 봄이 찾아왔습니다. <br>
+                                하지만 봄과 함께 찾아온 미세먼지의 습격 때문에 봄날의 낭만을 즐기는 것이 쉽지 않은데요. <br><br>
+                                미세먼지가 우리 몸에 끼치는 영향은 매우 심각하다고 하지만 우리나라의 미세먼지 권고 기준은 왜 이렇게 낮은지, 중국발 미세먼지의 기여율은 약 40~50%로 추정된다고 하는데
+                                우리나라 대기질 수준은 왜 세계 최하위인 건지. <br><br>
+                                지 싶지만 우리가 먹고, 마시고, 숨 쉬고, 바르는 모든 경로를 통해 여전히 집 안에서도 많은 화학물질들이 우리의 호흡기를 위협하고 있습니다. <br><br>
+                                제대로 알고 조금씩 실천하기 위해 3월 28일(수), 50여 명의 카카오 크루가 모였습니다.  <br>
+                            </p>
+                        </div><!-- spotContent -->
+                        <button class="moreBtn">더 보기</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+    </div>
+    <!-- footer.jsp start -->
+</div>
+<footer>
+    <div class="wiDTh1o24">
+
+    </div>
+</footer>
+<!-- footer.jsp end -->
+
+<!-- report dialog -->
+<div id="report_dialog" title="신고 하기">
+    <p class="reportTips">신고 사유를 간단히 입력해주세요</p>
+    <form class="reportForm">
+        <fieldset>
+            <textarea name="name" id="name" placeholder="욕설, 비방 등 불건전한 내용을 금지합니다."></textarea>
+
+            <ul class="list_report">
+                <li><i class="fa fa-check"></i>&nbsp; 허위신고일 경우, 신고자의 서비스 활동이 제한될 수 있으니, 유의하시어 신중하게 신고해 주세요.</li>
+                <li><i class="fa fa-check"></i>&nbsp; 신고해주신 내용은 운영정책 및 서비스 약관에 따라 처리됩니다.</li>
+                <li><i class="fa fa-check"></i>&nbsp; 명예훼손, 저작권 등 신고자의 권리가 침해된 경우에는 <a href="https://cs.daum.net/redbell/top.html" class="link_center" target="_blank">권리침해 신고센터</a>로 문의해주세요.</li>
+            </ul>
+
+            <!-- Allow form submission with keyboard without duplicating the dialog button -->
+            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+        </fieldset>
+    </form>
+</div>
+<!-- dialog end -->
+
+<!-- reviewEditor -->
+<div class="bodyCover reviewEditor"><!-- add on -->
+    <div class="wrapReviewEditor">
+        <div class="modalHeader">
+            <h1 class="modalTitle">리뷰 작성</h1>
+            <button class="close"><i></i>x</button>
+        </div>
+        <div class="modalBody">
+            <form>
+                <ul class="modalInputList">
+                    <li class="modalSpotInfo"><i class="fa fa-map-marker"></i>&nbsp;제주 사랑방 손님과 귤나무에서 한라산</li>
+                    <li class="modalInputTitle"><input type="text" name="" id="" placeholder="제목" maxlength="200"/></li>
+                    <li class="modalInputContents"><textarea id="input_contents" placeholder="내용을 적어주세요"></textarea></li>
+                </ul>
+                <button class="submit" type="submit">등록</button>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- -->
+<script type="text/template" id="ratingTmpl">
+    <@ _.each(list,function(rating){ @>
+        <li data-rated_user_no="20" class="facebookUser"><!-- 유저번호? 등록번호? -->
+            <div class="rateCard">
+                <div>
+                    <div class="profileImg">
+                       <a href="#"><img src="img/<@=rating.img @>"/></a>
+                        <div class="socialIcon <@=rating.socialIcon @>"></div>
+                    </div>
+                    <div class="ratedScore">
+                        <i class="fa fa-star"></i>&nbsp<em><@=rating.ratedScore @></em><span>/5</span>
+                    </div>
+                </div>
+                <div class="commentBallon">
+                    <div class="nickName"><a href="#"><em><@=rating.nickname @></em></a></div>
+                    <div class="regdate"><@=rating.regdate @></div>
+                    <div class="report"><button>신고하기</button></div>
+                    <div class="commentBox"><@=rating.comment @></div>
+                    <div class="hashTagBox"><@=rating.hashTag @></div>
+                    <div class="deleteBtn"><i class="fa fa-times"></i></div>
+                </div>
+            </div>
+        </li>
+    <@ }) @>
+</script>
+<script src="js/jquery.min.js"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2f7c350955a20559cfcb4fe15bd5160e"></script>
+<script src="js/slick.js"></script>
+<script src="js/video.js"></script>
+<script src="js/underscore-min.js"></script>
+<script src="js/jquery.barrating.js"></script>
+<script src="js/jquery.caret.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/jquery.tag-editor.min.js"></script>
+<script src="js/d3.v4.min.js"></script>
+<script src="js/billboard.js"></script>
+<script src="js/ckeditor/ckeditor.js"></script>
+
+<script src="js/moment.js"></script>
+<script src="js/default.js"></script>
+
+<script>
+    _.templateSettings = {
+        interpolate : /\<\@\=(.+?)\@\>/gim,
+        evaluate : /\<\@(.+?)\@\>/gim,
+        escape : /\<\@\-(.+?)\@\>/gim
+    };
+</script>
+
+<script>
+
+    /*상단 이미지 슬라이드*/
+    $('.imgSlide').slick({
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        speed: 1500,
+        nextArrow: $(".arrowBtn.right"),
+        prevArrow: $(".arrowBtn.left"),
+        autoplay: false,
+        autoplaySpeed: 2000,
+        dots:true
+    });
+
+    /*좋아요 관련*/
+    var $pick_btn = $("#pick_btn");
+    var $pick_cnt = $("#pick_cnt");
+    $pick_btn.on("click", function () {
+        console.log("pick_btn");
+        var $i = $pick_btn.children("i")
+        var cnt = 0;
+        if($(this).hasClass("on")) {
+            $(this).removeClass("on");
+            $i.attr("class", "fa fa-heart-o");
+            cnt = parseInt($pick_cnt.text()) - 1;
+
+        } else {
+            $(this).addClass("on");
+            $i.attr("class", "fa fa-heart");
+            cnt = parseInt($pick_cnt.text()) + 1;
+        }
+        $pick_cnt.text(cnt);
+    })
+
+    /*지도 영역*/
+    var container = document.getElementById('minimap_area'); //지도를 담을 영역의 DOM 레퍼런스
+    var options = { //지도를 생성할 때 필요한 기본 옵션
+        center: new daum.maps.LatLng(37.48107255041048, 126.95216526775093), //지도의 중심좌표.
+        level: 4 //지도의 레벨(확대, 축소 정도)
+    };
+
+    var map = new daum.maps.Map(container, options); //지도 생성 및 객체 리턴
+
+    // 커스텀 오버레이에 표시할 내용입니다
+    // HTML 문자열 또는 Dom Element 입니다
+    var content = '<div class="overlayInfo">';
+    content += '    <a href="http://place.map.daum.net/17600274" target="_blank"><strong>헥사코어 사무실</strong></a>';
+    content += '    <div class="desc">';
+    content += '        <img src="img/corp.jpg" alt="">';
+    content += '        <span class="address">서울대 입구역 라붐 아울렛 14층</span>';
+    content += '    </div>';
+    content += '</div>';
+
+    // 커스텀 오버레이가 표시될 위치입니다
+    var position = new daum.maps.LatLng(37.48107255041048, 126.95216526775093);
+
+    // 커스텀 오버레이를 생성합니다
+    var mapCustomOverlay = new daum.maps.CustomOverlay({
+        position: position,
+        content: content,
+        xAnchor: 0.5, // 커스텀 오버레이의 x축 위치입니다. 1에 가까울수록 왼쪽에 위치합니다. 기본값은 0.5 입니다
+        yAnchor: 1.1 // 커스텀 오버레이의 y축 위치입니다. 1에 가까울수록 위쪽에 위치합니다. 기본값은 0.5 입니다
+    });
+
+    // 커스텀 오버레이를 지도에 표시합니다
+    mapCustomOverlay.setMap(map);
+
+    //http://docs.videojs.com/
+    var options = {
+        seeking : false
+    };
+
+    /*비디오 플레이 영역*/
+    var player = videojs('my_player', options, function onPlayerReady() {
+        videojs.log('Your player is ready!');
+
+        // In this context, `this` is the player that was created by Video.js.
+
+        // How about an event listener?
+        this.on('ended', function() {
+            videojs.log('Awww...over so soon?!');
+        });
+
+        this.on('seeking', function() {
+            videojs.log('seeking', this.currentTime());
+        });
+
+        this.on('seeked', function() {
+            videojs.log('seeked');
+        });
+    });
+
+    /* info area 네비탭 */
+    var $info_area_navi_tab = $("#info_area_navi a");
+    /* info area 내용 */
+    var $infoArea = $(".infoArea");
+    $info_area_navi_tab.on("click", function (e) {
+
+        $info_area_navi_tab.removeClass("on");
+        $infoArea.removeClass("on");
+        var infoTab = $(this).data("info_tab");
+
+        if(infoTab === "rating") {
+            showRating();
+        }
+
+        $(this).addClass("on");
+        $("#" + infoTab).addClass("on");
+        e.preventDefault();
+
+    });
+
+    /*평점 리스트 가짜 데이터*/
+    var ratingList = [{
+        "ratedScore" : 4,
+        "nickname" : "가가멜르",
+        "regdate" : "2018.06.12, 17:12",
+        "img" : "got1.jpg",
+        "socialIcon" : "iconFB",
+        "comment" : "가나다라마바사아자가차f",
+        "hashTag" : "#ABC #DFV #ZAGoshipDat"
+    }, {
+        "ratedScore" : 2,
+        "nickname" : "가가멜르",
+        "regdate" : "2018.06.12, 17:12",
+        "img" : "got2.jpg",
+        "socialIcon" : "iconINSTA",
+        "comment" : "서울대 입구역 라붐 아울렛 14층서울대 입구역 라붐 아울렛 14층서울대 입구역 라붐 아울렛 14층서울대 입구역 라붐 아울렛 14층서울대 입구역 라붐 아울렛 14층 서울대 입구역 라붐 아울렛 14층 커스텀 오버레이의 x축 위치입니다. 1에 가까울수록 왼쪽에 위치합니다. 서울대 입구역 라붐 아울렛 14층 서울대 입구역 라붐 아울렛 14층 서울대 입구역 라붐 아울렛 14층 서울대 입구역 라붐 아울렛 14층",
+        "hashTag" : "#가수 #오오 #두두두"
+    },{
+        "ratedScore" : 5,
+        "nickname" : "오랜만갑습니다.",
+        "regdate" : "2018.06.12, 17:12",
+        "img" : "got3.jpg",
+        "socialIcon" : "iconTWEET",
+        "comment" : "커스텀 오버레이의 x축 위치입니다. 1에 가까울수록 왼쪽에 위치합니다. 서울대 입구역 라붐 아울렛 14층 서울대 입구역 라붐 아울렛 14층",
+        "hashTag" : "#낙성대 #서울대입구 #짱짱"
+    },{
+        "ratedScore" : 2,
+        "nickname" : "뱅뱅.",
+        "regdate" : "2018.06.12, 17:12",
+        "img" : "p1.jpg",
+        "socialIcon" : "iconGO",
+        "comment" : "커스텀 오버레이의 x축 위치입니다. 1에 가까울수록 왼쪽에 위치합니다. 서울대 입구역 라붐 아울렛 14층 서울대 입구역 라붐 아울렛 14층",
+        "hashTag" : "#낙성대 #서울대입구 #짱짱"
+    }]
+
+    function showRating() {
+        var ratingTmpl = _.template($("#ratingTmpl").html());
+        var markup = ratingTmpl({
+            "list": ratingList
+        });
+
+        $('#detail_rate .commentList').html(markup);
+
+        // 평점 불러오기
+        $('#average_rating_option_list').barrating({
+            theme: 'fontawesome-stars',
+            initialRating: 4,
+            readonly: true
+        });
+
+        // 평점 등록
+        $('#rating_option_list').barrating({
+            theme: 'fontawesome-stars',
+            onSelect: function(value, text, event) {
+                if (typeof(event) !== 'undefined') {
+                    // rating was selected by a user
+                    console.log(event.target);
+                } else {
+                    // rating was selected programmatically
+                    // by calling `set` method
+                    console.log('a');
+                }
+            }
+        });
+    }
+
+ /*
+ * tag input https://goodies.pixabay.com/jquery/tag-editor/demo.html
+ * http://api.jqueryui.com/autocomplete/#option-source
+ */
+    var $tag = $("input[name=tag]");
+    $tag.tagEditor({
+        //initialTags: ['#교육'], // 초기 입력
+        maxTags: 5,
+        maxLength: 10,
+        delimiter: ', ', /* space and comma */
+        placeholder: '관련 태그를 입력 하세요',
+        onChange: function(field, editor, tags) {
+            console.log(tags);
+            console.log(field);
+        },
+        beforeTagSave: function(field, editor, tags, tag, val) {
+
+            // $('#response').prepend('Tag ' + val + ' saved' + (tag ? ' over ' +
+            // tag : '') + '.');
+            // 특수문자를 제외하고 태그를 반환 하도록
+            var replace = val.replace(/[^a-z0-9ㄱ-힣]/gi, '');
+            if (replace.length > 0) {
+                console.log(replace);
+                //getTagIdOrInsert(replace);
+
+                return '#' + replace;
+            }
+
+        },
+        beforeTagDelete: function(field, editor, tags, val) {
+            // 삭제된 태그는 인풋에서 제외
+            $.each($('input[name=tags]'), function(idx) {
+                console.log(idx, $('input[name=tags]')[idx]);
+                var $thisTagInput = $($('input[name=tags]')[idx]);
+                if ($thisTagInput.data('tag') == val) {
+                    $thisTagInput.remove();
+                }
+            })
+        },
+        autocomplete: { // 자동 완성
+            delay: 500, // show suggestions immediately
+            position: {
+                collision: 'down'
+            }, // automatic menu position up/down / flip
+            source: function(request, response) {
+                console.log("request",request);
+                $.ajax({
+                    url: "ajax/getTagList.json",
+                    dataType: "json",
+                    data: {"name" : request.term},
+                    success: function(data) {
+                        console.log(data);
+                        // 입력한 태그가 포함된 단어를 검색하여 리턴 받고
+                        // 자동완성 창에 보여준다
+                        /*
+                         * var matcher = new RegExp("^" +
+                         * $.ui.autocomplete.escapeRegex(request.term), "i");
+                         * response($.grep(data, function(item) { return
+                         * matcher.test(item.name); }).slice(0, 10));
+                         */
+                        var matcher = new RegExp("^" +
+                            $.ui.autocomplete.escapeRegex(request.term), "i");
+                        response($.grep(data, function(item) {
+                            //console.log(item);
+                            return matcher.test(item); }).slice(0, 10));
+
+                        /*
+                        // 태그 테이블 리스트 중에서 네임만 골라서 자동 완성 되도록
+                        var tags = $.map(data, function(item) {
+                            console.log(item.name);
+                            return item.name
+                        });
+                        console.log(tags);
+                        response(tags);
+                        */
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus);
+                    }
+                });
+            }, // end source
+            open: function(event, ui) {
+                $(this).autocomplete("widget").width("300px");
+
+            }, // end open
+            create: function() {
+                // access to jQuery Autocomplete widget differs depending
+                // on jQuery UI version - you can also try .data('autocomplete')
+            }// end create
+        }// end autocomplete
+    });
+
+    /*평점 코멘트 */
+    var $comment_cnt = $("#comment_cnt");
+    var $commentInputTextarea = $(".wrapCommentTextarea .inputTextarea");
+    $commentInputTextarea.on("keydown keyup", function (object) {
+        var textLength = this.value.length;
+        console.log(textLength);
+        if (textLength > 400) {
+            // Split the string on first 200 words and rejoin on spaces
+            var trimmed = $(this).val().split(/\s+/, 400).join(" ");
+            // Add a space at the end to make sure more typing creates new words
+            //console.log(trimmed);
+            //$(this).val(trimmed + " ");
+        }
+        else {
+            $comment_cnt.text(textLength);
+        }
+
+        $(this).height(1).height( $(this).prop('scrollHeight') - 16 );
+    });
+
+    /*신고하기*/
+    var reportForm = $(".reportForm");
+    var report_dialog = $("#report_dialog");
+    $(".infoArea").on("click", ".report", function () {
+
+        report_dialog.dialog({
+            autoOpen: true,
+            height: 400,
+            width: 796,
+            modal: true,
+            buttons: {
+                "신고하기": function () {
+                },
+                "취소": function() {
+                    report_dialog.dialog( "close" );
+                }
+            },
+            close: function() {
+                reportForm[0].reset();
+            }
+        });
+    })
+
+    /*평점 차트*/
+    var chart = bb.generate({
+        size: {
+            height: 240,
+            width: 800
+        },
+        data: {
+            x: "x",
+            columns: [
+                ["x", 1, 2, 3, 4, 5],
+                ["유저", 30, 200, 100, 400, 150]
+            ],
+            type: "bar",
+            axes: {
+                "유저": "y2"
+            },
+            labels: true
+        },
+        legend: {
+            show: false
+        },
+        bar: {
+            width: {
+                ratio: 0.5
+            }
+        },  axis: {
+            y: {
+                show: false
+            },
+            y2: {
+                show: true
+            }
+        },
+        bindto: "#rating_chart"
+    });
+
+    /*리뷰작성 버튼*/
+    var $reviewEditor = $(".bodyCover.reviewEditor");
+    $(".infoArea").on("click", ".reviewWriteBtn button", function () {
+        $reviewEditor.addClass("on");
+        $("body").addClass("modalOpen").css("margin-right", getScrollBarWidth()+"px");
+    })
+
+    /*바디 커버 적용시 스크롤바적용을 위해서 사용*/
+    function getScrollBarWidth () {
+        var $outer = $('<div>').css({visibility: 'hidden', width: 100, overflow: 'scroll'}).appendTo('body'),
+            widthWithScroll = $('<div>').css({width: '100%'}).appendTo($outer).outerWidth();
+        $outer.remove();
+        return 100 - widthWithScroll;
+    };
+
+    $(".close").on("click", function () {
+        $(this).parents(".bodyCover").removeClass("on");
+        $("body").removeClass("modalOpen");
+    })
+
+    /*에디터*/
+    CKEDITOR.replace( 'input_contents', {
+    });
+</script>
+</body>
+</html>

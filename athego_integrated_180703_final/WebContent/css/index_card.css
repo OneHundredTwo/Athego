@@ -1,0 +1,207 @@
+.searchItem{
+    transition:0.5s ease;
+    
+    background-color:white;
+    box-shadow:0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+.searchItem:hover .decoable{
+    font-weight:900;
+}
+.relInfos{
+    color:#336599;
+}
+.relInfosBox{
+    text-align: left;
+}
+.shutterable{
+    overflow:hidden;
+}
+.shutterable:hover .infoBundle{
+    bottom:-20%;
+}
+.infoBundle{
+    position:absolute;
+    bottom:-60%;/*basicInfoBox만 보이는 상태*/
+    height:100%;
+    text-align:left;
+    background-color:#FFFFFF;
+    color:black;
+    transition:0.3s ease;
+}
+.basicInfoBox{
+    height:40%;
+	width: 278px;
+}
+.shutterInfoBox{
+    height:40%;
+    padding-left:25px;
+    
+    font-size:15px;
+}
+.fa-heart{
+    color:red;
+}
+/*nolgo_list_area*/
+.nolGoItem .searchResultFrame ul{
+    width:1788px;
+}
+
+.nolGoItem .searchItem strong{
+    display:inline-block;
+    
+    border:1px solid #90A4AE;
+    border-radius: 3px;
+    
+    font-weight:900;
+    color:#90A4AE;
+    font-size:14px;
+    
+}
+.nolGoItem{
+    position:relative;
+    /*calc((1024px - 40px) / 3 - n px)
+    n값에따라 오른쪽에 찔끔보이는게 결정됨.*/
+    width:278px;/*n=50*/
+    height:290px;
+    
+    text-align: center;
+    
+    margin-right:22px;
+    margin-top:5px;
+    /*이러면 한칸 이동할때 width+margin+padding값만큼 이동.*/
+    
+}
+.nolGoItem .imgBox{
+    position:relative;
+}
+.nolgoItem:hover::before{
+    background: rgba(0,0,0,0.8);
+}
+
+.nolGoItem .nolGoImg{
+    width:100%;
+    height:174px;/*아 %로 하고싶은데... 개귀찮네*/
+    object-fit:cover;
+}
+
+.nolGoItem .basicInfoBox{
+    overflow:hidden;
+}
+
+.nolGoItem .basicInfoBox::before{
+    content: '';
+    position: absolute;
+    top:-30px;
+    left:0;
+    width: 100%;
+    height: 30px; /* 해당 카드 높이대로 맞춰주세요! */
+    background: linear-gradient(to bottom,transparent 0,rgba(40,40,40,.7) 100%);
+}
+.nolGoItem .basicInfoBox>div{
+    float:left;
+}
+.nolGoItem .infoBundle .cntGo{
+    position:absolute;
+    top:-23px;
+    right:10px;
+
+    color:white;
+    z-index:1;
+}
+.nolGoItem .catImg{
+    position:relative;
+
+    width:96px;
+    height:116px;
+
+    line-height:116px;
+}
+.nolGoItem .catImg>img{
+    display: inline-block;
+    position: absolute;
+    top: calc(50% - 40px);
+    left: calc(50% - 30px);
+    width: 60px;
+    height: 60px;
+    border-radius: 4px;
+}
+.nolGoItem .basicTextInfo{
+    width:calc(100% - 116px);
+    padding-top:15px;
+    padding-right:20px;
+    text-align:left;
+}
+.nolGoItem .nolgoLocation{
+    font-size:13px;
+}
+.nolGoItem .nolgoSubCategories{
+    text-align:left;
+    font-size:15px;
+}
+
+.nolGoItem .nolgoName{
+    position:relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;    
+    height:calc(30% - 10px);
+    font-size:18px;
+}
+
+.nolGoItem .ratingNumber{
+   font-size: 22px;
+    font-weight: 800;
+    color: #ff7779;   
+}
+
+.nolGoItem:hover .decoable{
+    font-weight:900;
+}
+
+
+.nolGoItem .row{
+    padding:5px 0px;
+}
+.nolGoItem .row {
+	
+}
+/*
+    nolgo item 관련 요소 css 정의하는 공간
+*/
+
+/*
+    shutterInfoBox에 포함된 요소 css 정의하는 공간
+*/
+
+.nolGoItem .price>i{
+    font-size:15px;
+
+    vertical-align: middle;
+}
+.nolGoItem .br-wrapper{
+    display:inline-block;
+}
+.nolGoItem .br-theme-fontawesome-stars .br-widget{
+    height:15px;
+    line-height:20px;
+}
+.nolGoItem .br-theme-fontawesome-stars .br-widget>a{
+    font-size:15px;
+}
+.nolGoItem .shutterInfoBox .operTime{
+    font-size:10px;
+}
+.nolGoItem .open, .nolGoItem .close{
+    font-size:12px;
+    color:black;
+}
+.nolGoItem .am, .nolGoItem .pm{
+    font-family: 'Dosis', sans-serif;
+    font-weight:900;
+}
+.nolGoItem .am{
+    color:#FBC02D;
+}
+.nolGoItem .pm{
+    color:#3D5AFE;
+}

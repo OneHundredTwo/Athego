@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/oraclexe" />
+
+	<!-- SqlSessionFactory 설정 -->
+	<bean id="sqlSessionFactory" p:dataSource-ref="dataSource"
+		p:configLocation="WEB-INF/mybatis-config.xml" class="org.mybatis.spring.SqlSessionFactoryBean" />
+
+	<!-- SqlSession 설정 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+
+	<!-- DAO bean으로 등록 -->
+	<!-- <bean id="" class="com.hexacore.athego.dao.Impl" p:session-ref="sqlSession" 
+		/> -->
+	<bean id="categoriesDAO" class="com.hexacore.athego.dao.CategoriesDAOImpl"
+		p:session-ref="sqlSession"/>
+	<bean id="menuesDAO" class="com.hexacore.athego.dao.MenuesDAOImpl"
+		p:session-ref="sqlSession" />
+	<bean id="nolgoConvenientsDAO" class="com.hexacore.athego.dao.NolgoConvenientsDAOImpl"
+		p:session-ref="sqlSession" />
+	<bean id="convenientsDAO" class="com.hexacore.athego.dao.ConvenientsDAOImpl"
+		p:session-ref="sqlSession" />
+	<bean id="subCategoriesDAO" class="com.hexacore.athego.dao.SubCategoriesDAOImpl"
+		p:session-ref="sqlSession" />
+	<bean id="tagsDAO" class="com.hexacore.athego.dao.TagsDAOImpl"
+		p:session-ref="sqlSession" />
+	<bean id="locationsDAO" class="com.hexacore.athego.dao.LocationsDAOImpl"
+		p:session-ref="sqlSession" />
+	<bean id="interestLocationsDAO" class="com.hexacore.athego.dao.InterestLocationsDAOImpl"
+		p:session-ref="sqlSession" />
+	<bean id="interestCategoriesDAO" class="com.hexacore.athego.dao.InterestCategoriesDAOImpl"
+		p:session-ref="sqlSession" />
+	<bean id="confirmsDAO" class="com.hexacore.athego.dao.ConfirmsDAOImpl"
+		p:session-ref="sqlSession" />
+	<bean id="reportsDAO" class="com.hexacore.athego.dao.ReportsDAOImpl"
+		p:session-ref="sqlSession" />
+	<bean id="followsDAO" class="com.hexacore.athego.dao.FollowsDAOImpl"
+		p:session-ref="sqlSession" />
+	<bean id="likingsDAO" class="com.hexacore.athego.dao.LikingsDAOImpl"
+		p:session-ref="sqlSession" />
+	<bean id="reviewsDAO" class="com.hexacore.athego.dao.ReviewsDAOImpl"
+		p:session-ref="sqlSession" />
+	<bean id="ratingsDAO" class="com.hexacore.athego.dao.RatingsDAOImpl"
+		p:session-ref="sqlSession" />
+	<bean id="nolgosDAO" class="com.hexacore.athego.dao.NolgosDAOImpl"
+		p:session-ref="sqlSession" />
+	<bean id="usersDAO" class="com.hexacore.athego.dao.UsersDAOImpl"
+		p:session-ref="sqlSession" />
+	<bean id="indexRecommendationsDAO" class="com.hexacore.athego.dao.IndexRecommendationsDAOImpl"
+		p:session-ref="sqlSession" />
+	<!-- Service bean으로 등록 -->
+	<!-- <bean id="xxxService" class="com.hexacore.athego.service.XxxServiceImpl" 
+		p:xxxDAO-ref="xxxDAO" /> -->
+		
+	<bean id="usersService" class="com.hexacore.athego.service.UsersServiceImpl" 
+		p:usersDAO-ref="usersDAO"
+		p:followsDAO-ref="followsDAO" 
+		p:ratingsDAO-ref="ratingsDAO"
+		p:reviewsDAO-ref="reviewsDAO"
+		p:tagsDAO-ref="tagsDAO"
+		p:likingsDAO-ref="likingsDAO"
+		p:nolgosDAO-ref="nolgosDAO"
+		p:locationsDAO-ref="locationsDAO"
+		p:nolgoConvenientsDAO-ref="nolgoConvenientsDAO"
+		p:categoriesDAO-ref="categoriesDAO"
+		p:subCategoriesDAO-ref="subCategoriesDAO"
+		p:interestCategoriesDAO-ref="interestCategoriesDAO"
+		p:interestLocationsDAO-ref="interestLocationsDAO"
+		/>
+	
+	<!-- Writer___________K__1806226 상세 페이지를 위해서 우선 등록 -->
+	<bean id="nolgosService" class="com.hexacore.athego.service.NolgosServiceImpl"
+		p:nolgosDAO-ref="nolgosDAO"
+		p:reviewsDAO-ref="reviewsDAO" 
+		p:ratingsDAO-ref="ratingsDAO"
+		p:tagsDAO-ref="tagsDAO"
+		p:likingsDAO-ref="likingsDAO"
+		p:menuesDAO-ref="menuesDAO" 
+		p:convenientsDAO-ref="convenientsDAO"
+		p:reportsDAO-ref="reportsDAO"
+		p:locationsDAO-ref="locationsDAO"
+		p:nolgoConvenientsDAO-ref="nolgoConvenientsDAO"
+		p:subCategoriesDAO-ref="subCategoriesDAO"
+		p:categoriesDAO-ref="categoriesDAO"
+		p:indexRecommendationsDAO-ref="indexRecommendationsDAO"
+		p:usersDAO-ref="usersDAO"
+		 />
+		 
+	<bean id="adminsService" class="com.hexacore.athego.service.AdminsServiceImpl"
+	p:nolgosDAO-ref="nolgosDAO"
+	p:usersDAO-ref="usersDAO"
+	p:reviewsDAO-ref="reviewsDAO" 
+	p:ratingsDAO-ref="ratingsDAO"
+	p:tagsDAO-ref="tagsDAO"
+	p:likingsDAO-ref="likingsDAO"
+	p:reportsDAO-ref="reportsDAO"
+	p:indexRecommendationsDAO-ref="indexRecommendationsDAO"
+	/>	
+</beans>

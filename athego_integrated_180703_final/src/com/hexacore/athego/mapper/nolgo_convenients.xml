@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<!-- 
+	스키마
+	
+ -->
+ <!--
+ 	select 필드이름
+ 	
+  -->
+ <!-- 
+ 	VO 멤버필드이름
+ 	
+  -->
+<mapper namespace="nolgo_convenients">
+
+	<!--  Writer___________Y__180627  -->
+	<delete id="delete_Y" parameterType="int">
+		delete nolgo_convenients
+		where nolgo_no = #{nolgoNo}
+	</delete>
+
+	<!--  Writer___________Y__180624  -->
+	<insert id="insert_Y" parameterType="NolgoConvenient">
+		insert into nolgo_convenients(no, regdate, nolgo_no, convenient_no)
+		values(nolgos_seq.nextval, systimestamp, #{nolgoNo}, #{convenientNo})
+	</insert>
+	
+	<!--  Writer___________Y__180625  -->
+	<select id="selectListByNolgoNo" parameterType="int" resultType="NolgoConvenient">
+		select no, nolgo_no nolgoNo, convenient_no convenientNo 
+		from nolgo_convenients
+		where nolgo_no = #{nolgoNo}
+	</select>
+	
+	<!-- 기원 start -->
+		<select id="selectNolgoConvenientList_B" parameterType="int" resultType="NolgoConvenient">
+			SELECT no, convenient_no convenientNo
+			FROM nolgo_convenients n_c
+			WHERE n_c.nolgo_no = #{nolgoNo}
+			ORDER BY 2
+		</select>
+	<!-- 기원 end -->
+</mapper>

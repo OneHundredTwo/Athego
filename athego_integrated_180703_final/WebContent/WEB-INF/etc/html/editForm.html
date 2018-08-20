@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title> Edit</title>
+    <link rel="stylesheet" href="css/reset.css?ver=1"/>
+    <link rel="stylesheet" href="css/default.css"/>
+    <link rel="stylesheet" href="css/header.css?ver=1"/>
+    <link rel="stylesheet" href="css/editForm.css?ver=1z"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/slick.css"/>
+    <link rel="stylesheet" href="css/slick-theme.css"/>
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
+    <link rel="stylesheet" href="css/jquery.tag-editor.css">
+</head>
+<body>
+<!-- header.jsp start -->
+<header>
+    <div class="wiDTh1o24">
+        <div class="left">
+            <div class="left logoBox">
+                <a href="index.html"><img class="logoImg" src="img/토끼정.jpg" alt="Logo_IMG"></a>
+            </div>
+            <form action="search.html" class="simpSearch left">
+                <input type="text" name="searchKey" placeholder="ex)홍대맛집">
+                <button id="simple_search_btn"><i class="fa fa-search"></i></button>
+                <!--맨 앞의 fa가 fas 로 되야함-->
+            </form>
+        </div>
+        <div class="right">
+            <!-- 비로그인  -->
+            <!--<ul class="abs" id="navBar">
+                <li>
+                    <button class="navBtn" id="login">로그인</button>
+                </li>
+                <li><a href="" class="navBtn" id="join">회원가입</a></li>
+                <li> <a href="" class="navBtn" id="service">고객센터</a> </li>
+            </ul>-->
+            <!-- 로그인 -->
+            <ul class="abs" id="navBar">
+                <li><a class="nolgoAdd" href="nolgoadd.html">놀 Go 등록</a></li>
+                <li><a class="navBtn" href="logout.html">로그아웃</a></li>
+                <li><img src="img/토끼정.jpg" class="userImg" /></li>
+                <li>
+                    <div class="moreWrapper">
+                        <button class="moreBtn"><i class="fas fa-ellipsis-v"></i></button>
+                        <ul class="subList" id="userDropdownList">
+                            <li><a href="mypage.html">마이페이지</a></li>
+                            <li><a href="configureInfo.html">개인정보 수정</a></li>
+                            <li><a href="zzim.html">찜목록</a></li>
+                            <li><a href="service.html">고객센터</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+    <div class="bodyBundle">
+        <div class="bodyCover"><!--on--></div>
+        <div class="pictEditor inDetail"><!-- on -->
+            <div id="editor_title">사진 추가</div>
+            <ul class="pictList">
+                <li class="_addPic"><img src="img/dog1.jpg" alt="img1"/>
+                    <button class="picRmv btn">─</button>
+                </li>
+                <li class="_addPic"><img src="img/dog2.JPG" alt="img1"/>
+                    <button class="picRmv btn">─</button>
+                </li>
+                <li class="_addPic"><img src="img/dog3.JPG" alt="img1"/>
+                    <button class="picRmv btn">─</button>
+                </li>
+                <li class="_addPic"><img src="img/dog4.jpg" alt="img1"/>
+                    <button class="picRmv btn">─</button>
+                </li>
+                <li class="_addPic"><img src="img/dog5.jpg" alt="img1"/>
+                    <button class="picRmv btn">─</button>
+                </li>
+                <li class="_addPic"><!--<img id="profileImg" src="" altl=""/>-->
+                    <label class="picAdd">+<input type="file" id="upload" accept="image/*"></label>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="wiDTh1o24">
+        <!-- header.jsp end -->
+        <section id="img_slide_area">
+            <div id="call_eitor_title">+</div>
+            <div class="imgSlide">
+                <img src="img/dog1.jpg" alt="PICTURE">
+                <img src="img/dog2.jpg" alt="PICTURE">
+                <img src="img/dog4.jpg" alt="PICTURE">
+            </div>
+            <div class="arrowBtn left"><i class="fa fa-chevron-left"></i></div>
+            <div class="arrowBtn right"><i class="fa fa-chevron-right"></i></div>
+        </section>
+        <section id="simple_info_area">
+            <ul>
+                <!-- 여기에 없는 글자들은 전부 css의  before_after을 사용한 부분입니다. -->
+                <!--  각 부분마다 input 박스를 넣고 아이디 안겹치게 잘 지정해주시면 될꺼같습니다. -->
+                <li id="_name" ><input id="nameInput" type="text" placeholder="장소,업소 이름"></li>
+                <li id="_category">
+                    <select id="categories">
+                        <option data-categoryNo="">관광</option>
+                        <option data-categoryNo="">축제</option>
+                        <option data-categoryNo="">공연/연극</option>
+                        <option data-categoryNo="">맛집/술집</option>
+                        <option data-categoryNo="">오락</option>
+                        <option data-categoryNo="">레저/스포츠</option>
+                        <option data-categoryNo="">제조/공예</option>
+                        <option data-categoryNo="">카페</option>
+                        <option data-categoryNo="">이벤트룸</option>
+                    </select>
+                    <input id="sub_categories" type="text" name="subCategorie" placeholder="(예:코인노래방, VR룸)" required>
+                </li>
+                <li id="_address">
+                    <input type="text" id="full_addr" readonly onclick="searchMapByAddr()" placeholder="주소입력">
+                    <button id="search_addr" class="btn" onclick="searchMapByAddr()"><i class="fas fa-search"></i></button>
+                </li>
+
+                <hr/>
+
+                <li id="_dayoff"><input type="text" placeholder="휴무일"></li>
+                <li id="_opTime">
+                    <select class="opTimeAmPm">
+                        <option>오전</option>
+                        <option>오후</option>
+                    </select>
+                    <select class="opTimeHour" id="hourFrom"></select>시
+                    <select class="opTimeMin" id="minFrom"></select>분 ~
+                    <select class="opTimeAmPm">
+                        <option>오전</option>
+                        <option>오후</option>
+                    </select>
+                    <select class="opTimeHour" id="hourTo"></select>시
+                    <select class="opTimeMin" id="minTo"></select>분
+                </li>
+                <li id="_budget">
+                    <input class="budget" id="budgetMin" type="text" placeholder="최저"> 원 ~
+                    <input class="budget" id="budgetMax" type="text" placeholder="최고"> 원
+                    <i class="fas fa-question-circle"></i>
+                </li>
+                <li id="_option_price_list">
+                    <ul>
+                        <li data-optionNo="">
+                            <input type="text" class="optionName" name="optionName" placeholder="메뉴" value="주중요금">
+                            <input type="text" class="optionPrice" name="optionPrice" placeholder="가격/이용요금" value="5,000"> 원<!--
+                            --><button class="priceOption priceRmv btn on">-</button><button class="priceOption priceAdd btn">+</button>
+                        </li>
+                        <li data-optionNo="">
+                            <input type="text" class="optionName" name="optionName" placeholder="메뉴">
+                            <input type="text" class="optionPrice" name="optionPrice" placeholder="가격/이용요금"> 원<!--
+                            --><button class="priceOption priceRmv btn">-</button><button class="priceOption priceAdd btn on">+</button>
+                        </li>
+                    </ul>
+                </li>
+
+                <hr/>
+
+                <li id="_facility_list">
+                    <ul>
+                        <!-- 아직 아이콘 다 안바꿨어요 ㅇㅅㅇ)9 -->
+                        <li class="facilityBox on"><div><i class="fa fa-wifi"></i><p>WIFI</p></div></li>
+                        <li class="facilityBox on"><div><i class="fa fa-car"></i><p>주차/발렛</p></div></li>
+                        <li class="facilityBox"><div><i class="fa fa-car"></i><p>화장실</p></div></li>
+                        <li class="facilityBox"><div><i class="fa fa-car"></i><p>음수대</p></div></li>
+                        <li class="facilityBox"><div><i class="fa fa-car"></i><p>간식제공</p></div></li>
+                        <li class="facilityBox"><div><i class="fa fa-car"></i><p>노키즈존</p></div></li>
+                        <li class="facilityBox"><div><i class="fa fa-car"></i><p>콜키지</p></div></li>
+                        <li class="facilityBox"><div><i class="fa fa-car"></i><p>흡연실</p></div></li>
+                        <li class="facilityBox on pet"><div><i class="fa fa-paw"></i><p>반려동물동반</p></div></li>
+                        <li class="facilityBox"><div><i class="fa fa-car"></i><p>짐보관</p></div></li>
+                        <li class="facilityBox"><div><i class="fa fa-car"></i><p>개인콘센트</p></div></li>
+                        <li class="facilityBox"><div><i class="fa fa-car"></i><p>충전기대여</p></div></li>
+                        <li class="facilityBox"><div><i class="fa fa-car"></i><p>탈것대여</p></div></li>
+                        <li class="facilityBox"><div><i class="fa fa-car"></i><p>놀이방</p></div></li>
+                    </ul>
+                </li>
+            </ul>
+            <div id="map_area">
+                <div id="minimap_area"> M A P</div>
+                <span class="map_info map_info_first">주소를 모르신다구요?</span>
+                <span class="map_info map_info_second">지도에서 원하는 위치를 클릭하세요!</span>
+                <div id="clickLatlng"></div>
+            </div>
+        </section>
+        <section id="detail_info_area">상세보dd기
+
+        </section>
+        <button class="submit btn">완료</button>
+    </div>
+    <!-- footer.jsp start -->
+</div>
+<footer>
+    <div class="wiDTh1o24">
+
+    </div>
+</footer>
+<!-- footer.jsp end -->
+
+<!-- 백단에서 ajax로 템플릿 처리할것 -->
+<!--사진 template-->
+<script type="text/template" id="pic_tmp">
+    <li class="_addPic"><img src="img/dog4.jpg" alt="img1"/>
+        <button class="rmv btn">-</button>
+    </li>
+</script>
+
+<!-- 메뉴 template -->
+<script type="text/template" id="menu_tmp">
+    <li data-optionNo="">
+        <input type="text" class="optionName" name="optionName" placeholder="메뉴" value="">
+        <input type="text" class="optionPrice" name="optionPrice" placeholder="가격/이용요금" value=""> 원<!--
+        --><button class="priceOption priceRmv btn on">-</button><button class="priceOption priceAdd btn">+</button>
+    </li>
+</script>
+
+<!-- 메뉴추가 template -->
+<script type="text/template" id="menu_add_tmp">
+    <li data-optionNo="">
+        <input type="text" class="optionName" name="optionName" placeholder="메뉴" value="">
+        <input type="text" class="optionPrice" name="optionPrice" placeholder="가격/이용요금" value=""> 원<!--
+        --><button class="priceOption priceRmv btn">-</button><button class="priceOption priceAdd btn on">+</button>
+    </li>
+</script>
+
+<script src="js/jquery.min.js"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2f7c350955a20559cfcb4fe15bd5160e&libraries=services"></script>
+<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
+<script src="js/slick.js"></script>
+<script src="js/underscore-min.js"></script>
+<script src="js/jquery.caret.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/jquery.tag-editor.min.js"></script>
+<script src="js/moment.js"></script>
+<script src="js/default.js"></script>
+<script>
+
+    //상세요금 추가, 삭제
+    var menuAddTmp = _.template($("#menu_add_tmp").html());
+
+    $('#_option_price_list ul').on('click', '.priceAdd', function(){
+        var markup = menuAddTmp({
+        });
+        $('#_option_price_list ul').append(markup);
+        $(this).parent().find('.priceRmv').addClass('on');
+        $(this).parent().find('.priceAdd').removeClass('on');
+        return false;
+    });
+
+    $('#_option_price_list ul').on('click', '.priceRmv', function(){
+        $(this).parent().remove();
+        return false;
+    });
+
+    //운영시간
+    var i=0;
+    for(i=0; i <60; i+=10){
+        var option = $('<option>').text(i);
+        $('.opTimeMin').append(option);
+    }
+    for(i=1; i <=12; i++){
+        var option = $('<option>').text(i);
+            $('.opTimeHour').append(option);
+    }
+
+    //이미지 슬라이드 slick
+    $('.imgSlide').slick({
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        speed: 1500,
+        nextArrow: $(".arrowBtn.right"),
+        prevArrow: $(".arrowBtn.left"),
+        autoplay: true,
+        autoplaySpeed: 2000,
+        dots:true
+    });
+
+    //지도 api
+    var container = document.getElementById('minimap_area'); //지도를 담을 영역의 DOM 레퍼런스
+    var options = { //지도를 생성할 때 필요한 기본 옵션
+        center: new daum.maps.LatLng(37.48107255041048, 126.95216526775093), //지도의 중심좌표.
+        level: 4 //지도의 레벨(확대, 축소 정도)
+    };
+
+    var map = new daum.maps.Map(container, options); //지도 생성 및 객체 리턴
+
+    var geocoder = new daum.maps.services.Geocoder();
+
+    var marker = new daum.maps.Marker({
+        // 지도 중심좌표에 마커를 생성합니다
+        position: map.getCenter()
+    });
+
+    // 지도에 마커를 표시합니다
+    marker.setMap(map);
+
+    // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
+    daum.maps.event.addListener(map, 'click', function(mouseEvent) {
+        searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
+            if (status === daum.maps.services.Status.OK) {
+
+                // 마커를 클릭한 위치에 표시합니다
+                marker.setPosition(mouseEvent.latLng);
+                marker.setMap(map);
+
+                //도로명주소
+                var roadAddress = !!result[0].road_address?result[0].road_address.address_name:'';
+                var extraAddr = '';
+
+                console.log(result[0]);
+
+                //만약 도로명주소가 있다면 " (법정동명, 건물명)"
+                if(result[0].address !== null)
+                    extraAddr = " (" + result[0].address.region_3depth_name;
+                if(result[0].road_address !== null && result[0].road_address.building_name !== "")
+                    extraAddr += ", " + result[0].road_address.building_name + ")";
+                else
+                    extraAddr += ")"
+
+                // 인포윈도우에 클릭한 위치에 대한 도로명주소나 법정동 상세 주소정보를 표시합니다
+                if(roadAddress==''){
+                    $('#full_addr').val(result[0].address.address_name);
+                }else{
+                    $('#full_addr').val(roadAddress + extraAddr);
+                }
+            }
+        });
+    });
+
+    function searchAddrFromCoords(coords, callback) {
+        // 좌표로 행정동 주소 정보를 요청합니다
+        geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
+    }
+
+    function searchDetailAddrFromCoords(coords, callback) {
+        // 좌표로 법정동 상세 주소 정보를 요청합니다
+        geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+    }
+
+/*
+    //주소기준(키워드나 카테고리x)로 지도검색해서 마커표시
+    $('#search').click(function () {
+        geocoder.addressSearch($('#full_addr').val(), function(result, status) {
+
+            // 정상적으로 검색이 완료됐으면
+            if (status === daum.maps.services.Status.OK) {
+                var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+
+                marker.setMap(null);
+
+                marker = new daum.maps.Marker({
+                });
+
+                // 결과값으로 받은 위치를 마커로 표시합니다
+                marker = new daum.maps.Marker({
+                    map: map,
+                    position: coords
+                });
+
+
+                //검색어의 법정동 상세 주소정보를 주소에 입력
+                $('#full_addr').val(result[0].address.address_name);
+
+                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                map.setCenter(coords);
+            }
+        });
+    })
+*/
+
+    //다음 우편 api를 사용해서 얻어오는 주소와 latlng
+    function searchMapByAddr() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var fullAddr = data.address; // 최종 주소 변수
+                var extraAddr = ''; // 조합형 주소 변수
+
+                // 기본 주소가 도로명 타입일때 조합한다.
+                if(data.addressType === 'R'){
+                    //법정동명이 있을 경우 추가한다.
+                    if(data.bname !== ''){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있을 경우 추가한다.
+                    if(data.buildingName !== ''){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                }
+
+                // 주소 정보를 해당 필드에 넣는다.
+                document.getElementById("full_addr").value = fullAddr;
+                // 주소로 상세 정보를 검색
+                geocoder.addressSearch(data.address, function(results, status) {
+                    // 정상적으로 검색이 완료됐으면
+                    if (status === daum.maps.services.Status.OK) {
+
+                        var result = results[0]; //첫번째 결과의 값을 활용
+
+                        // 해당 주소에 대한 좌표를 받아서
+                        var coords = new daum.maps.LatLng(result.y, result.x);
+                        // 지도를 보여준다.
+                        //mapContainer.style.display = "block";
+                        //map.relayout();
+
+                        marker.setMap(null);
+
+                        marker = new daum.maps.Marker({
+                        });
+
+                        // 결과값으로 받은 위치를 마커로 표시합니다
+                        marker = new daum.maps.Marker({
+                            map: map,
+                            position: coords
+                        });
+
+                        // 지도 중심을 변경한다.
+                        map.setCenter(coords);
+                        // 마커를 결과값으로 받은 위치로 옮긴다.
+                        marker.setPosition(coords)
+                    }
+                });
+            }
+        }).open();
+    }
+
+    $('.bodyCover').click(function () {
+        $('.bodyCover').removeClass('on');
+        $('.pictEditor').removeClass('on');
+    });
+
+    //사진추가 div
+    $('#call_eitor_title').click(function () {
+        $('.bodyCover').addClass('on');
+        $('.pictEditor').addClass('on');
+        return false;
+    });
+
+    //사진추가 '-'클릭시
+    $('._addPic').on('click', '.picRmv', function () {
+        $(this).parent().remove();
+    });
+
+    //편의시설 토글클래스 'on'
+    $('.facilityBox').click(function () {
+        $(this).toggleClass('on');
+    });
+
+    $('.picAdd').on('click', function () {
+        console.log("사진 추가 버튼 클릭")
+    });
+
+    $('#upload').click(function () {
+        console.log("업로드 클릭");
+        //return false;
+    })
+
+    /////////////////////////////////////////////////////////////////
+    //사진 추가
+
+    var $upload = $("#upload");
+
+    //파일이름(input type=hidden)
+    //var $profile = $("#profile");
+
+    //업로드된 이미지 보여주는 img요소
+    var $profileImg = $("#profileImg");
+
+    //var $profileBox = $("#profileBox");
+
+    //업로드의 이미지가 변경되면
+    $upload.change(uploadProfile);
+
+    //파일 업로드 함수
+    function uploadProfile() {
+
+        var data = new FormData();
+
+        var file = $upload.get(0).files[0];
+
+        data.append('upload', file);
+
+        $.ajax({
+            url : '/ajax/upload',
+            type : "post",
+            dataType : "json",
+            data : data,
+            processData : false,
+            contentType : false,
+            success : function(json) {
+
+                //$profile.val(json.name);
+
+                $profileImg.attr("src", "/upload/" + json.name);
+
+                //profileCheck = true;
+
+                //$profileBox.removeClass("no_image");
+
+            },
+            error : function(jqXHR, textStatus, errorThrown) {
+
+                alert(textStatus);
+            }
+        });
+    }
+/*
+    $(".delete").click(function() {
+        //$profileBox.addClass("no_image");
+        //$profile.val("");
+        $upload.val("");
+        $profileImg.attr("src", "");
+        profileCheck = false;
+    });
+*/
+
+    var $tag = $("input[name=subCategorie]");
+    $tag.tagEditor({
+        //initialTags: ['#교육'], // 초기 입력
+        maxTags: 5,
+        maxLength: 10,
+        delimiter: ', ', /* space and comma */
+        placeholder: '관련 태그를 입력 하세요',
+        onChange: function(field, editor, tags) {
+            console.log(tags);
+            console.log(field);
+        },
+        beforeTagSave: function(field, editor, tags, tag, val) {
+
+            // $('#response').prepend('Tag ' + val + ' saved' + (tag ? ' over ' +
+            // tag : '') + '.');
+            // 특수문자를 제외하고 태그를 반환 하도록
+            var replace = val.replace(/[^a-z0-9ㄱ-힣]/gi, '');
+            if (replace.length > 0) {
+                console.log(replace);
+                //getTagIdOrInsert(replace);
+
+                return '#' + replace;
+            }
+
+        },
+        beforeTagDelete: function(field, editor, tags, val) {
+            // 삭제된 태그는 인풋에서 제외
+            $.each($('input[name=tags]'), function(idx) {
+                console.log(idx, $('input[name=tags]')[idx]);
+                var $thisTagInput = $($('input[name=tags]')[idx]);
+                if ($thisTagInput.data('tag') == val) {
+                    $thisTagInput.remove();
+                }
+            })
+        },
+        autocomplete: { // 자동 완성
+            delay: 500, // show suggestions immediately
+            position: {
+                collision: 'down'
+            }, // automatic menu position up/down / flip
+            source: function(request, response) {
+                console.log("request",request);
+                $.ajax({
+                    url: "ajax/getTagList.json",
+                    dataType: "json",
+                    data: {"name" : request.term},
+                    success: function(data) {
+                        console.log(data);
+                        // 입력한 태그가 포함된 단어를 검색하여 리턴 받고
+                        // 자동완성 창에 보여준다
+                        /*
+                         * var matcher = new RegExp("^" +
+                         * $.ui.autocomplete.escapeRegex(request.term), "i");
+                         * response($.grep(data, function(item) { return
+                         * matcher.test(item.name); }).slice(0, 10));
+                         */
+                        var matcher = new RegExp("^" +
+                            $.ui.autocomplete.escapeRegex(request.term), "i");
+                        response($.grep(data, function(item) {
+                            //console.log(item);
+                            return matcher.test(item); }).slice(0, 10));
+
+                        /*
+                        // 태그 테이블 리스트 중에서 네임만 골라서 자동 완성 되도록
+                        var tags = $.map(data, function(item) {
+                            console.log(item.name);
+                            return item.name
+                        });
+                        console.log(tags);
+                        response(tags);
+                        */
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus);
+                    }
+                });
+            }, // end source
+            open: function(event, ui) {
+                $(this).autocomplete("widget").width("300px");
+
+            }, // end open
+            create: function() {
+                // access to jQuery Autocomplete widget differs depending
+                // on jQuery UI version - you can also try .data('autocomplete')
+            }// end create
+        }
+// end autocomplete
+    });
+</script>
+</body>
+</html>

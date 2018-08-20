@@ -1,0 +1,377 @@
+
+/*임시*/
+header{
+    background-color:#EEEEEE;
+    /* margin-bottom: 10px; */
+    min-height: 90px;
+}
+header .wiDTh1o24{
+	height:90px;
+    line-height:80px;
+}
+
+header .logoBox{
+    height:90px;
+}
+
+header .logoBox a{
+    display:inline-block;
+}
+header .logoImg{
+    display:inline-block;
+    width:150px;
+    height:80px;
+	margin-top:5px;
+}
+.simpSearch{
+    display:inline-block;
+
+    padding-left:30px;
+}
+.simpSearch>*{
+    vertical-align: middle;
+}
+.simpSearch>input[type="text"]{
+    width:300px;
+    border: none;
+    border-bottom:2px solid black;
+    padding:5px 7.5px;
+    padding-right:0px;
+
+    background-color:transparent;
+
+    line-height: 25px;
+    font-size: 15px;
+}
+.simpSearch>input[type="text"]:focus{
+    outline: none;
+}
+
+.simpSearch>#simple_search_btn{
+    width: auto;
+    height: auto;
+    background: none;
+    border: none;
+    font-size: 25px;
+
+    cursor:pointer;
+}
+#navBar{
+
+}
+#navBar>li{
+    float:left;
+    line-height: 90px;
+    height:90px;
+
+    text-align:center;
+}
+#navBar>li:nth-child(1) {
+	line-height: 94px;
+    font-weight: bold;
+}
+#navBar .navBtn{
+    display:block;
+    border:none;
+    width:90px;
+    height:90px;
+
+    font-size:20px;
+
+    background-color:#EEEEEE;
+
+    transition:0.3s ease;
+    cursor:pointer;
+
+}
+#navBar .navBtn:hover{
+    background-color:#FFFFFF;
+}
+
+#navBar .userImg{
+    width:60px;
+    height:60px;
+    border-radius: 30px;
+
+    margin:0px 7.5px;
+}
+#navBar .userImg, #navBar .moreBtn{
+    vertical-align:middle;
+}
+
+
+#navBar .nolgoAdd{
+    display:inline-block;
+
+    height:20px;
+    line-height:20px;
+    font-size:18px;
+    border-radius:3px;
+    margin-right:15px;
+
+    transition:0.2s ease;
+}
+
+#navBar .nolgoAdd:hover{
+    transform: scale(1.2);
+}
+#navBar .moreWrapper{
+    position:relative;
+}
+#navBar .moreBtn{
+    width:50px;
+    height:50px;
+    border:none;
+    border-radius: 25px;
+    margin-right:7.5px;
+
+    font-size:25px;
+
+    background-color:transparent;
+
+    transition: 0.2s ease;
+    cursor:pointer;
+}
+#navBar .moreBtn:hover{
+    background-color:white;
+}
+
+#navBar .subList{
+    display : none;
+
+    position:absolute;
+    right:0px;
+    top:85px;
+    width:150px;
+    background-color:#424242DD;
+     border-radius: 4px;
+    z-index: 9999;
+}
+#navBar .subList::before{
+    position :absolute;
+    right:23px;
+    top:-30px;
+    border:10px solid transparent;
+    border-top:15px solid transparent;
+    border-bottom:15px solid #424242DD;
+    content:"";
+}
+#navBar .subList>li{
+    font-size:15px;
+    height:25px;
+    line-height:25px;
+    cursor:pointer;
+    padding:4px;
+}
+#navBar .subList>li>a{
+    color:#FAFAFA;
+    display:block;
+    transition: 0.2s ease;
+}
+#navBar .subList>li>a:hover{
+    background-color:#FAFAFA;
+    color:#424242;
+    cursor:pointer;
+}
+
+/*--------------------------기원:header------------------------------------*/
+
+.fullContainer{
+    position:relative;
+}
+.bodyCover, .popPictEditor{
+    display: none;
+}
+.bodyCover.on, .popPictEditor.on{
+    /*
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 9998;
+  */
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: #333333c9;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    overflow: auto;
+}
+
+.pictEditor{
+    position: absolute;
+    margin-top: 100px;
+    display: none;
+    width:700px;
+    left: 50%;
+    margin-left: -370px;
+    z-index: 9999;
+}
+.pictEditor.on{
+    display: block;
+}
+.pictEditor.inDetail{
+    background: white;
+    border-radius: 10px;
+    padding:20px;
+}
+/* Writer___________B__180629 */
+.wrapLoginForm{
+    margin: 0 auto;
+    margin-top: 100px;
+    padding-bottom:20px;
+    padding-top:45px;
+    width: 500px;
+    background: white;
+    border-radius: 5px;
+    z-index: 9999;
+    color : #0e173aE6;
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    
+    text-align:center;
+} 
+.wrapLoginForm legend{
+	display:none;
+}
+.wrapLoginForm h3{
+    text-align: center;
+    line-height:40px;
+    font-size:35px;
+    font-weight:900;
+    color : #0e173a;
+    
+    margin-top:17px;
+}
+.wrapLoginForm span.inLoginForm{
+	margin-top:5px;
+}
+.wrapLoginForm .inLoginForm{
+	display:block;
+	width:380px;
+	height:40px;
+	line-height:40px;
+	margin:auto;
+	
+	margin-bottom:5px;
+}
+
+.wrapLoginForm input[type="text"].inLoginForm, .wrapLoginForm input[type="password"].inLoginForm{
+    display: block;
+    border: 2px solid #cccccc;
+    border-radius:6px;
+    font-size: 25px;
+    line-height: 25px;
+    padding: 4px 12px;
+    padding-left:20px;
+    
+    text-align:left;
+}
+
+.wrapLoginForm input[type="text"].inLoginForm::placeholder, .wrapLoginForm input[type="password"].inLoginForm::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #ff7779;
+    opacity: 0.8; /* Firefox */
+}
+
+.wrapLoginForm input[type="text"].inLoginForm:-ms-input-placeholder, .wrapLoginForm input[type="password"].inLoginForm:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #ff7779;
+    opacity:0.8;
+}
+
+.wrapLoginForm input[type="text"].inLoginForm::-ms-input-placeholder , .wrapLoginForm input[type="password"].inLoginForm::-ms-input-placeholder { /* Microsoft Edge */
+    color: #ff7779;
+    opacity:0.8;
+}
+.loginForm .wrapLoginForm button{
+	font-size:20px;
+	font-weight:900;
+	cursor:pointer;
+	
+	width:calc(380px + 24px + 4px + 8px);
+	border-radius:3px;
+
+	transition:0.2s ease;
+}
+.wrapLoginForm button:hover{
+	background:#ff7779B3;
+}
+#loginBtn{
+	box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.16), -2px 2px 10px 0 rgba(0, 0, 0, 0.12);
+	margin-top:23px;
+	height:45px;
+}
+.wrapLoginForm .bundle{
+	width:calc(380px + 24px + 4px + 8px);
+	margin-top:20px;
+	margin-bottom:0px;
+	
+}
+.wrapLoginForm .bundle::after{
+	clear:both;
+}
+.loginForm .wrapLoginForm .bundle>button{
+	display:inline-block;
+	
+	width:calc(50% - 2px);
+	height:40px;
+	border-radius:0px;
+	
+	font-size:16px;
+	font-weight:300;
+	text-align:center;
+	vertical-align:middle;
+}
+.loginForm .bar{
+    display: inline-block;
+    overflow: hidden;
+    width: 0;
+    height: 26px;
+    margin: -1px 0px 0px 0px;
+    border-left: 1px solid #eaeaea;
+    vertical-align: middle;
+}
+
+
+
+
+.nonDeco{
+    background: none;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    display: inline;
+}
+/* //B 0629 */
+/* Writer___________B__180620 */
+header input[type="button"],button{
+	padding:0px;
+}
+
+/* Writer___________B__180622 */
+/*로그인 실패시 뜨는 메시지*/
+.wrapLoginForm .loginFail{
+	display:none;
+	font-weight:900;
+	text-align:center;
+	color:#FF1744;
+	
+	margin-top:0px;
+	margin-bottom:-20px;
+}
+/* Writer___________B__180624 */
+/* 숨기기*/
+.off{
+	display:none;
+}
+
+/* Writer___________B__180624 */
+
+header a{
+	text-decoration: none;
+    color: black;
+}

@@ -1,0 +1,47 @@
+/*map.css로 따로 빼서 재사용할만한 부분*/
+#map_area{
+    width: 310px;
+    border-radius: 4px;
+    display: inline-block;
+}
+#minimap_area{
+    width: 310px;
+    min-height: 550px;
+    background: gold;
+    border-radius: 4px;
+    display: inline-block;
+    vertical-align: top;
+}
+.map_info{
+    display: block;
+    width: 310px;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.map_info_first{
+    font-size: 24px;
+    padding: 20px 0 8px 0;
+}
+
+#full_addr{
+    height: 32px;
+    font-size: 18px;
+}
+#full_addr{
+    width: 550px;
+    margin-top: 13px;
+}
+
+#search_addr{
+    position: relative;
+    width: 44px;
+    height: 44px;
+    margin-top: 13px;
+    margin-left: 5px;
+}
+
+
+
+/* // */

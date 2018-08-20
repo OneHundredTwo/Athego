@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<!-- 스키마 no NUMBER NOT NULL, /* 번호 */ email VARCHAR2(100) NOT NULL, /* 이메일 
+	*/ password VARCHAR2(16) NOT NULL, /* 비밀번호 */ nickname VARCHAR2(30) NOT NULL, 
+	/* 닉네임 */ birthdate DATE, /* 생년월일 */ phone VARCHAR2(13), /* 전화번호 */ gender 
+	CHAR(1), /* 성별 */ introduce VARCHAR2(400), /* 소개말 */ profile VARCHAR2(40), 
+	/* 프로필사진 */ cover VARCHAR2(40), /* 커버사진 */ is_confirm NUMBER(1) NOT NULL, 
+	/* 인증여부 */ role NUMBER(2) NOT NULL, /* 관리자여부 */ follower_cnt NUMBER NOT NULL, 
+	/* 팔로워 수 */ following_cnt NUMBER NOT NULL, /* 팔로잉 수 */ regdate TIMESTAMP 
+	NOT NULL /* 등록날짜 */ -->
+<!-- 테이블 필드이름 no,email,password,nickname,birthdate,phone,gender,introduce,profile,cover,is_confirm,role,follower_cnt,following_cnt,regdate -->
+<!-- VO 멤버필드이름 no,email,password,nickname,birthdate,phone,gender,introduce,profile,cover,isConfirm,role,followerCnt,followingCnt,regdate -->
+<mapper namespace="users">
+	<select id="selectOne" resultType="User" parameterType="int">
+		SELECT
+		no,email,password,nickname,birthdate,phone,gender,introduce,profile,cover,is_confirm,role,follower_cnt
+		followerCnt,following_cnt followingCnt,regdate
+		FROM users
+		WHERE no =
+		#{no}
+	</select>
+	<!-- 아래꺼 $로 시작하길래 #으로 바꿨습니다 - 0626기원 => 다시보니까 여러개가 $로 시작하네요. 이건 의도한건지 모르겠으므로 
+		그냥 두겠습니다. - 0626기원 -->
+	<select id="selectFlwData_A" resultType="FollowList"
+		parameterType="int">
+		select no followUNo, nickname followUNickN, profile
+		followUPic
+		form users
+		where no = ${no}
+	</select>
+	<select id="selectIntroduce_A" resultType="String"
+		parameterType="int">
+		SELECT introduce
+		FROM users
+		WHERE no = #{no}
+	</select>
+	<update id="updateUserTxtInfo_A" parameterType="User">
+		UPDATE users
+		SET
+		cover = ${cover}, profile = ${profile}, nickname=${nickname},
+		introduce = ${introduce}
+		WHERE no = #{no}
+	</update>
+	<update id="updateFlwingCntDown_A" parameterType="int">
+		UPDATE users
+		SET followingCnt = followingCnt-1
+		WHERE no = ${pickedUser}
+	</update>
+	<update id="updateFlwingCntUp_A" parameterType="int">
+		UPDATE users
+		SET
+		followingCnt = followingCnt+1
+		WHERE no = ${pickedUser}
+	</update>
+	<update id="updateFlwerCntDown_A" parameterType="int">
+		UPDATE users
+		SET
+		followingCnt = followerCnt-1
+		WHERE no = ${loginUserNo}
+	</update>
+	<update id="updateFlwerCntUp_A" parameterType="int">
+		UPDATE users
+		SET
+		followingCnt = followerCnt+1
+		WHERE no = ${loginUserNo}
+	</update>
+
+
+	<!-- 기원 START -->
+	<!-- 0622 -->
+	<select id="selectOne_B" resultType="User" parameterType="int">
+		SELECT
+		no,email,password,nickname,birthdate,phone,gender,introduce,profile,cover,is_confirm,role,follower_cnt,following_cnt,regdate
+		FROM users
+		WHERE no = #{no}
+	</select>
+
+	<select id="selectLogin_B" resultType="User"
+		parameterType="User">
+		SELECT
+		no,email,password,nickname,birthDate,phone,gender,introduce,profile,cover,is_confirm isConfirm,role,follower_cnt followerCnt,following_cnt followingCnt, regdate
+		FROM users
+		WHERE email=#{email} AND password=#{password}
+	</select>
+
+
+	<!-- 0623 -->
+	<!--USERS LIKE 검색: 검색 대상필드 - 닉네임, 소갯말, 관심지역, 관심사, 등록태그 -->
+	<!-- order by - 지금은 따로 필터가 없어서 regdate, 이것도 정렬순서 바꾸려면 동적쿼리쓰고, 필터값 추가해야함. -->
+	<select id="selectListBySearchParams_B" resultType="User"
+		parameterType="SearchVO">
+		SELECT
+		NO,EMAIL,PASSWORD,NICKNAME,BIRTHDATE,PHONE,GENDER,INTRODUCE,PROFILE,COVER,
+		ISCONFIRM,ROLE, FOLLOWERCNT,
+		FOLLOWINGCNT,REGDATE, addNolgoCnt, wrritenReviewCnt
+		FROM
+		(
+		SELECT
+		NO,EMAIL,PASSWORD,NICKNAME,BIRTHDATE,PHONE,GENDER,INTRODUCE,PROFILE,COVER,
+		ISCONFIRM,ROLE, FOLLOWERCNT,
+		FOLLOWINGCNT,REGDATE, addNolgoCnt, wrritenReviewCnt, ROWNUM R
+		FROM
+		(
+		SELECT
+		NO,EMAIL,PASSWORD,NICKNAME,BIRTHDATE,PHONE,GENDER,INTRODUCE,PROFILE,COVER,IS_CONFIRM
+		ISCONFIRM,ROLE,FOLLOWER_CNT FOLLOWERCNT,FOLLOWING_CNT
+		FOLLOWINGCNT,REGDATE,
+		(SELECT COUNT(*) FROM NOLGOS WHERE USER_NO = USERS.NO) addNolgoCnt,
+		(SELECT COUNT(*) FROM REVIEWS WHERE USER_NO = USERS.NO) wrritenReviewCnt
+		FROM USERS WHERE NO IN(
+		SELECT DISTINCT NO FROM USERS U,
+		(SELECT USER_NO U_NO, CONTENT T_CONT FROM TAGS) T,
+		(SELECT C.NAME IC_NAME, USER_NO U_NO FROM INTEREST_CATEGORIES IC, CATEGORIES
+		C WHERE CATEGORY_NO = C.NO) IC,
+		(SELECT L.DEPTH1 || ' ' || L.DEPTH2 || ' ' || L.DEPTH3 LOC, IL.USER_NO U_NO
+		FROM INTEREST_LOCATIONS IL, LOCATIONS L WHERE IL.LOCATION_NO = L.NO)
+		IL WHERE U.NO = T.U_NO(+) AND U.NO = IC.U_NO(+) AND U.NO = IL.U_NO(+)
+		AND(
+		NICKNAME LIKE '%' || #{keyword} || '%'
+		OR INTRODUCE LIKE '%' || #{keyword} || '%'
+		OR T_CONT LIKE '%' || #{keyword} || '%'
+		OR IC.IC_NAME LIKE '%' || #{keyword} || '%'
+		OR IL.LOC LIKE '%' || #{keyword} || '%'
+		)
+		)
+		ORDER BY regdate
+		)
+		)
+		WHERE r BETWEEN #{start} AND #{end}
+	</select>
+	<!-- 0626 -->
+	<select id="selectListBySearchParamsTotalCount_B"
+		resultType="int" parameterType="SearchVO">
+		SELECT COUNT(U.NO) FROM (
+		SELECT
+		DISTINCT NO FROM USERS U,
+		(SELECT USER_NO U_NO, CONTENT T_CONT FROM
+		TAGS) T,
+		(SELECT C.NAME IC_NAME, USER_NO U_NO FROM INTEREST_CATEGORIES
+		IC, CATEGORIES
+		C WHERE CATEGORY_NO = C.NO) IC,
+		(SELECT L.DEPTH1 || ' '
+		|| L.DEPTH2 || ' ' || L.DEPTH3 LOC, IL.USER_NO U_NO
+		FROM
+		INTEREST_LOCATIONS IL, LOCATIONS L WHERE IL.LOCATION_NO = L.NO)
+		IL
+		WHERE U.NO = T.U_NO(+) AND U.NO = IC.U_NO(+) AND U.NO = IL.U_NO(+)
+		AND(
+		NICKNAME LIKE '%' || #{keyword} || '%'
+		OR INTRODUCE LIKE '%' ||
+		#{keyword} || '%'
+		OR T_CONT LIKE '%' || #{keyword} || '%'
+		OR IC.IC_NAME
+		LIKE '%' || #{keyword} || '%'
+		OR IL.LOC LIKE '%' || #{keyword} || '%'
+		)
+		) U
+
+	</select>
+
+	<!-- 기원 END -->
+	<!-- 상준 시작 -->
+	<!-- 회원가입 부분 insert 부분 수행 부분 로그인 비밀번호 비밀번호 확인 닉네임 -->
+	<insert id="insertUser_N" parameterType="User">
+
+		INSERT INTO users(no, email, password, nickname, birthDate, phone,
+		gender, introduce, profile, cover,
+		is_confirm, role, follower_cnt, following_cnt, regdate)
+		VALUES(users_seq.nextval,
+		#{email}, #{password}, #{nickname}, #{birthDate}, #{phone}, #{gender},
+		#{introduce}, #{profile},
+		#{cover}, 1, 1, 0, 0, systimestamp)
+		<selectKey keyProperty="no" resultType="Integer">
+			SELECT users_seq.currval FROM dual
+		</selectKey>
+	</insert>
+
+	<!-- 가입한 유저의 비밀번호를 찾는 구문 -->
+	<select id="selectUserPassowrd_N" resultType="User"
+		parameterType="User">
+		SELECT email
+		FROM users
+		WHERE email = #{email}
+	</select>
+	<update id="updateUserPassword_N" parameterType="User">
+		UPDATE users
+		SET password = #{password}
+		WHERE email = #{email}
+	</update>
+	<!-- 상준 END -->
+	
+	<!-- Writer___________K__180627  -->
+	<select id="selectOneForLogin_K" resultType="User" parameterType="User">
+		SELECT 
+			no,email,password,nickname,birthdate,phone,gender,introduce,profile,cover,
+			is_confirm isConfirm,role,follower_cnt followerCnt,following_cnt followingCnt,regdate
+		FROM users
+		WHERE email = #{email} AND password = #{password}
+	</select>
+	
+	<!-- Writer___________K__180630  -->
+	<!-- no, email, password, nickname, birthDate, phone, gender, introduce, profile, cover, is_confirm, role, follower_cnt, following_cnt, regdate -->
+	<update id="update_K" parameterType="User">
+		UPDATE users
+		SET email = #{email}, password = #{password}, nickname= #{nickname}, birthDate = #{birthDate},
+		phone = #{phone}, gender=#{gender}, introduce = #{introduce}, profile = #{profile}, cover = #{cover}, is_confirm = #{isConfirm},
+		role = #{role}, follower_cnt = #{followerCnt}, following_cnt = #{followingCnt}
+		WHERE no = #{no}
+	</update>
+</mapper>
