@@ -16,6 +16,6 @@
 ![](https://github.com/OneHundredTwo/Athego/blob/master/img/NolgoDummyCreator_operating.png)
 * 국문 관광정보 서비스 API를 이용해 전국의 관광지 정보를 수집(test프로젝트 NolgoDummyCreator.java)
 * Nolgo 테이블 스키마와 API response 메세지 필드들을 가공하여 Insert문 생성(DB_sql/Nolgos_Base_Data.sql)
-
+* api key의 expire와 수집대상 지역에따라 유연하게 작동하도록 코드 작성 
 
 ### 검색
