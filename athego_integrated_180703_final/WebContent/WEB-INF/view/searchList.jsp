@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>${searchParams.keyword } 검색 결과 - AtheGo?</title>
+<title>${searchParams.keyword }검색 결과 - AtheGo?</title>
 <c:import url="/WEB-INF/view/template/link.jsp"></c:import>
 
 <!-- minimap 관련 css-->
@@ -39,11 +39,12 @@
 	display: none;
 }
 
-.reviewDetail .moreWrapper{
-	display:none;
+.reviewDetail .moreWrapper {
+	display: none;
 }
-.reviewArea .goBtn{
-	float:right;
+
+.reviewArea .goBtn {
+	float: right;
 }
 </style>
 </head>
@@ -88,7 +89,7 @@
 								<option class="defaultOption" value="0"<c:if test="${searchParams.depth2Code==0 }">selected</c:if><%----%>>시/군/구</option>
 								<optgroup label="시/군/구">
 									<c:if test="${searchParams.depth2Code != 0}">
-										<option value="0">${selectedDepth1.depth1} 전체</option>
+										<option value="0">${selectedDepth1.depth1}전체</option>
 									</c:if>
 									<c:set var="selectedDepth2" />
 									<c:forEach items="${depth2List }" var="depth2">
@@ -109,10 +110,11 @@
 								<option class="defaultOption" value="0"<c:if test="${searchParams.depth3Code==0 }">selected</c:if><%----%>>읍/면/동</option>
 								<optgroup label="읍/면/동">
 									<c:if test="${searchParams.depth3Code != 0}">
-										<option value="0">${selectedDepth2.depth2} 전체</option>
+										<option value="0">${selectedDepth2.depth2}전체</option>
 									</c:if>
 									<c:forEach items="${depth3List }" var="depth3">
-										<option value="${depth3.depth3Code }"<c:if test="${searchParams.depth3Code == depth3.depth3Code }">selected</c:if>><%----%>${depth3.depth3}</option>
+										<option value="${depth3.depth3Code }"
+											<c:if test="${searchParams.depth3Code == depth3.depth3Code }">selected</c:if>><%----%>${depth3.depth3}</option>
 									</c:forEach>
 								</optgroup>
 							</select>
@@ -373,19 +375,17 @@
 			<script type="text/template" id="review_item_template" class="tmpl">
 
                         <@_.each(list,function(reviewItem){
-							console.log("review item 1");
+							
 							var review = reviewItem.review;
 							var tags = reviewItem.tags;
 							reviewList.push(reviewItem); // 리뷰상세보기를 위한 글로벌 배열변수에 추가.
-console.log("review item 2");
+
 							@>
-                            <@//미디어가 포함된 리뷰인지 확인하기위한 변수
-console.log("review item 3");@>
+                            <@//미디어가 포함된 리뷰인지 확인하기위한 변수@>
                                 <@ var contentInfo=getContentInfo(review.content);
                                 var isMedia = contentInfo.isMedia; @>
                                     <li class="searchItem reviewItem <@if(isMedia){@>mediaReview<@}@>" data-no="<@=review.no@>">
                                         <span>
-<@console.log("review item 4");@>
                                             <@if(isMedia){ //<!--이미지가 있는 리뷰만 추가되는 div-->
                                                 @>
                                                 <div class="previewImg">
@@ -399,7 +399,6 @@ console.log("review item 3");@>
                                             <@for(var i in tags){@>#<@=tags[i].content@> <@}@>
                                         </span>
                                                         </div>
-<@console.log("review item 5");@>
                                                         <div class="row writeInfoBox">
                                                             <span class="reviewTitle">
                                 <@=review.title@>
@@ -408,11 +407,11 @@ console.log("review item 3");@>
                                                             <i class="fas fa-user-circle"></i> <strong><@=review.wrriter@></strong> <span class="bar"></span> <span class="writeTime"><@=moment(review.regdate,'x').fromNow()@></span>
                                                         </div>
                                                         <div class="row previewBox decoable">
-<@console.log("review item 6");@>
+
 															<@ var tagContent = review.content; 
-console.log(tagContent);
+//console.log(tagContent);
 															var newText = tagContent.replace(/(<([^>]+)>)/ig,"").replace(/&;/ig,"");
-console.log("review item 8");@>
+@>
                                                             <@=contentTextFormatting(newText,isMedia)@>
                                                         </div>
                                                     </div>
@@ -421,10 +420,9 @@ console.log("review item 8");@>
                                     </li>
                                     <@});@>
                     </script>
-                    <!-- 리뷰 상세-->
-	<div class="bodyCover reviewDetail">
-	</div>
-	<!-- -->
+			<!-- 리뷰 상세-->
+			<div class="bodyCover reviewDetail"></div>
+			<!-- -->
 		</div>
 		<script type="text/template" id="reviewDetailTmpl">
 <@ 
@@ -481,33 +479,33 @@ console.log("review item 8");@>
 </div>			
 </script>
 
-<!-- reviewEditor -->
-	<div class="bodyCover reviewEditor">
-		<!-- add on -->
-		<div class="wrapReviewEditor">
-			<div class="modalHeader">
-				<h1 class="modalTitle">리뷰 작성</h1>
-				<button class="close">
-					<i></i>x
-				</button>
-			</div>
-			<div class="modalBody">
-				<form action="" id="review_form">
-					<ul class="modalInputList">
-						<li class="modalSpotInfo"><i class="fas fa-map-marker-alt"></i>&nbsp;${nolgo.name }</li>
-						<li class="modalInputTitle"><input type="text" name="title" id=""
-							placeholder="제목" maxlength="100" required/></li>
-						<li class="modalInputContents"><textarea id="input_contents" name="content"
-								placeholder="내용을 적어주세요"></textarea></li>
-						<li class="modalInputTags"><i class="fas fa-hashtag"></i><input id="input_tags" name="tag"
-								placeholder="내용을 적어주세요"></input></li>
-					</ul>
-					<button class="submit" type="submit">등록</button>
-				</form>
+		<!-- reviewEditor -->
+		<div class="bodyCover reviewEditor">
+			<!-- add on -->
+			<div class="wrapReviewEditor">
+				<div class="modalHeader">
+					<h1 class="modalTitle">리뷰 작성</h1>
+					<button class="close">
+						<i></i>x
+					</button>
+				</div>
+				<div class="modalBody">
+					<form action="" id="review_form">
+						<ul class="modalInputList">
+							<li class="modalSpotInfo"><i class="fas fa-map-marker-alt"></i>&nbsp;${nolgo.name }</li>
+							<li class="modalInputTitle"><input type="text" name="title"
+								id="" placeholder="제목" maxlength="100" required /></li>
+							<li class="modalInputContents"><textarea id="input_contents"
+									name="content" placeholder="내용을 적어주세요"></textarea></li>
+							<li class="modalInputTags"><i class="fas fa-hashtag"></i><input
+								id="input_tags" name="tag" placeholder="내용을 적어주세요"></input></li>
+						</ul>
+						<button class="submit" type="submit">등록</button>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
-		
+
 	</section>
 
 
@@ -730,26 +728,28 @@ console.log("review item 8");@>
 											".totItems strong").text()),
 									template : _.template($frame.find(".tmpl")
 											.html()),
-									loadHeight : liHeight * 2
+									loadHeight : $frame.height()
 								};
 
 								$frame
 										.on(
 												'scroll',
 												function() {
+													console
+															.log({
+																"pre_items" : $ul.find('li').length,
+																"tot_items" : listStatus.totItemCnt,
+																"listStatus" : listStatus,
+																"ul_height" : $ul.height(),
+																"frame_scroll_top" : $frame.scrollTop()
+															});
 													if ($ul.find('li').length < listStatus.totItemCnt) {
-														if ($frame.scrollTop() >= $ul.height
-																- listStatus.loadHeight) {
+														if ($frame.scrollTop() >= $ul.height() - listStatus.loadHeight) {
 															appendNextPage(
 																	listStatus,
 																	$ul,
-																	function(
-																			result) {
-																		$ul
-																				.append(listStatus
-																						.template({
-																							list : result
-																						}));
+																	function(result) {
+																		$ul.append(listStatus.template({list : result}));
 																	});
 														}
 													}
@@ -794,7 +794,9 @@ console.log("review item 8");@>
 					result.reviewsTotalCnt);
 		}
 		//review의 content중에 미디어가 있는지 확인하는 함수
+		var p = 0;
 		function getContentInfo(content) {
+
 			var result = {
 				isMedia : false,
 				src : ""
@@ -813,6 +815,11 @@ console.log("review item 8");@>
 			if (result.isMedia) {
 				result.src = $($content[0]).attr("src");
 			}
+			if (p == 2) {
+				console.log(content)
+				console.log(result);
+			}
+			p++;
 			return result;
 		}
 		function contentTextFormatting(text, isMedia) {
@@ -1181,7 +1188,7 @@ console.log("review item 8");@>
 		//완전 ajax로 다 할것도 아니고, 필터상태가 바뀌면 리스트상태도 바뀌기때문에 다시 검색버튼을 누르는게 아니라면 처음 필터상태로 검색을 해야함.
 		var searchParams = getSearchParams();
 		//처음 페이지로드 될때 통합검색 ajax
-		var reviewList = [/*review json객체가 들어갑니다.*/]; 
+		var reviewList = [/*review json객체가 들어갑니다.*/];
 		// 구현이형이 구현한 리뷰상세보기스크립트를 실행시기위한 review 배열변수.
 		//리뷰리스트 초기화
 		$.ajax({
@@ -1222,7 +1229,8 @@ console.log("review item 8");@>
 
 				//review list 추가
 				var reviewItems = reviewsTmpl({
-					"list" : result.reviewList //템플릿에서 each를 돌때 reviewList에다가 리뷰들을 넣어야겠다.
+					"list" : result.reviewList
+				//템플릿에서 each를 돌때 reviewList에다가 리뷰들을 넣어야겠다.
 				});
 				$("#review_list_area ul").empty().append(reviewItems);
 
@@ -1231,161 +1239,172 @@ console.log("review item 8");@>
 			}
 		});
 	</script>
-	
+
 	<!-- 리뷰 더 보기 관련 스크립트 by  구현이형 -->
 	<script src="/js/ckeditor/ckeditor.js"></script>
 	<script>
-	//리뷰 카드 클릭시
-	var reviewDetailTmpl = _.template($("#reviewDetailTmpl").html());
-	$("#review_list_area ul").on("click", 'li', function () {
-		var reviewNo = $(this).data("no");
-	 	var review;
-		_.each(reviewList, function (each, index) {
-			if (reviewNo == each.review.no) {
-				review = each; //리뷰 모델 변경 ,구현이형 모델로
-			}
-		});
-		$(".bodyCover.reviewDetail").addClass("on");
-		//var review = $(this).data("review");
-		
-		var markup = reviewDetailTmpl({
-			"reviewItem" : review
-		});
-		
-		$('.bodyCover.reviewDetail.on').html(markup);
-		$("body").addClass("modalOpen").css("margin-right",	getScrollBarWidth() + "px");
-	});
-	
-	var $body = $("body");
-	var $reviewEditor = $(".bodyCover.reviewEditor");
-	//바디 클릭시에 더보기 내용 사라짐
-	$body.on("click", function() {
-		//리뷰 우측 더보기 버튼 내용 목록
-		var $subList = $('.reviewArea .moreWrapper .subList');
-		//리뷰 우측 더보기 버튼 내용 목록 삼각형 이미지
-		var $spanTri = $('.reviewArea .moreWrapper span');
-		
-		if ($subList.is(":visible")) {
-			$subList.hide();
-			$spanTri.hide();
-		}
-	});
-	
-	//리뷰 더보기 수정하기
-	$body.on("click", ".reviewDropdownList .modify" , function(e) {
-		e.preventDefault();
-		closeBodyCover();
-		$reviewEditor.addClass("on");			
-		$("body").addClass("modalOpen").css("margin-right",	getScrollBarWidth() + "px");
+		//리뷰 카드 클릭시
+		var reviewDetailTmpl = _.template($("#reviewDetailTmpl").html());
+		$("#review_list_area ul").on(
+				"click",
+				'li',
+				function() {
+					var reviewNo = $(this).data("no");
+					var review;
+					_.each(reviewList, function(each, index) {
+						if (reviewNo == each.review.no) {
+							review = each; //리뷰 모델 변경 ,구현이형 모델로
+						}
+					});
+					$(".bodyCover.reviewDetail").addClass("on");
+					//var review = $(this).data("review");
 
-		var no = $(this).closest(".reviewArea").data("no");
-		var review = _.findWhere(reviewList, {no: no});			
-		
-		//텍스트 교체
-		$reviewEditor.find(".modalTitle").text("리뷰 수정");
-		$reviewEditor.find("button.submit").text("수정");			
-		$review_form.attr("data-review_no", no);
-		$review_form.data("method", "put");
-		
-		//제목 로드
-		$reviewEditor.find(".modalInputTitle>input").val(review.title);
-		//내용 로드
-		CKEDITOR.instances['input_contents'].setData(review.content);
-		//태그 로드
-		_.each(review.tags, function(each, index){
-			$tag.tagEditor('addTag', each.content);	
-		})
-		
-		return false;
-	});//end click modify
-	
-	//리뷰 더보기 삭제하기
-	$body.on("click", ".reviewDropdownList .delete" , function(e) {
-		e.preventDefault();
-		var no = $(this).closest(".reviewArea").data("no");
-		 if(confirm("삭제 하시겠습니까?")) {
-			 $.ajax({
-					url: "/ajax/review/" + no,
-					type: "delete",
-					error: function (xhr, err, code) {
-						alert(err);
-					},
-					success: function (data) {
-						console.log(data);
-						closeBodyCover();
-						showReview();					
-					}						 
-			});//$.ajax() end
-	     }//end confirm
-	});//click delete
-	
-	//리뷰 라이크버튼 이벤트
-	
-	/* GO (좋아요) 관련*/
-		var $goBtn = $(".goBtn");
-		$body.on("click", ".goBtn",function() {
-			console.log("goBtn");
-			var contentType = $(this).data("content_type");
-			var contentNo = $(this).data("content_no");
-			
-			var method = $(this).hasClass("on") == true ? "DELETE" : "POST";
+					var markup = reviewDetailTmpl({
+						"reviewItem" : review
+					});
 
-			modifyGo(contentType, contentNo, method, $(this));
-			
-			return false;
-		})
-		
-		var loginUserNo = ${loginUser==null?-1:loginUser.no};
-		// 비동기로 좋아요 관련 디비 수정
-	 	function modifyGo(contentType, contentNo, method, $this) {
-			console.log("loginUserNo",loginUserNo);						
-			if(loginUserNo != -1){
-			$.ajax({			
-				url: '/ajax/' + contentType +'/' + contentNo + "/liking",
-				type: method,
-				success: function(data) {
-					console.log('like ajax data : '+data);
-					
-					if ($this.hasClass("on")) {
-						//go 해제
-						$this.removeClass("on");
-						$this.children("i").attr("class", "far fa-heart");
-					} else {
-						//go 등록
-						$this.addClass("on");
-						$this.children("i").attr("class", "fas fa-heart");
-					}
-					
-					//좋아요 카운트 수정
-					$this.children(".goCount").text(data);
-					
-					if(contentType == "review") {
-						//리뷰에서 좋아요 누를때는 저장되어있는 리스트 갱신
-						reviewList = _.map(reviewList, function (reviewItem) {
-							var review = reviewItem.review;
-							l(review);
-							if(review.no == contentNo) {
-								review.isLike = !review.isLike;
-								review.likeCnt = data;
-							}
-							l(review);
-							l(reviewItem);
-							return reviewItem;
-						});//end map
-						
-					}//end contentType compare 
-				}
-			});
-			}
-		}
-		
-	 	//리뷰 상세에서 더보기 버튼 클릭시
-		$body.on("click", '.reviewArea .moreWrapper .moreBtn', function () {
+					$('.bodyCover.reviewDetail.on').html(markup);
+					$("body").addClass("modalOpen").css("margin-right",
+							getScrollBarWidth() + "px");
+				});
+
+		var $body = $("body");
+		var $reviewEditor = $(".bodyCover.reviewEditor");
+		//바디 클릭시에 더보기 내용 사라짐
+		$body.on("click", function() {
 			//리뷰 우측 더보기 버튼 내용 목록
 			var $subList = $('.reviewArea .moreWrapper .subList');
 			//리뷰 우측 더보기 버튼 내용 목록 삼각형 이미지
 			var $spanTri = $('.reviewArea .moreWrapper span');
-			
+
+			if ($subList.is(":visible")) {
+				$subList.hide();
+				$spanTri.hide();
+			}
+		});
+
+		//리뷰 더보기 수정하기
+		$body.on("click", ".reviewDropdownList .modify", function(e) {
+			e.preventDefault();
+			closeBodyCover();
+			$reviewEditor.addClass("on");
+			$("body").addClass("modalOpen").css("margin-right",
+					getScrollBarWidth() + "px");
+
+			var no = $(this).closest(".reviewArea").data("no");
+			var review = _.findWhere(reviewList, {
+				no : no
+			});
+
+			//텍스트 교체
+			$reviewEditor.find(".modalTitle").text("리뷰 수정");
+			$reviewEditor.find("button.submit").text("수정");
+			$review_form.attr("data-review_no", no);
+			$review_form.data("method", "put");
+
+			//제목 로드
+			$reviewEditor.find(".modalInputTitle>input").val(review.title);
+			//내용 로드
+			CKEDITOR.instances['input_contents'].setData(review.content);
+			//태그 로드
+			_.each(review.tags, function(each, index) {
+				$tag.tagEditor('addTag', each.content);
+			})
+
+			return false;
+		});//end click modify
+
+		//리뷰 더보기 삭제하기
+		$body.on("click", ".reviewDropdownList .delete", function(e) {
+			e.preventDefault();
+			var no = $(this).closest(".reviewArea").data("no");
+			if (confirm("삭제 하시겠습니까?")) {
+				$.ajax({
+					url : "/ajax/review/" + no,
+					type : "delete",
+					error : function(xhr, err, code) {
+						alert(err);
+					},
+					success : function(data) {
+						console.log(data);
+						closeBodyCover();
+						showReview();
+					}
+				});//$.ajax() end
+			}//end confirm
+		});//click delete
+
+		//리뷰 라이크버튼 이벤트
+
+		/* GO (좋아요) 관련*/
+		var $goBtn = $(".goBtn");
+		$body.on("click", ".goBtn", function() {
+			console.log("goBtn");
+			var contentType = $(this).data("content_type");
+			var contentNo = $(this).data("content_no");
+
+			var method = $(this).hasClass("on") == true ? "DELETE" : "POST";
+
+			modifyGo(contentType, contentNo, method, $(this));
+
+			return false;
+		})
+
+		var loginUserNo = $
+		{
+			loginUser == null ? -1 : loginUser.no
+		};
+		// 비동기로 좋아요 관련 디비 수정
+		function modifyGo(contentType, contentNo, method, $this) {
+			console.log("loginUserNo", loginUserNo);
+			if (loginUserNo != -1) {
+				$.ajax({
+					url : '/ajax/' + contentType + '/' + contentNo + "/liking",
+					type : method,
+					success : function(data) {
+						console.log('like ajax data : ' + data);
+
+						if ($this.hasClass("on")) {
+							//go 해제
+							$this.removeClass("on");
+							$this.children("i").attr("class", "far fa-heart");
+						} else {
+							//go 등록
+							$this.addClass("on");
+							$this.children("i").attr("class", "fas fa-heart");
+						}
+
+						//좋아요 카운트 수정
+						$this.children(".goCount").text(data);
+
+						if (contentType == "review") {
+							//리뷰에서 좋아요 누를때는 저장되어있는 리스트 갱신
+							reviewList = _.map(reviewList,
+									function(reviewItem) {
+										var review = reviewItem.review;
+										l(review);
+										if (review.no == contentNo) {
+											review.isLike = !review.isLike;
+											review.likeCnt = data;
+										}
+										l(review);
+										l(reviewItem);
+										return reviewItem;
+									});//end map
+
+						}//end contentType compare 
+					}
+				});
+			}
+		}
+
+		//리뷰 상세에서 더보기 버튼 클릭시
+		$body.on("click", '.reviewArea .moreWrapper .moreBtn', function() {
+			//리뷰 우측 더보기 버튼 내용 목록
+			var $subList = $('.reviewArea .moreWrapper .subList');
+			//리뷰 우측 더보기 버튼 내용 목록 삼각형 이미지
+			var $spanTri = $('.reviewArea .moreWrapper span');
+
 			if ($subList.is(":visible")) {
 				$subList.hide();
 				$spanTri.hide();
@@ -1393,9 +1412,8 @@ console.log("review item 8");@>
 				$subList.show();
 				$spanTri.show();
 			}
-		  	return false;
+			return false;
 		});
-	
 	</script>
 	<!-- 테스트코드 스크립트-->
 	<script>
