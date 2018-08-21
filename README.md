@@ -20,8 +20,13 @@
 
 ### 지역정보 수집 및 지역선택 API 개발
 * [도로명주소 개발자 센터](https://www.juso.go.kr/addrlink/main.do)에서 제공하는 주소 DB데이터를 가공하여 Athego 내에서 활용할 수 있도록 Location테이블에 할당
-* 검색 필터링 컴포넌트 및 회원가입에 적용한 지역선택 API 개발
+* 상위지역 코드에 따라 하위지역 리스트를 가져오는 API를 개발하여 검색페이지 및 회원가입 페이지에서 활용
 ![Athego Location select API pigure](https://github.com/OneHundredTwo/Athego/blob/master/img/area_select.png "지역선택 API 작동 도식")
 
 ### 검색
-* **검색 필터링 컴포넌트 개발** 
+* **검색 필터링 컴포넌트 개발** : 검색요청 url을 생성하는 각종 필터링 필드들을 셋팅하는 컴포넌트 개발
+![필터링 컴포넌트](https://github.com/OneHundredTwo/Athego/blob/master/img/search_filtering_component.png "filtering component")
+* **Athego 통합검색** : Athego에서 검색대상으로 지정할 수 있는 놀 곳, 유저, 리뷰 검색결과를 한 화면에 제공 
+![통합검색](https://github.com/OneHundredTwo/Athego/blob/master/img/search_all.png "search all")
+* **안정적인 로딩을 위한 부분적인 페이징** : 놀곳, 유저, 리뷰 리스트 아이템들을 비동기요청으로 페이징하여 로딩시간을 단축 및 서버부하를 낮춤
+![비동기 페이징](https://github.com/OneHundredTwo/Athego/blob/master/img/search_paging.png "asyncronous paging")

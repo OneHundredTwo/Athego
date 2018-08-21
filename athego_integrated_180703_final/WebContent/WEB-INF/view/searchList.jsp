@@ -735,14 +735,6 @@
 										.on(
 												'scroll',
 												function() {
-													console
-															.log({
-																"pre_items" : $ul.find('li').length,
-																"tot_items" : listStatus.totItemCnt,
-																"listStatus" : listStatus,
-																"ul_height" : $ul.height(),
-																"frame_scroll_top" : $frame.scrollTop()
-															});
 													if ($ul.find('li').length < listStatus.totItemCnt) {
 														if ($frame.scrollTop() >= $ul.height() - listStatus.loadHeight) {
 															appendNextPage(
@@ -772,6 +764,7 @@
 					l(error);
 				},
 				'success' : function(result, status, xhr) {
+					console.log(result);
 					afterAjax(result);
 				}
 			});
