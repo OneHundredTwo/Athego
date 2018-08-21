@@ -12,8 +12,13 @@
 * **DBMS** : Oracle 11g SE
 
 ## 개발 파트
+### 프론트 엔드
+* header
+* Login popup
+* 회원가입 UI
+![헤더,로그인팝업,회원가입](https://github.com/OneHundredTwo/Athego/blob/master/img/font_end_1.png "프론트엔드1")
 ### 관광청 Open API와 연동하여 놀 곳 데이터 수집 및 가공
-* 국문 관광정보 서비스 API를 이용해 전국의 관광지 정보를 수집(test프로젝트 NolgoDummyCreator.java)
+* [국문 관광정보 서비스 API](https://www.data.go.kr/dataset/15000496/openapi.do)를 이용해 전국의 관광지 정보를 수집(test프로젝트 NolgoDummyCreator.java)
 * Nolgo 테이블 스키마와 API response 메세지 필드들을 매핑할 수 있도록 가공하여 Insert문 생성(DB_sql/Nolgos_Base_Data.sql)
 * api key의 expire와 수집대상 지역에따라 유연하게 작동하도록 코드 작성 
 ![NolgoDummyCreator.java 작동모습](https://github.com/OneHundredTwo/Athego/blob/master/img/NolgoDummyCreator_operating.png "NolgoDummyCreator.java 작동모습")
