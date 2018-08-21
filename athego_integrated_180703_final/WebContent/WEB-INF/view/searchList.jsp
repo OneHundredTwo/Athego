@@ -933,6 +933,7 @@
 					l('/ajax/location/ : ' + error);
 				},
 				success : function(depth2List, status, xhr) {
+					console.log(depth2List);
 					$depth2Code.find("optgroup").append(depth2Tmpl({
 						depth1 : $depth1Code.val(),
 						locations : depth2List

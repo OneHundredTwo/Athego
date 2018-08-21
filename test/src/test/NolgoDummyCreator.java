@@ -55,7 +55,7 @@ public class NolgoDummyCreator {
 	public static final String[] AREAS = new String[] { "1", "2", "31", "3", "4", "5", "6", "7", "8", "32", "33", "34",
 			"35", "36", "37", "38", "39" };
 	public static final String[] AREA_NAMES = new String[] { "서울", "인천", "경기도", "대전", "대구", "광주", "부산", "울산", "세종자치특별시",
-			"강원도", "충청북도", "충천남도", "경상북도", "경상남도", "전라북도", "전라남도", "제주도" };
+			"강원도", "충청북도", "충청남도", "경상북도", "경상남도", "전라북도", "전라남도", "제주도" };
 	public static final int LIMIT_PAGES[] = new int[] { 29, 7, 3, 5, 3, 8, 3, 5, 30, 30, 10, 15, 20, 19, 18, 20, 10 };
 
 	public static final String KEY[] = new String[] {
