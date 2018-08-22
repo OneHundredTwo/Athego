@@ -9,7 +9,7 @@
 ## 개발 환경
 * **개발언어** : JAVA 8, HTML5, javascript, css, JSP(el, jstl)
 * **WAS** : Apache Tomcat 8.5
-* **Server Framework** : Spring 5, Spring web MVC 5, Mybatis 3.4
+* **Server Framework** : Spring 5, Spring web MVC 5(RESTful), Mybatis 3.4
 * **IDE** : Eclipse 4.7 Oxygen, Web Storm 
 * **OS** : windows 10
 * **DBMS** : Oracle 11g SE
