@@ -41,3 +41,5 @@
 ![통합검색](https://github.com/OneHundredTwo/Athego/blob/master/img/search_all.png "search all")
 * **안정적인 로딩을 위한 부분적인 페이징** : 놀곳, 유저, 리뷰 리스트 아이템들을 비동기요청으로 페이징하여 로딩시간을 단축 및 서버부하를 낮춤
 ![비동기 페이징](https://github.com/OneHundredTwo/Athego/blob/master/img/search_paging.png "asyncronous paging")
+
+### 총총
