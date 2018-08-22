@@ -3,6 +3,9 @@
 
 > 세상의 모든 놀 곳 정보를 제공하고, 서로 공유하는 사이트입니다
 
+
+## [팀 소개 및 기획](https://github.com/OneHundredTwo/Athego/blob/master/athego_integrated_180703_final/%EC%96%B4%EB%94%94%EA%B3%A0%20%ED%94%BC%ED%94%BC%ED%8B%B0_%EB%B0%9C%ED%91%9C%EC%9A%A9.pdf)
+
 ## 개발 환경
 * **개발언어** : JAVA 8, HTML5, javascript, css, JSP(el, jstl)
 * **WAS** : Apache Tomcat 8.5
